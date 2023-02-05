@@ -1,0 +1,60 @@
+### Python ###
+
+*.log
+*.pot
+*.pyc
+__pycache__/
+local_settings.py
+media
+ca.pem
+client.crt
+client.key
+current.py
+local.py
+
+# Unit test / coverage reports
+htmlcov
+.coverage*
+coverage.xml
+junit-report.xml
+tmp/
+
+# Sphinx documentation
+docs/_build/
+public
+
+# pyenv
+.python-version
+
+# Environments
+.env
+.venv
+
+### Vim ###
+# Swap
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+[._]s[a-rt-v][a-z]
+[._]ss[a-gi-z]
+[._]sw[a-p]
+
+# Session
+Session.vim
+
+# Temporary
+.netrwhist
+# Auto-generated tag files
+tags
+# Persistent undo
+[._]*.un~
+
+### VisualStudioCode ###
+.vscode
+
+# Celery TMP files
+celerybeat-schedule*
+
+# idea
+tmp/*
+.idea/*
+dist/*
