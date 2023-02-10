@@ -1,4 +1,4 @@
-"""This module is used to gather all python wrapper using to describe resources in Novu API.
+"""This module is used to gather all python wrappers used to describe resources in Novu API.
 
 In this SDK, we choose to split the Novu API by business resource to simplify its complexity.
 """
