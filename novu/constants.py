@@ -6,5 +6,6 @@ EVENTS_ENDPOINT = "/v1/events/trigger"
 NOTIFICATION_GROUPS_ENDPOINT = "/v1/notification-groups"
 SUBSCRIBERS_ENDPOINT = "/v1/subscribers"
 TOPICS_ENDPOINT = "/v1/topics"
+CHANGES_ENDPOINT = "/v1/changes"
 
 DATETIME_FORMAT = "%Y-%m-%dT%H:%M:%S.%f%z"
