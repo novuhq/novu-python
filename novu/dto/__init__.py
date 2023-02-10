@@ -7,6 +7,10 @@ for developer purpose (instead of getting raw dict without any hint about what i
 from novu.dto.event import EventDto
 from novu.dto.integration import IntegrationChannelUsageDto, IntegrationDto
 from novu.dto.layout import LayoutDto, LayoutVariableDto, PaginatedLayoutDto
+from novu.dto.notification_group import (
+    NotificationGroupDto,
+    PaginatedNotificationGroupDto,
+)
 from novu.dto.subscriber import (
     PaginatedSubscriberDto,
     SubscriberDto,
@@ -19,18 +23,20 @@ from novu.dto.topic import PaginatedTopicDto, TopicDto, TriggerTopicDto
 
 __all__ = [
     "EventDto",
-    "IntegrationDto",
     "IntegrationChannelUsageDto",
+    "IntegrationDto",
     "LayoutDto",
     "LayoutVariableDto",
+    "NotificationGroupDto",
     "PaginatedLayoutDto",
+    "PaginatedNotificationGroupDto",
     "PaginatedSubscriberDto",
+    "PaginatedTopicDto",
     "SubscriberDto",
     "SubscriberPreferenceChannelDto",
     "SubscriberPreferenceDto",
     "SubscriberPreferencePreferenceDto",
     "SubscriberPreferenceTemplateDto",
-    "PaginatedTopicDto",
     "TopicDto",
     "TriggerTopicDto",
 ]
