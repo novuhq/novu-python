@@ -1,5 +1,6 @@
 """This module is used to gather all enumerations defined by Novu in Python format to be reused by developers."""
 
+from novu.enums.change import ChangeKind
 from novu.enums.channel import Channel
 from novu.enums.event import EventStatus
 from novu.enums.provider import (
@@ -14,6 +15,7 @@ from novu.enums.provider import (
 from novu.enums.template import TemplateVariableTypeEnum
 
 __all__ = [
+    "ChangeKind",
     "Channel",
     "EventStatus",
     "ChatProviderIdEnum",
