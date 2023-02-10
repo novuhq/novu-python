@@ -3,6 +3,7 @@
 LAYOUTS_ENDPOINT = "/v1/layouts"
 INTEGRATIONS_ENDPOINT = "/v1/integrations"
 EVENTS_ENDPOINT = "/v1/events/trigger"
+NOTIFICATION_GROUPS_ENDPOINT = "/v1/notification-groups"
 SUBSCRIBERS_ENDPOINT = "/v1/subscribers"
 TOPICS_ENDPOINT = "/v1/topics"
 
