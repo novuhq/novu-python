@@ -6,7 +6,7 @@ class Singleton(type):
     """Metaclass to use if you need a singleton on your class
 
     Example:
-        >>> from intranet.lib.utils import Singleton
+        >>> from novu.helpers import Singleton
         ...
         >>> class MySingleton(metaclass=Singleton)
         ...    pass
