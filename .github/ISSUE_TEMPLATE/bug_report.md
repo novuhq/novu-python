@@ -24,8 +24,9 @@ A clear and concise description of what you expected to happen.
 If applicable, add screenshots to help explain your problem.
 
 **Versions (please complete the following information):**
- - Browser [e.g. chrome, safari]
- - Version [e.g. 22]
+ - Novu version
+ - Python version
+ - Novu-python version
 
 **Additional context**
 Add any other context about the problem here.

@@ -30,7 +30,7 @@ poetry add novu
 
 This package is a wrapper of all the resources offered by Novu, we will just start by triggering an event on Novu.
 
-To do this, you will need:
+To do this, you will need to:
 
 1. Follow Novu's procedure on how to set up your first template and keep in mind the identifier to trigger the template: https://docs.novu.co/overview/quick-start#create-a-notification-template
 2. Retrieve your API key from the platform directly in the settings section: https://web.novu.co/settings
@@ -47,7 +47,7 @@ event_api.trigger(
 )
 ```
 
-If all is ok, this should have trigger a notification in Novu.
+If all is ok, this should have triggered a notification in Novu.
 
 ## Development
 

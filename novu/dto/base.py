@@ -8,33 +8,33 @@ UNDERSCORE_PATTERN_1 = re.compile(r"([A-Z]+)([A-Z][a-z])")
 UNDERSCORE_PATTERN_2 = re.compile(r"([a-z\d])([A-Z])")
 
 
-def camelize(string: str, uppercase_first_letter: bool = False) -> str:
+def snake_case_to_camel_case(string: str, upper_camel_case: bool = False) -> str:
     """Convert strings to CamelCase.
 
     Examples:
-        >>> camelize("device_type")
+        >>> snake_case_to_camel_case("device_type")
         'DeviceType'
-        >>> camelize("device_type", False)
+        >>> snake_case_to_camel_case("device_type", False)
         'deviceType'
 
     Args:
         string: The string to camelize
-        uppercase_first_letter:
-            If set to `True` :func:`camelize` converts strings to UpperCamelCase.
-            If set to `False` :func:`camelize` produces lowerCamelCase.
+        upper_camel_case:
+            If set to `True` :func:`snake_case_to_camel_case` converts strings to UpperCamelCase.
+            If set to `False` :func:`snake_case_to_camel_case` produces lowerCamelCase.
             Defaults to `False`.
     """
-    if uppercase_first_letter:
+    if upper_camel_case:
         return re.sub(CAMELIZE_PATTERN, lambda m: m.group(1).upper(), string)
 
-    return string[0].lower() + camelize(string, True)[1:]
+    return string[0].lower() + snake_case_to_camel_case(string, True)[1:]
 
 
-def underscore(word: str) -> str:
+def camel_case_to_snake_case(word: str) -> str:
     """Make an underscored, lowercase form from the expression in the string.
 
     Example:
-        >>> underscore("DeviceType")
+        >>> camel_case_to_snake_case("DeviceType")
         'device_type'
     """
     word = re.sub(UNDERSCORE_PATTERN_1, r"\1_\2", word)
@@ -50,7 +50,7 @@ class CamelCaseDto(Generic[_T]):
     """A generic dataclass that allows to convert data from Novu API written in
     camel case to python (in snake_case) and back."""
 
-    camelize_ignored: ClassVar[List[str]] = []
+    snake_case_to_camel_case_ignored: ClassVar[List[str]] = []
     """List of fields which we don't want to camelize."""
 
     camel_case_fields: ClassVar[Optional[List[str]]] = None
@@ -64,7 +64,7 @@ class CamelCaseDto(Generic[_T]):
         fields = {f.name: f.type for f in dataclasses.fields(cls)}
         kwargs = {}
         for key, val in data.items():
-            _key = underscore(key)
+            _key = camel_case_to_snake_case(key)
             if _key in fields.keys():
                 kwargs[_key] = fields[_key].from_camel_case(val) if hasattr(fields[_key], "from_camel_case") else val
 
@@ -75,11 +75,14 @@ class CamelCaseDto(Generic[_T]):
         if self.camel_case_fields:
             # pylint: disable=E1135
             return {
-                camelize(k) if k not in self.camelize_ignored else k: v
+                snake_case_to_camel_case(k) if k not in self.snake_case_to_camel_case_ignored else k: v
                 for k, v in dataclasses.asdict(self).items()
                 if k in self.camel_case_fields
             }
-        return {camelize(k) if k not in self.camelize_ignored else k: v for k, v in dataclasses.asdict(self).items()}
+        return {
+            snake_case_to_camel_case(k) if k not in self.snake_case_to_camel_case_ignored else k: v
+            for k, v in dataclasses.asdict(self).items()
+        }
 
 
 _C_co = TypeVar("_C_co", bound=CamelCaseDto, covariant=True)
