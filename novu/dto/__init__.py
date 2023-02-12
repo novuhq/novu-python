@@ -6,12 +6,23 @@ for developer purpose (instead of getting raw dict without any hint about what i
 
 from novu.dto.change import ChangeDetailDto, ChangeDto, PaginatedChangeDto
 from novu.dto.event import EventDto
+from novu.dto.field import FieldFilterPartDto
 from novu.dto.integration import IntegrationChannelUsageDto, IntegrationDto
 from novu.dto.layout import LayoutDto, LayoutVariableDto, PaginatedLayoutDto
 from novu.dto.notification_group import (
     NotificationGroupDto,
     PaginatedNotificationGroupDto,
 )
+from novu.dto.notification_template import (
+    NotificationStepDto,
+    NotificationStepMetadataDto,
+    NotificationTemplateDto,
+    NotificationTemplateFormDto,
+    NotificationTriggerDto,
+    NotificationTriggerVariableDto,
+    PaginatedNotificationTemplateDto,
+)
+from novu.dto.step_filter import StepFilterDto
 from novu.dto.subscriber import (
     PaginatedSubscriberDto,
     SubscriberDto,
@@ -26,16 +37,25 @@ __all__ = [
     "ChangeDetailDto",
     "ChangeDto",
     "EventDto",
+    "FieldFilterPartDto",
     "IntegrationChannelUsageDto",
     "IntegrationDto",
     "LayoutDto",
     "LayoutVariableDto",
     "NotificationGroupDto",
+    "NotificationStepDto",
+    "NotificationStepMetadataDto",
+    "NotificationTemplateDto",
+    "NotificationTemplateFormDto",
+    "NotificationTriggerDto",
+    "NotificationTriggerVariableDto",
     "PaginatedChangeDto",
     "PaginatedLayoutDto",
     "PaginatedNotificationGroupDto",
+    "PaginatedNotificationTemplateDto",
     "PaginatedSubscriberDto",
     "PaginatedTopicDto",
+    "StepFilterDto",
     "SubscriberDto",
     "SubscriberPreferenceChannelDto",
     "SubscriberPreferenceDto",
