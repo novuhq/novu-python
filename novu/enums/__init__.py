@@ -3,6 +3,11 @@
 from novu.enums.change import ChangeKind
 from novu.enums.channel import Channel
 from novu.enums.event import EventStatus
+from novu.enums.field import FieldFilterPartOn, FieldFilterPartOperator
+from novu.enums.notification import (
+    NotificationStepMetadataType,
+    NotificationStepMetadataUnit,
+)
 from novu.enums.provider import (
     ChatProviderIdEnum,
     CredentialsKeyEnum,
@@ -12,18 +17,25 @@ from novu.enums.provider import (
     PushProviderIdEnum,
     SmsProviderIdEnum,
 )
+from novu.enums.step_filter import StepFilterType, StepFilterValue
 from novu.enums.template import TemplateVariableTypeEnum
 
 __all__ = [
     "ChangeKind",
     "Channel",
-    "EventStatus",
     "ChatProviderIdEnum",
     "CredentialsKeyEnum",
     "EmailProviderIdEnum",
-    "TemplateVariableTypeEnum",
+    "EventStatus",
+    "FieldFilterPartOn",
+    "FieldFilterPartOperator",
     "InAppProviderIdEnum",
+    "NotificationStepMetadataType",
+    "NotificationStepMetadataUnit",
+    "ProviderIdEnum",
     "PushProviderIdEnum",
     "SmsProviderIdEnum",
-    "ProviderIdEnum",
+    "StepFilterType",
+    "StepFilterValue",
+    "TemplateVariableTypeEnum",
 ]
