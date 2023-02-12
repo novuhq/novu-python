@@ -4,6 +4,7 @@ In this SDK, we choose to split the Novu API by business resource to simplify it
 """
 from novu.api.change import ChangeApi
 from novu.api.event import EventApi
+from novu.api.feed import FeedApi
 from novu.api.integration import IntegrationApi
 from novu.api.layout import LayoutApi
 from novu.api.notification_group import NotificationGroupApi
@@ -14,6 +15,7 @@ from novu.api.topic import TopicApi
 __all__ = [
     "ChangeApi",
     "EventApi",
+    "FeedApi",
     "IntegrationApi",
     "LayoutApi",
     "NotificationGroupApi",
