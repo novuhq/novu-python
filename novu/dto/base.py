@@ -147,5 +147,5 @@ class DtoIterableDescriptor(Generic[_C_co]):
         return getattr(obj, self._name, None) if self._name else None
 
     def __set__(self, obj, value: Union[Iterable[_C_co], Iterable[dict]]) -> None:
-        if self._name:  # pragma: no branch (ignore because should never append as descriptor, branch is just for mypy)
+        if self._name and value is not None:
             setattr(obj, self._name, [self._item_cls.from_camel_case(v) if isinstance(v, dict) else v for v in value])
