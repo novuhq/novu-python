@@ -5,6 +5,11 @@ for developer purpose (instead of getting raw dict without any hint about what i
 """
 
 from novu.dto.change import ChangeDetailDto, ChangeDto, PaginatedChangeDto
+from novu.dto.environment import (
+    EnvironmentApiKeyDto,
+    EnvironmentDto,
+    EnvironmentWidgetDto,
+)
 from novu.dto.event import EventDto
 from novu.dto.execution_detail import ExecutionDetailDto
 from novu.dto.feed import FeedDto
@@ -39,6 +44,9 @@ from novu.dto.topic import PaginatedTopicDto, TopicDto, TriggerTopicDto
 __all__ = [
     "ChangeDetailDto",
     "ChangeDto",
+    "EnvironmentApiKeyDto",
+    "EnvironmentDto",
+    "EnvironmentWidgetDto",
     "EventDto",
     "ExecutionDetailDto",
     "FeedDto",

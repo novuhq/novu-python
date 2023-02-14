@@ -3,6 +3,7 @@
 In this SDK, we choose to split the Novu API by business resource to simplify its complexity.
 """
 from novu.api.change import ChangeApi
+from novu.api.environment import EnvironmentApi
 from novu.api.event import EventApi
 from novu.api.execution_detail import ExecutionDetailApi
 from novu.api.feed import FeedApi
@@ -16,6 +17,7 @@ from novu.api.topic import TopicApi
 
 __all__ = [
     "ChangeApi",
+    "EnvironmentApi",
     "EventApi",
     "ExecutionDetailApi",
     "FeedApi",
