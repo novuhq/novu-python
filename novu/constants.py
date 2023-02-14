@@ -1,6 +1,7 @@
 """This module is used to gather all constants and magic number used in the Novu client."""
 
 CHANGES_ENDPOINT = "/v1/changes"
+ENVIRONMENTS_ENDPOINT = "/v1/environments"
 EVENTS_ENDPOINT = "/v1/events/trigger"
 EXECUTION_DETAILS_ENDPOINT = "/v1/execution-details"
 FEEDS_ENDPOINT = "/v1/feeds"
