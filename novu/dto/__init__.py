@@ -10,6 +10,7 @@ from novu.dto.feed import FeedDto
 from novu.dto.field import FieldFilterPartDto
 from novu.dto.integration import IntegrationChannelUsageDto, IntegrationDto
 from novu.dto.layout import LayoutDto, LayoutVariableDto, PaginatedLayoutDto
+from novu.dto.message import MessageDto, PaginatedMessageDto
 from novu.dto.notification_group import (
     NotificationGroupDto,
     PaginatedNotificationGroupDto,
@@ -44,6 +45,7 @@ __all__ = [
     "IntegrationDto",
     "LayoutDto",
     "LayoutVariableDto",
+    "MessageDto",
     "NotificationGroupDto",
     "NotificationStepDto",
     "NotificationStepMetadataDto",
@@ -53,6 +55,7 @@ __all__ = [
     "NotificationTriggerVariableDto",
     "PaginatedChangeDto",
     "PaginatedLayoutDto",
+    "PaginatedMessageDto",
     "PaginatedNotificationGroupDto",
     "PaginatedNotificationTemplateDto",
     "PaginatedSubscriberDto",
