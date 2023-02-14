@@ -7,7 +7,7 @@ from novu.dto.base import CamelCaseDto
 
 @dataclasses.dataclass
 class FeedDto(CamelCaseDto["FeedDto"]):  # pylint: disable=R0902
-    """Definition of an feed"""
+    """Definition of a feed"""
 
     name: str
     """Name of the feed"""

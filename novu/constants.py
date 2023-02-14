@@ -2,6 +2,7 @@
 
 CHANGES_ENDPOINT = "/v1/changes"
 EVENTS_ENDPOINT = "/v1/events/trigger"
+EXECUTION_DETAILS_ENDPOINT = "/v1/execution-details"
 FEEDS_ENDPOINT = "/v1/feeds"
 INTEGRATIONS_ENDPOINT = "/v1/integrations"
 LAYOUTS_ENDPOINT = "/v1/layouts"
