@@ -39,7 +39,6 @@ class MessageApiTests(TestCase):
             "lastReadDate": "2023-02-02T00:10:21.544Z",
             "lastSeenDate": "2023-02-02T00:10:21.544Z",
         }
-        cls.maxDiff = None
         cls.expected_dto = MessageDto(
             identifier=None,
             _id="63daff4cc037e013fd82dadd",

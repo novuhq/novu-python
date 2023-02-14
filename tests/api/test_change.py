@@ -587,7 +587,6 @@ class ChangeApiTests(TestCase):
 
         result = self.api.list()
         self.assertIsInstance(result, PaginatedChangeDto)
-        self.maxDiff = None
         self.assertEqual(list(result.data), self.expected_dto)
 
         mock_request.assert_called_once_with(

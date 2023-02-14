@@ -6,6 +6,7 @@ for developer purpose (instead of getting raw dict without any hint about what i
 
 from novu.dto.change import ChangeDetailDto, ChangeDto, PaginatedChangeDto
 from novu.dto.event import EventDto
+from novu.dto.execution_detail import ExecutionDetailDto
 from novu.dto.feed import FeedDto
 from novu.dto.field import FieldFilterPartDto
 from novu.dto.integration import IntegrationChannelUsageDto, IntegrationDto
@@ -39,6 +40,7 @@ __all__ = [
     "ChangeDetailDto",
     "ChangeDto",
     "EventDto",
+    "ExecutionDetailDto",
     "FeedDto",
     "FieldFilterPartDto",
     "IntegrationChannelUsageDto",
