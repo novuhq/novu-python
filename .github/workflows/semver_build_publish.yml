@@ -21,13 +21,14 @@ jobs:
       - name: Semantic Release
         uses: cycjimmy/semantic-release-action@v3
         with:
+          semantic_version: 19.0.5
           extra_plugins: |
-            @semantic-release/commit-analyzer
-            @semantic-release/release-notes-generator
-            @semantic-release/changelog
-            @google/semantic-release-replace-plugin
-            @semantic-release/git
-            @semantic-release/github
+            @semantic-release/commit-analyzer@9.0.2
+            @semantic-release/release-notes-generator@10.0.3
+            @semantic-release/changelog@6.0.2
+            @google/semantic-release-replace-plugin@1.2.0
+            @semantic-release/git@10.0.1
+            @semantic-release/github@8.0.7
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         id: semantic
