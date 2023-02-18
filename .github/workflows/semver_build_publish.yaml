@@ -1,0 +1,30 @@
+name: Semver, Build, Publish
+
+on:
+  push:
+    tags:
+      - v*
+
+jobs:
+  build_and_publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.9
+      - name: install poetry
+        uses: abatilo/actions-poetry@v2.2.0
+
+      - name: Build
+        run: |
+          poetry build
+
+      - name: Publish distribution 📦 to PyPI
+        run: |
+          poetry config pypi-token.pypi ${{ secrets.PYPI_TOKEN }}
+          poetry publish
