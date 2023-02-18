@@ -65,3 +65,18 @@ class FieldFilterPartOn(Enum):
 
     IS_ONLINE_IN_LAST = "isOnlineInLast"
     """Allow to check if the subscriber is online in last X given minutes"""
+
+
+class FieldFilterPartTimeOperator(Enum):
+    """
+    This enumeration define possible operator for a filed filter part which is used if
+    ``FieldFilterPartDto.on`` is set to ``FieldFilterPartOn.IS_ONLINE_IN_LAST``"""
+
+    MINUTES = "minutes"
+    """The minutes operator"""
+
+    HOURS = "hours"
+    """The hours operator"""
+
+    DAYS = "days"
+    """The days operator"""
