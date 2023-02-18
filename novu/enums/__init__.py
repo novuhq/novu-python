@@ -4,7 +4,11 @@ from novu.enums.change import ChangeKind
 from novu.enums.channel import Channel, ChannelExtended
 from novu.enums.event import EventStatus
 from novu.enums.execution import ExecutionSource, ExecutionStatus
-from novu.enums.field import FieldFilterPartOn, FieldFilterPartOperator
+from novu.enums.field import (
+    FieldFilterPartOn,
+    FieldFilterPartOperator,
+    FieldFilterPartTimeOperator,
+)
 from novu.enums.notification import (
     NotificationStepMetadataType,
     NotificationStepMetadataUnit,
@@ -33,6 +37,7 @@ __all__ = [
     "ExecutionStatus",
     "FieldFilterPartOn",
     "FieldFilterPartOperator",
+    "FieldFilterPartTimeOperator",
     "InAppProviderIdEnum",
     "NotificationStepMetadataType",
     "NotificationStepMetadataUnit",
