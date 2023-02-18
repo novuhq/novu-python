@@ -25,8 +25,13 @@ class FeedDto(CamelCaseDto["FeedDto"]):  # pylint: disable=R0902
     """Organization ID in Novu internal storage system"""
 
     deleted: Optional[bool] = None
+    """If the field is deleted"""
+
     created_at: Optional[str] = None
+    """Creation date of the field"""
+
     updated_at: Optional[str] = None
+    """Last update date of the feed"""
 
     id: Optional[str] = None  # pylint: disable=C0103
     """Feed ID in Novu internal storage system"""

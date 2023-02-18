@@ -10,7 +10,10 @@ class TriggerTopicDto(CamelCaseDto["TriggerTopicDto"]):
     """Topic definition for trigger"""
 
     topic_key: str
+    """Topic key"""
+
     type: str
+    """Topic type"""
 
 
 @dataclasses.dataclass
@@ -21,6 +24,8 @@ class TopicDto(CamelCaseDto["TopicDto"]):
     # Actually, only these fields are editable in Novu, so prevent any activity on others
 
     key: str
+    """Topic key"""
+
     name: Optional[str] = None
     """Name, required during creation"""
 
@@ -42,6 +47,13 @@ class PaginatedTopicDto(CamelCaseDto["PaginatedTopicDto"]):
     """Paginated topic definition"""
 
     page: int = 0
+    """Page number"""
+
     total_count: int = 0
+    """Total count"""
+
     page_size: int = 0
+    """Page size"""
+
     data: DtoIterableDescriptor[TopicDto] = DtoIterableDescriptor[TopicDto](default_factory=list, item_cls=TopicDto)
+    """Data"""

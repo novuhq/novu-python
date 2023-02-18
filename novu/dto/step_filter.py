@@ -15,9 +15,12 @@ class StepFilterDto(CamelCaseDto["StepFilterDto"]):
     """If the filter should be negated"""
 
     type: Optional[StepFilterType] = None
+    """Step filter's type"""
 
     value: Optional[StepFilterValue] = None
+    """Step filter's value"""
 
     children: DtoIterableDescriptor[FieldFilterPartDto] = DtoIterableDescriptor[FieldFilterPartDto](
         default_factory=list, item_cls=FieldFilterPartDto
     )
+    """Step filter's children"""
