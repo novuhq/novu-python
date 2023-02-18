@@ -5,7 +5,7 @@
     "next",
     {
       "name": "alpha",
-      "prerelease": "true"
+      "prerelease": true
     },
     {
       "name": "beta",
