@@ -1,10 +1,8 @@
-name: Semver, Build, Publish
+name: Semver to tag new version
 
 on:
   push:
     branches: [main, alpha, beta]
-
-permissions: write-all
 
 jobs:
   semver:
@@ -38,28 +36,3 @@ jobs:
       version: ${{ steps.semantic.outputs.new_release_version }}
       new_release_published: ${{ steps.semantic.outputs.new_release_published }}
       new_release_channel: ${{ steps.semantic.outputs.new_release_channel }}
-
-  build_and_publish:
-    runs-on: ubuntu-latest
-    needs: [semver]
-    if: needs.semver.outputs.new_release_published == 'true'
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Set up Python 3.9
-        uses: actions/setup-python@v4
-        with:
-          python-version: 3.9
-      - name: install poetry
-        uses: abatilo/actions-poetry@v2.2.0
-
-      - name: Build
-        run: |
-          poetry version ${{ needs.semver.outputs.version }}
-          poetry build
-
-      - name: Publish distribution 📦 to PyPI
-        run: |
-          poetry config pypi-token.pypi ${{ secrets.PYPI_TOKEN }}
-          poetry publish
