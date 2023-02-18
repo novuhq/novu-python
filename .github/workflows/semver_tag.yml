@@ -10,6 +10,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.SEMANTIC_RELEASE_BOT }}
       - name: Semantic Release - prepare
         run: |
           cat <<EOF > package.json
