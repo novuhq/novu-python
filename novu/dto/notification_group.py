@@ -10,6 +10,7 @@ class NotificationGroupDto(CamelCaseDto["NotificationGroupDto"]):
     """Definition of a notification group"""
 
     name: str
+    """Notification group's name"""
 
     _id: Optional[str] = None
     """Notification Group ID in Novu internal storage system"""
@@ -24,7 +25,10 @@ class NotificationGroupDto(CamelCaseDto["NotificationGroupDto"]):
     """Parent ID in Novu internal storage system"""
 
     created_at: Optional[str] = None
+    """Creation date of the notification group"""
+
     updated_at: Optional[str] = None
+    """Last update date of the notification group"""
 
 
 @dataclasses.dataclass
@@ -32,8 +36,15 @@ class PaginatedNotificationGroupDto(CamelCaseDto["PaginatedNotificationGroupDto"
     """Definition of paginated notification groups"""
 
     page: int = 0
+    """Page number"""
+
     total_count: int = 0
+    """Total count"""
+
     page_size: int = 0
+    """Page size"""
+
     data: DtoIterableDescriptor[NotificationGroupDto] = DtoIterableDescriptor[NotificationGroupDto](
         default_factory=list, item_cls=NotificationGroupDto
     )
+    """Data"""

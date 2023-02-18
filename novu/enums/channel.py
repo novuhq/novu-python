@@ -49,4 +49,7 @@ class ChannelExtended(Enum):
     """Used to aggregate message on certain conditions"""
 
     TRIGGER = "trigger"
+    """Trigger to start the notification template"""
+
     DELAY = "delay"
+    """A delay in the notification template"""

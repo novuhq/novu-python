@@ -22,18 +22,13 @@ jobs:
         uses: cycjimmy/semantic-release-action@v3
         with:
           semantic_version: 16
-          branches: |
-            [
-              'main',
-              {
-                name: 'alpha',
-                prerelease: true
-              },
-              {
-                name: 'beta',
-                prerelease: true
-              }
-            ]
+          extra_plugins: |
+            @semantic-release/commit-analyzer
+            @semantic-release/release-notes-generator
+            @semantic-release/changelog
+            @google/semantic-release-replace-plugin
+            @semantic-release/git
+            @semantic-release/github
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         id: semantic
@@ -41,7 +36,6 @@ jobs:
       version: ${{ steps.semantic.outputs.new_release_version }}
       new_release_published: ${{ steps.semantic.outputs.new_release_published }}
       new_release_channel: ${{ steps.semantic.outputs.new_release_channel }}
-
 
   build_and_publish:
     runs-on: ubuntu-latest

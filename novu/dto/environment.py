@@ -55,4 +55,7 @@ class EnvironmentDto(CamelCaseDto["EnvironmentDto"]):  # pylint: disable=R0902
     """List of API Keys related to the environment"""
 
     created_at: Optional[str] = None
+    """Creation date of the environment"""
+
     updated_at: Optional[str] = None
+    """Last update date of the environment"""
