@@ -83,6 +83,13 @@ class PaginatedLayoutDto(CamelCaseDto["PaginatedLayoutDto"]):
     """Paginated layout definition"""
 
     page: int = 0
+    """Page number"""
+
     total_count: int = 0
+    """Total count"""
+
     page_size: int = 0
+    """Page size"""
+
     data: DtoIterableDescriptor[LayoutDto] = DtoIterableDescriptor[LayoutDto](default_factory=list, item_cls=LayoutDto)
+    """Data"""

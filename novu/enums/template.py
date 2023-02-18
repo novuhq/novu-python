@@ -6,5 +6,10 @@ class TemplateVariableTypeEnum(Enum):
     """This enumeration define possible type for a variable in a template"""
 
     STRING = "String"
+    """String variable"""
+
     LIST = "Array"
+    """List variable"""
+
     BOOL = "Boolean"
+    """Boolean variable"""

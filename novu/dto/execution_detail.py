@@ -62,4 +62,7 @@ class ExecutionDetailDto(CamelCaseDto["ExecutionDetailDto"]):  # pylint: disable
     """Raw details of the execution"""
 
     created_at: Optional[str] = None
+    """Creation date of the execution detail"""
+
     updated_at: Optional[str] = None
+    """Last update date of the execution detail"""

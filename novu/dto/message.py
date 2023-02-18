@@ -74,8 +74,13 @@ class MessageDto(CamelCaseDto["MessageDto"]):  # pylint: disable=R0902
     """Payload used during trigger"""
 
     created_at: Optional[str] = None
+    """Creation date of the message"""
+
     updated_at: Optional[str] = None
+    """Last update date of the message"""
+
     deleted: Optional[bool] = None
+    """If the message is deleted"""
 
     last_read_date: Optional[str] = None
     """Timestamp of the last read event registered"""
@@ -89,8 +94,15 @@ class PaginatedMessageDto(CamelCaseDto["PaginatedMessageDto"]):
     """Paginated message definition"""
 
     page: int = 0
+    """Page number"""
+
     total_count: int = 0
+    """Total count"""
+
     page_size: int = 0
+    """Page size"""
+
     data: DtoIterableDescriptor[MessageDto] = DtoIterableDescriptor[MessageDto](
         default_factory=list, item_cls=MessageDto
     )
+    """Data"""

@@ -10,10 +10,19 @@ class SubscriberPreferenceChannelDto(CamelCaseDto["SubscriberPreferenceChannelDt
     """Definition of a channel activation state in subscriber's preference"""
 
     email: Optional[bool] = True
+    """Email notification activated?"""
+
     sms: Optional[bool] = True
+    """SMS notification activated?"""
+
     in_app: Optional[bool] = True  # FIXME: Find a way to not camelize this field
+    """In APP notification activated?"""
+
     chat: Optional[bool] = True
+    """Chat notification activated?"""
+
     push: Optional[bool] = True
+    """Push notification activated?"""
 
 
 @dataclasses.dataclass
@@ -21,7 +30,10 @@ class SubscriberPreferenceTemplateDto(CamelCaseDto["SubscriberPreferenceTemplate
     """Definition of a template in subscriber's preference"""
 
     _id: Optional[str] = None
+    """Subscriber preference template's ID"""
+
     name: Optional[str] = None
+    """Name of the subscriber's preference template"""
 
     critical: Optional[bool] = None
     """Defines if the user's preferences will be ignored or not by Novu for the given template.
@@ -35,6 +47,8 @@ class SubscriberPreferencePreferenceDto(CamelCaseDto["SubscriberPreferencePrefer
     """Definition of subscriber's preference sub-struct"""
 
     enabled: bool
+    """If the subscriber preference are enabled"""
+
     channels: DtoDescriptor[SubscriberPreferenceChannelDto] = DtoDescriptor[SubscriberPreferenceChannelDto](
         item_cls=SubscriberPreferenceChannelDto
     )
@@ -64,11 +78,19 @@ class SubscriberDto(CamelCaseDto["SubscriberDto"]):  # pylint: disable=R0902
     # Actually, only these fields are editable in Novu, so prevent any activity on others
 
     subscriber_id: str
+    """Subscriber's ID"""
+
     email: str
+    """Email of the subscriber"""
 
     first_name: Optional[str] = None
+    """First name of the subscriber"""
+
     last_name: Optional[str] = None
+    """Last name of the subscriber"""
+
     phone: Optional[str] = None
+    """Phone number of the subscriber"""
 
     avatar: Optional[str] = None
     """profile picture (must be a public url to access the avatar)"""
@@ -86,11 +108,21 @@ class SubscriberDto(CamelCaseDto["SubscriberDto"]):  # pylint: disable=R0902
     """Organization ID in Novu internal storage system"""
 
     # TODO: add channels
+
     deleted: Optional[bool] = None
+    """If the subscriber is deleted"""
+
     created_at: Optional[str] = None
+    """Creation date of the subscriber"""
+
     updated_at: Optional[str] = None
+    """Last update date of the subscriber"""
+
     is_online: Optional[bool] = None
+    """If the subscriber is online"""
+
     last_online_at: Optional[str] = None
+    """Last connection date of the subscriber"""
 
 
 @dataclasses.dataclass
@@ -98,8 +130,15 @@ class PaginatedSubscriberDto(CamelCaseDto["PaginatedSubscriberDto"]):
     """Definition of paginated subscribers"""
 
     page: int = 0
+    """Page number"""
+
     total_count: int = 0
+    """Total count"""
+
     page_size: int = 0
+    """Page size"""
+
     data: DtoIterableDescriptor[SubscriberDto] = DtoIterableDescriptor[SubscriberDto](
         default_factory=list, item_cls=SubscriberDto
     )
+    """Data"""

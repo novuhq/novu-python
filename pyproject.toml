@@ -1,8 +1,12 @@
 [tool.poetry]
 description = "This project aims to provide a wrapper for the Novu API."
+keywords = ["novu", "python", "sdk", "api", "wrapper"]
 name = "novu"
-repository = "https://github.com/ryshu/novu-python"
 version = "0.1.0"
+
+documentation = "https://novu-python.readthedocs.io/en/latest"
+homepage = "https://novu-python.readthedocs.io/en/latest"
+repository = "https://github.com/spikeelabs/novu-python"
 
 authors = ["oscar.marie-taillefer <oscar.marie-taillefer@spikeelabs.fr>"]
 maintainers = ["oscar.marie-taillefer <oscar.marie-taillefer@spikeelabs.fr>"]
@@ -13,7 +17,6 @@ readme = "README.md"
 
 classifiers = [
   "Intended Audience :: Developers",
-  "License :: OSI Approved :: BSD License",
   "Programming Language :: Python :: 3.8",
   "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
@@ -26,6 +29,10 @@ classifiers = [
   "Operating System :: Unix",
   "Operating System :: MacOS",
 ]
+
+[tool.poetry.urls]
+"Changelog" = "https://github.com/SpikeeLabs/novu-python/blob/main/CHANGELOG.md"
+"Tracker" = "https://github.com/spikeeLabs/novu-python/issues"
 
 [tool.poetry.dependencies]
 python = "^3.8"
@@ -44,6 +51,14 @@ pylint = "^2.15.9"
 pytest = "^7.2.0"
 toml = "^0.10.2"
 types-requests = "^2.28.11.12"
+
+[tool.poetry.group.docs.dependencies]
+Sphinx = "^4.0"
+m2r2 = "^0.2"
+mistune = "0.8.4"
+sphinx-rtd-theme = "^0.5"
+sphinxcontrib-httpdomain = "^1.7"
+sphinxcontrib-mermaid = "^0.7"
 
 [tool.bandit]
 targets = ["novu"]

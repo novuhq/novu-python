@@ -62,6 +62,13 @@ class PaginatedChangeDto(CamelCaseDto["PaginatedChangeDto"]):
     """Definition of paginated changes"""
 
     page: int = 0
+    """Page number"""
+
     total_count: int = 0
+    """Total count"""
+
     page_size: int = 0
+    """Page size"""
+
     data: DtoIterableDescriptor[ChangeDto] = DtoIterableDescriptor[ChangeDto](default_factory=list, item_cls=ChangeDto)
+    """Data"""
