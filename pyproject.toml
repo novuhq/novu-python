@@ -11,7 +11,7 @@ repository = "https://github.com/spikeelabs/novu-python"
 authors = ["oscar.marie-taillefer <oscar.marie-taillefer@spikeelabs.fr>"]
 maintainers = ["oscar.marie-taillefer <oscar.marie-taillefer@spikeelabs.fr>"]
 
-license = "BSD-2-Clause"
+license = "MIT"
 packages = [{include = "novu"}]
 readme = "README.md"
 
