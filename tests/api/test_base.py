@@ -47,8 +47,8 @@ class ApiTests(TestCase):
         )
 
     @mock.patch("requests.request")
-    def test_handle_request_raise_with_details(self, mock_request: mock.MagicMock) -> None:
-        mock_request.return_value = MockResponse(500, raise_on_call=True)
+    def test_handle_request_raise_without_details(self, mock_request: mock.MagicMock) -> None:
+        mock_request.return_value = MockResponse(500, raise_on_json_decode=True)
 
         self.assertRaises(
             HTTPError, lambda: self.api.handle_request("GET", self.api._url, headers={"MyHeader": "value"})
