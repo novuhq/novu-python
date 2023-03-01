@@ -76,6 +76,7 @@ napoleon_numpy_docstring = False
 intersphinx_mapping = {
     "python": ("https://docs.python.org/dev/", None),
     "sphinx": ("https://www.sphinx-doc.org/en/stable/", None),
+    "requests": ("https://requests.readthedocs.io/en/latest/", None),
 }
 
 source_suffix = [".rst", ".md"]

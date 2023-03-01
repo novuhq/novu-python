@@ -5,9 +5,9 @@ from json.decoder import JSONDecodeError
 from typing import Optional
 
 import requests
-import sentry_sdk
 
 from novu.config import NovuConfig
+from novu.helpers import SentryProxy
 
 LOGGER = logging.getLogger(__name__)
 
@@ -67,8 +67,7 @@ class Api:  # pylint: disable=R0903
         if not res.ok:
             try:
                 detail = res.json()
-                # FIXME: For some reason, coverage doesn't see this line as covered.
-                sentry_sdk.set_extra("error_details", detail)  # pragma: no cover
+                SentryProxy().set_extra("error_details", detail)
             except JSONDecodeError:
                 pass
             res.raise_for_status()

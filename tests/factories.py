@@ -4,17 +4,17 @@ from requests.models import HTTPError
 
 
 class MockResponse:
-    def __init__(self, status, data=None, headers=None, raise_on_call=False):
+    def __init__(self, status, data=None, headers=None, raise_on_json_decode=False):
         self.status_code = status
         self.data = data
         self.headers = headers
-        self.raise_on_call = raise_on_call
+        self.raise_on_json_decode = raise_on_json_decode
 
         if not self.data:
             self.data = {}
 
     def json(self) -> dict:
-        if self.raise_on_call:
+        if self.raise_on_json_decode:
             raise JSONDecodeError("test", "", 0)
         return self.data
 

@@ -37,7 +37,7 @@ class TopicApi(Api):
         if key:
             payload["key"] = key
 
-        return PaginatedTopicDto.from_camel_case(self.handle_request("GET", f"{self._topic_url}", payload=payload))
+        return PaginatedTopicDto.from_camel_case(self.handle_request("GET", self._topic_url, payload=payload))
 
     def create(self, key: str, name: str) -> TopicDto:
         """Create a topic
@@ -50,7 +50,7 @@ class TopicApi(Api):
             Created topic (without name ?)
         """
         return TopicDto.from_camel_case(
-            self.handle_request("POST", f"{self._topic_url}", TopicDto(key, name).to_camel_case())["data"]
+            self.handle_request("POST", self._topic_url, TopicDto(key, name).to_camel_case())["data"]
         )
 
     def get(self, key: str) -> TopicDto:

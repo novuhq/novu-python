@@ -49,7 +49,7 @@ class IntegrationApi(Api):
         payload = integration.to_camel_case()
         payload["check"] = check if check is not None else True
 
-        return IntegrationDto.from_camel_case(self.handle_request("POST", f"{self._integration_url}", payload)["data"])
+        return IntegrationDto.from_camel_case(self.handle_request("POST", self._integration_url, payload)["data"])
 
     def status(self, provider_id: ProviderIdEnum) -> bool:
         """Get webhook support status for a given provider

@@ -94,11 +94,11 @@ class DtoDescriptor(Generic[_C_co]):
     on Novu API response.
 
     Example:
-        >> @dataclasses.dataclass
-        .. class SubscriberPreferenceDto(CamelCaseDto["SubscriberPreferenceDto"]):
-        ..     template: DtoDescriptor[SubscriberPreferenceTemplateDto] = (
-        ..         DtoDescriptor[SubscriberPreferenceTemplateDto](item_cls=SubscriberPreferenceTemplateDto)
-        ..     )
+        >>> @dataclasses.dataclass
+        ... class SubscriberPreferenceDto(CamelCaseDto["SubscriberPreferenceDto"]):
+        ...     template: DtoDescriptor[SubscriberPreferenceTemplateDto] = (
+        ...         DtoDescriptor[SubscriberPreferenceTemplateDto](item_cls=SubscriberPreferenceTemplateDto)
+        ...     )
     """
 
     def __init__(self, item_cls: Type[CamelCaseDto]):
@@ -125,11 +125,11 @@ class DtoIterableDescriptor(Generic[_C_co]):
     :meth:`~novu.dto.base.CamelCaseDto.from_camel_case` calls on Novu API response.
 
     Example:
-        >> @dataclasses.dataclass
-        .. class PaginatedTopicDto(CamelCaseDto["PaginatedTopicDto"]):
-        ..     data: DtoIterableDescriptor[TopicDto] = DtoIterableDescriptor[TopicDto](
-        ..         default_factory=list, item_cls=TopicDto
-        ..     )
+        >>> @dataclasses.dataclass
+        ... class PaginatedTopicDto(CamelCaseDto["PaginatedTopicDto"]):
+        ...     data: DtoIterableDescriptor[TopicDto] = DtoIterableDescriptor[TopicDto](
+        ...         default_factory=list, item_cls=TopicDto
+        ...     )
     """
 
     def __init__(self, default_factory, item_cls: Type[_C_co]):
