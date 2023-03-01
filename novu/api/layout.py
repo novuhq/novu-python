@@ -32,7 +32,7 @@ class LayoutApi(Api):
         if limit:
             payload["pageSize"] = limit
 
-        return PaginatedLayoutDto.from_camel_case(self.handle_request("GET", f"{self._layout_url}", payload=payload))
+        return PaginatedLayoutDto.from_camel_case(self.handle_request("GET", self._layout_url, payload=payload))
 
     def create(self, layout: LayoutDto) -> LayoutDto:
         """Create a layout and return his identifier
@@ -43,9 +43,7 @@ class LayoutApi(Api):
         Returns:
             The created layout identifier
         """
-        return LayoutDto.from_camel_case(
-            self.handle_request("POST", f"{self._layout_url}", layout.to_camel_case())["data"]
-        )
+        return LayoutDto.from_camel_case(self.handle_request("POST", self._layout_url, layout.to_camel_case())["data"])
 
     def get(self, layout_id: str) -> LayoutDto:
         """Get a layout using ID

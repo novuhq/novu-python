@@ -32,7 +32,7 @@ class ChangeApi(Api):
         if limit:
             payload["limit"] = limit
 
-        return PaginatedChangeDto.from_camel_case(self.handle_request("GET", f"{self._change_url}", payload=payload))
+        return PaginatedChangeDto.from_camel_case(self.handle_request("GET", self._change_url, payload=payload))
 
     def count(self) -> int:
         """Get the number of changes
