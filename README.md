@@ -1,6 +1,6 @@
 # Novu Client (Python)
 
-[![PyPI](https://img.shields.io/pypi/v/novu?color=blue)](https://pypi.org/project/novu-python/)
+[![PyPI](https://img.shields.io/pypi/v/novu?color=blue)](https://pypi.org/project/novu/)
 ![Tests Status](https://github.com/SpikeeLabs/novu-python/actions/workflows/.github/workflows/tests.yml/badge.svg)
 [![codecov](https://codecov.io/gh/SpikeeLabs/novu-python/branch/main/graph/badge.svg?token=RON7F8QTZX)](https://codecov.io/gh/SpikeeLabs/novu-python)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
