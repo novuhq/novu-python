@@ -14,6 +14,8 @@
 
 This project aims to provide a python wrapper for the Novu API.
 
+> :warning: **This deposit is not officially maintained by [novuhq](https://github.com/novuhq).** The Novu software development team is currently (March 2023) thinking of using the [ferns](https://www.buildwithfern.com/) solution to create an SDK for all languages for easier maintenance. For more details on the subject or to follow the progress on the official SDK support, you can check the issue https://github.com/novuhq/novu/issues/2835.
+
 ## Install
 
 To install this package
