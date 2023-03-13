@@ -1,13 +1,13 @@
 # Novu Client (Python)
 
-[![PyPI](https://img.shields.io/pypi/v/novu?color=blue)](https://pypi.org/project/novu/)
+[![PyPI](https://img.shields.io/pypi/v/novu-python?color=blue)](https://pypi.org/project/novu-python/)
 ![Tests Status](https://github.com/SpikeeLabs/novu-python/actions/workflows/.github/workflows/tests.yml/badge.svg)
 [![codecov](https://codecov.io/gh/SpikeeLabs/novu-python/branch/main/graph/badge.svg?token=RON7F8QTZX)](https://codecov.io/gh/SpikeeLabs/novu-python)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 [![Checked with mypy](http://www.mypy-lang.org/static/mypy_badge.svg)](http://mypy-lang.org/)
-![PyPI - Python Version](https://img.shields.io/pypi/pyversions/novu)
-![PyPI - License](https://img.shields.io/pypi/l/novu)
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/novu-python)
+![PyPI - License](https://img.shields.io/pypi/l/novu-python)
 [![semantic-release: angular](https://img.shields.io/badge/semantic--release-angular-e10079?logo=semantic-release)](https://github.com/semantic-release/semantic-release)
 
 ---
@@ -20,10 +20,10 @@ To install this package
 
 ```shell
 # Via pip
-pip install novu
+pip install novu-python
 
 # Via poetry
-poetry add novu
+poetry add novu-python
 ```
 
 ## Quick start
