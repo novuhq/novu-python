@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/SpikeeLabs/novu-python/compare/v1.0.0...v1.1.0) (2023-03-15)
+
+
+### Features
+
+* rename the 'novu' package to 'novu-python' ([13ad261](https://github.com/SpikeeLabs/novu-python/commit/13ad2612266e4d5c44c2e11149ed576f14c8ba03))
+
 # 1.0.0 (2023-03-02)
 
 
