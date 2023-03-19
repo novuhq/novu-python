@@ -29,7 +29,7 @@ authors = [
     "Oscar MARIE--TAILLEFER <oscar.marie-taillefer@spikeelabs.fr>",
 ]
 
-release = version = pkg_resources.get_distribution("novu").version
+release = version = pkg_resources.get_distribution("novu-python").version
 language = "en"
 
 master_doc = "index"
