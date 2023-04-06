@@ -1,4 +1,4 @@
-# Novu Client (Python)
+# Python Novu SDK
 
 [![PyPI](https://img.shields.io/pypi/v/novu-python?color=blue)](https://pypi.org/project/novu-python/)
 ![Tests Status](https://github.com/SpikeeLabs/novu-python/actions/workflows/.github/workflows/tests.yml/badge.svg)
@@ -12,9 +12,7 @@
 
 ---
 
-This project aims to provide a python wrapper for the Novu API.
-
-> :warning: **This deposit is not officially maintained by [novuhq](https://github.com/novuhq).** The Novu software development team is currently (March 2023) thinking of using the [ferns](https://www.buildwithfern.com/) solution to create an SDK for all languages for easier maintenance. For more details on the subject or to follow the progress on the official SDK support, you can check the issue https://github.com/novuhq/novu/issues/2835.
+> The [Python Novu](https://novu.co) SDK and package provides a fluent and expressive interface for interacting with Novu's API and managing notifications.
 
 ## Install
 
@@ -34,9 +32,9 @@ This package is a wrapper of all the resources offered by Novu, we will just sta
 
 To do this, you will need to:
 
-1. Follow Novu's procedure on how to set up your first template and keep in mind the identifier to trigger the template: https://docs.novu.co/overview/quick-start#create-a-notification-template
-2. Retrieve your API key from the platform directly in the settings section: https://web.novu.co/settings
-3. Play the following script:
+1. Create your first notification template and keep in mind the identifier to trigger the template: https://docs.novu.co/overview/quick-start#create-a-notification-template
+2. Retrieve your API key from the Novu dashboard directly in the settings section: https://web.novu.co/settings
+3. Write code to trigger your first event:
 
 ```python
 from novu.api import EventApi
@@ -49,7 +47,7 @@ event_api.trigger(
 )
 ```
 
-If all is ok, this should have triggered a notification in Novu.
+This will trigger a notification to the subscribers.
 
 ## Development
 
