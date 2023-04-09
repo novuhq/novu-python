@@ -41,9 +41,9 @@ requests = "^2.28.2"
 
 [tool.poetry.group.dev.dependencies]
 bandit = "^1.7.4"
-black = "^22.12.0"
+black = "^23.0.0"
 coverage = "^7.0.4"
-mypy = "^1.0.0"
+mypy = "^1.1"
 pre-commit = "^2.21.0"
 pylama = "^8.4.1"
 pylint = "^2.15.9"
@@ -53,12 +53,11 @@ toml = "^0.10.2"
 types-requests = "^2.28.11.12"
 
 [tool.poetry.group.docs.dependencies]
-Sphinx = "^4.0"
-m2r2 = "^0.2"
-mistune = "0.8.4"
-sphinx-rtd-theme = "^0.5"
-sphinxcontrib-httpdomain = "^1.7"
-sphinxcontrib-mermaid = "^0.7"
+Sphinx = "^6.1"
+m2r2 = "^0.3"
+sphinx-rtd-theme = "^1.2"
+sphinxcontrib-httpdomain = "^1.8"
+sphinxcontrib-mermaid = "^0.8"
 
 [tool.bandit]
 targets = ["novu"]
