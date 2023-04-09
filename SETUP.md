@@ -60,7 +60,7 @@ To set up this service, you need to:
 - Register on the read the docs website
 - Click on "Import a project"
 - Click on "Import manually"
-- Fill in the project name ("novu-python")
+- Fill in the project name ("novu")
 - Enter the URL of the project
 - Enter the default branch ("main")
 - Click on "Next"

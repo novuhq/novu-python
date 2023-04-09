@@ -1,12 +1,12 @@
 [tool.poetry]
 description = "This project aims to provide a wrapper for the Novu API."
 keywords = ["novu", "python", "sdk", "api", "wrapper"]
-name = "novu-python"
+name = "novu"
 version = "1.1.0"
 
 documentation = "https://novu-python.readthedocs.io/en/latest"
 homepage = "https://novu-python.readthedocs.io/en/latest"
-repository = "https://github.com/spikeelabs/novu-python"
+repository = "https://github.com/novuhq/novu-python"
 
 authors = ["oscar.marie-taillefer <oscar.marie-taillefer@spikeelabs.fr>"]
 maintainers = ["oscar.marie-taillefer <oscar.marie-taillefer@spikeelabs.fr>"]
@@ -31,8 +31,8 @@ classifiers = [
 ]
 
 [tool.poetry.urls]
-"Changelog" = "https://github.com/SpikeeLabs/novu-python/blob/main/CHANGELOG.md"
-"Tracker" = "https://github.com/spikeeLabs/novu-python/issues"
+"Changelog" = "https://github.com/novuhq/novu-python/blob/main/CHANGELOG.md"
+"Tracker" = "https://github.com/novuhq/novu-python/issues"
 
 [tool.poetry.dependencies]
 python = "^3.8"
