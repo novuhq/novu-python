@@ -12,7 +12,7 @@
 
 ---
 
-> The [Python Novu](https://novu.co) SDK and package provides a fluent and expressive interface for interacting with Novu's API and managing notifications.
+The [Python Novu](https://novu.co) SDK and package provides a fluent and expressive interface for interacting with [Novu's API](https://api.novu.co/api) and managing notifications.
 
 ## Install
 
