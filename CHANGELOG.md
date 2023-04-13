@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/novuhq/novu-python/compare/v1.1.0...v1.2.0) (2023-04-13)
+
+
+### Features
+
+* migration from SpikeeLabs to NovuHQ org ([10d3ead](https://github.com/novuhq/novu-python/commit/10d3ead5f8914b9965461276a27083d6294f10a1))
+
 ## [1.1.1-alpha.1](https://github.com/novuhq/novu-python/compare/v1.1.0...v1.1.1-alpha.1) (2023-04-13)
 
 
