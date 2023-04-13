@@ -2,7 +2,7 @@
 description = "This project aims to provide a wrapper for the Novu API."
 keywords = ["novu", "python", "sdk", "api", "wrapper"]
 name = "novu"
-version = "1.1.0"
+version = "1.1.1-alpha.1"
 
 documentation = "https://novu-python.readthedocs.io/en/latest"
 homepage = "https://novu-python.readthedocs.io/en/latest"

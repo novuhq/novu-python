@@ -1,3 +1,16 @@
+## [1.1.1-alpha.1](https://github.com/novuhq/novu-python/compare/v1.1.0...v1.1.1-alpha.1) (2023-04-13)
+
+
+### Bug Fixes
+
+* upgrade dev deps to latest versions ([c6daddb](https://github.com/novuhq/novu-python/commit/c6daddbec611fd23b479ba234131281613434b73))
+
+
+### Reverts
+
+* remove usage of SEMANTIC_RELEASE_BOT in semver_tag workflow ([3d6e4a6](https://github.com/novuhq/novu-python/commit/3d6e4a6de42bacf06e74775d95ab73341ecb224f))
+* rename the 'novu' package to 'novu-python' ([fc2a4ed](https://github.com/novuhq/novu-python/commit/fc2a4edc2b0c659b01f82d4c4d3f918622c7f096))
+
 # [1.1.0](https://github.com/novuhq/novu-python/compare/v1.0.0...v1.1.0) (2023-03-15)
 
 
