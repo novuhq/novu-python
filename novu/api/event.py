@@ -2,11 +2,11 @@
 This module is used to define the ``EventApi``, a python wrapper to interact with ``Events`` in Novu.
 """
 from collections.abc import Iterable
-from typing import Iterable as _Iterable, List, Optional, Union
+from typing import Dict, Iterable as _Iterable, List, Optional, Union
 
 from novu.api.base import Api
 from novu.constants import EVENTS_ENDPOINT
-from novu.dto.event import EventDto
+from novu.dto.event import EventDto, InputEventDto
 from novu.dto.topic import TriggerTopicDto
 
 
@@ -68,6 +68,40 @@ class EventApi(Api):
             payload["transactionId"] = transaction_id
 
         return EventDto.from_camel_case(self.handle_request("POST", self._event_url, payload)["data"])
+
+    def trigger_bulk(
+        self,
+        events: List[InputEventDto],
+    ) -> List[EventDto]:
+        """Trigger events in a bulk action to reduce the amount of api calls. Using this endpoint you can trigger
+        multiple events at once, to avoid multiple calls to the API. The bulk API is limited to 100 events per request.
+
+        Args:
+            events (List[InputEventDto]): List of input events that should be sent.
+
+        Returns:
+            List[EventDto]: List of created Novu events.
+        """
+        payload: Dict[str, List[Dict[str, Union[str, List[str], dict]]]] = {"events": []}
+        for event in events:
+            event_payload = {"name": event.name, "to": event.recipients, "payload": event.payload}
+            if event.overrides:
+                event_payload["overrides"] = event.overrides
+            if event.actor:
+                event_payload["actor"] = event.actor
+            if event.transaction_id:
+                event_payload["transactionId"] = event.transaction_id
+
+            payload["events"].append(event_payload)
+
+        # send trigger bulk events
+        response = self.handle_request("POST", f"{self._event_url}/bulk", payload)["data"]
+
+        triggered_events = []
+        for triggered_event in response:
+            triggered_events.append(EventDto.from_camel_case(triggered_event))
+
+        return triggered_events
 
     def trigger_topic(
         self,
