@@ -1,8 +1,8 @@
 """This module is used to gather enumerations related to the Step Filter resource in Novu"""
-from enum import Enum
+from novu.enums.polyfill import StrEnum
 
 
-class StepFilterType(Enum):
+class StepFilterType(StrEnum):
     """This enumeration define possible type for a step filter"""
 
     BOOL = "BOOLEAN"
@@ -30,7 +30,7 @@ class StepFilterType(Enum):
     """Group filter"""
 
 
-class StepFilterValue(Enum):
+class StepFilterValue(StrEnum):
     """This enumeration define possible value for a step filter"""
 
     AND = "AND"

@@ -1,8 +1,8 @@
 """This module is used to gather enumerations related to the Template resource in Novu"""
-from enum import Enum
+from novu.enums.polyfill import StrEnum
 
 
-class TemplateVariableTypeEnum(Enum):
+class TemplateVariableTypeEnum(StrEnum):
     """This enumeration define possible type for a variable in a template"""
 
     STRING = "String"

@@ -1,9 +1,10 @@
 """This module is used to gather enumerations related to the Provider resource in Novu"""
-from enum import Enum
 from typing import Union
 
+from novu.enums.polyfill import StrEnum
 
-class CredentialsKeyEnum(Enum):
+
+class CredentialsKeyEnum(StrEnum):
     """This enumeration define possible key in a Novu credentials dict"""
 
     API_KEY = "apiKey"
@@ -67,7 +68,7 @@ class CredentialsKeyEnum(Enum):
     """Webhook URL"""
 
 
-class EmailProviderIdEnum(Enum):
+class EmailProviderIdEnum(StrEnum):
     """This enumeration define possible email provider ID.
 
     For more details about their configuration, see https://docs.novu.co/channels/email/
@@ -119,7 +120,7 @@ class EmailProviderIdEnum(Enum):
     """Novu internal mail provider"""
 
 
-class SmsProviderIdEnum(Enum):
+class SmsProviderIdEnum(StrEnum):
     """This enumeration define possible sms provider ID"""
 
     NEXMO = "nexmo"
@@ -156,7 +157,7 @@ class SmsProviderIdEnum(Enum):
     """Click-a-tell sms provider"""
 
 
-class ChatProviderIdEnum(Enum):
+class ChatProviderIdEnum(StrEnum):
     """This enumeration define possible chat provider ID"""
 
     SLACK = "slack"
@@ -169,7 +170,7 @@ class ChatProviderIdEnum(Enum):
     """MS Teams provider for chat messages"""
 
 
-class PushProviderIdEnum(Enum):
+class PushProviderIdEnum(StrEnum):
     """This enumeration define possible push provider ID"""
 
     FCM = "fcm"
@@ -182,7 +183,7 @@ class PushProviderIdEnum(Enum):
     """EXPO notification push provider"""
 
 
-class InAppProviderIdEnum(Enum):
+class InAppProviderIdEnum(StrEnum):
     """This enumeration define possible in_app provider ID"""
 
     NOVU = "novu"

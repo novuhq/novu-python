@@ -98,7 +98,7 @@ disable = "W0212,W0511,R0913"
 [tool.coverage.run]
 branch = true
 command_line = "-m pytest"
-omit = ["tests/*"]
+omit = ["tests/*", "novu/enums/polyfill.py"]
 relative_files = true
 source = ["novu"]
 

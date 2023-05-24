@@ -11,6 +11,7 @@ from novu.dto.subscriber import (
     SubscriberPreferencePreferenceDto,
     SubscriberPreferenceTemplateDto,
 )
+from novu.enums import Channel
 from tests.factories import MockResponse
 
 
@@ -295,6 +296,40 @@ class SubscriberApiTests(TestCase):
         )
 
         res = self.api.change_channel_preference("subscriber-id", "63daff36c037e013fd82da05", "in_app", True)
+        self.assertEqual(
+            res,
+            SubscriberPreferenceDto(
+                preference=SubscriberPreferencePreferenceDto(
+                    enabled=True, channels=SubscriberPreferenceChannelDto(email=True, in_app=True)
+                ),
+                template=SubscriberPreferenceTemplateDto(
+                    _id="63daff36c037e013fd82da05", name="Absences", critical=False
+                ),
+            ),
+        )
+
+        mock_request.assert_called_once_with(
+            method="PATCH",
+            url="sample.novu.com/v1/subscribers/subscriber-id/preferences/63daff36c037e013fd82da05",
+            headers={"Authorization": "ApiKey api-key"},
+            json={"channel": {"type": "in_app", "enabled": True}},
+            params=None,
+            timeout=5,
+        )
+
+    @mock.patch("requests.request")
+    def test_change_channel_preference_using_enum_in_params(self, mock_request: mock.MagicMock) -> None:
+        mock_request.return_value = MockResponse(
+            200,
+            {
+                "data": {
+                    "template": {"_id": "63daff36c037e013fd82da05", "name": "Absences", "critical": False},
+                    "preference": {"enabled": True, "channels": {"email": True, "in_app": True}},
+                }
+            },
+        )
+
+        res = self.api.change_channel_preference("subscriber-id", "63daff36c037e013fd82da05", Channel.IN_APP, True)
         self.assertEqual(
             res,
             SubscriberPreferenceDto(
