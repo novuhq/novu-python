@@ -19,11 +19,11 @@ class IntegrationDto(CamelCaseDto["IntegrationDto"]):  # pylint: disable=R0902
     channel: Channel
     """Integration channel"""
 
-    credentials: Dict[CredentialsKeyEnum, Union[str, bool]]
-    """Credentials of the provider"""
-
     active: bool
     """If the provider is active"""
+
+    credentials: Optional[Dict[CredentialsKeyEnum, Union[str, bool]]] = None
+    """Credentials of the provider"""
 
     _id: Optional[str] = None
     """Integration ID in Novu internal storage system"""
