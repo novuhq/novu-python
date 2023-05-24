@@ -4,6 +4,7 @@ from unittest import TestCase, mock
 from novu.api import IntegrationApi
 from novu.config import NovuConfig
 from novu.dto.integration import IntegrationChannelUsageDto, IntegrationDto
+from novu.enums import Channel, ChatProviderIdEnum
 from tests.factories import MockResponse
 
 
@@ -205,6 +206,68 @@ class IntegrationApiTests(TestCase):
                     "senderName": "sample",
                 },
                 "active": False,
+                "check": False,
+            },
+            params=None,
+            timeout=5,
+        )
+
+    @mock.patch("requests.request")
+    def test_create_channel_without_credentials(self, mock_request: mock.MagicMock) -> None:
+        mock_request.return_value = MockResponse(
+            200,
+            {
+                "data": {
+                    "_id": "63dfe50ecac5cff328ca5d24",
+                    "_environmentId": "63dafed97779f59258e38445",
+                    "_organizationId": "63dafed97779f59258e3843f",
+                    "providerId": ChatProviderIdEnum.MS_TEAMS.value,
+                    "channel": Channel.CHAT.value,
+                    "active": True,
+                    "deleted": False,
+                    "createdAt": "2023-02-05T17:19:10.826Z",
+                    "updatedAt": "2023-02-05T17:19:10.826Z",
+                    "__v": 0,
+                }
+            },
+        )
+
+        result = self.api.create(
+            IntegrationDto(
+                channel=Channel.CHAT.value,
+                provider_id=ChatProviderIdEnum.MS_TEAMS.value,
+                credentials={},
+                active=True,
+            ),
+            check=False,
+        )
+        self.assertEqual(
+            result,
+            IntegrationDto(
+                provider_id=ChatProviderIdEnum.MS_TEAMS.value,
+                channel=Channel.CHAT.value,
+                credentials=None,
+                active=True,
+                _id="63dfe50ecac5cff328ca5d24",
+                _environment_id="63dafed97779f59258e38445",
+                _organization_id="63dafed97779f59258e3843f",
+                created_at="2023-02-05T17:19:10.826Z",
+                updated_at="2023-02-05T17:19:10.826Z",
+                deleted_at=None,
+                deleted_by=None,
+                deleted=False,
+            ),
+        )
+
+        mock_request.assert_called_once_with(
+            method="POST",
+            url="sample.novu.com/v1/integrations",
+            headers={"Authorization": "ApiKey api-key"},
+            json={
+                "providerId": ChatProviderIdEnum.MS_TEAMS.value,
+                "channel": Channel.CHAT.value,
+                "credentials": {},
+                "active": True,
                 "check": False,
             },
             params=None,
