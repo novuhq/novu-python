@@ -1,3 +1,10 @@
+## [1.2.1-alpha.1](https://github.com/novuhq/novu-python/compare/v1.2.0...v1.2.1-alpha.1) (2023-05-25)
+
+
+### Bug Fixes
+
+* **integration:** ``credentials`` are optionals for an integration ([0bfe13f](https://github.com/novuhq/novu-python/commit/0bfe13f402a1115bf4a04d3c064815ed47bc8779))
+
 # [1.2.0](https://github.com/novuhq/novu-python/compare/v1.1.0...v1.2.0) (2023-04-13)
 
 
