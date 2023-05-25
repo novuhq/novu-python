@@ -1,3 +1,10 @@
+# [1.3.0-alpha.1](https://github.com/novuhq/novu-python/compare/v1.2.1-alpha.1...v1.3.0-alpha.1) (2023-05-25)
+
+
+### Features
+
+* add function to bulk trigger events ([f9f787e](https://github.com/novuhq/novu-python/commit/f9f787e71c70eeba3be0e4b560a62a42e7a5b3c8))
+
 ## [1.2.1-alpha.1](https://github.com/novuhq/novu-python/compare/v1.2.0...v1.2.1-alpha.1) (2023-05-25)
 
 
