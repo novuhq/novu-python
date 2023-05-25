@@ -2,7 +2,7 @@ from unittest import TestCase, mock
 
 from novu.api import EventApi
 from novu.config import NovuConfig
-from novu.dto.event import EventDto
+from novu.dto.event import EventDto, InputEventDto
 from novu.dto.topic import TriggerTopicDto
 from novu.enums import EventStatus
 from tests.factories import MockResponse
@@ -244,6 +244,217 @@ class EventApiTests(TestCase):
                 "to": [{"topicKey": "topic-key", "type": "type"}],
                 "payload": {},
                 "transactionId": "sample-test",
+            },
+            params=None,
+            timeout=5,
+        )
+
+    @mock.patch("requests.request")
+    def test_trigger_bulk_with_one_event(self, mock_request: mock.MagicMock) -> None:
+        mock_request.return_value = MockResponse(
+            201,
+            {
+                "data": [
+                    {"acknowledged": True, "status": EventStatus.PROCESSED.value, "transactionId": "sample-test"},
+                ]
+            },
+        )
+
+        events = [
+            InputEventDto(name="test-template", recipients="recipient_1", payload={}),
+        ]
+
+        result = self.api.trigger_bulk(events)
+
+        self.assertEqual(len(result), len(events))
+
+        triggered_event = result[0]
+        self.assertIsInstance(triggered_event, EventDto)
+        self.assertTrue(triggered_event.acknowledged)
+        self.assertEqual(triggered_event.status, EventStatus.PROCESSED.value)
+        self.assertEqual(triggered_event.transaction_id, "sample-test")
+        mock_request.assert_called_once_with(
+            method="POST",
+            url="sample.novu.com/v1/events/trigger/bulk",
+            headers={"Authorization": "ApiKey api-key"},
+            json={
+                "events": [
+                    {"name": "test-template", "to": "recipient_1", "payload": {}},
+                ]
+            },
+            params=None,
+            timeout=5,
+        )
+
+    @mock.patch("requests.request")
+    def test_trigger_bulk_with_with_multiple(self, mock_request: mock.MagicMock) -> None:
+        transaction_ids = ["sample-test", "another-sample-test"]
+
+        mock_request.return_value = MockResponse(
+            201,
+            {
+                "data": [
+                    {"acknowledged": True, "status": EventStatus.PROCESSED.value, "transactionId": transaction_ids[0]},
+                    {"acknowledged": True, "status": EventStatus.PROCESSED.value, "transactionId": transaction_ids[1]},
+                ]
+            },
+        )
+
+        events = [
+            InputEventDto(name="test-template", recipients="recipient_1", payload={}),
+            InputEventDto(name="test-template", recipients="recipient_2", payload={}),
+        ]
+
+        result = self.api.trigger_bulk(events)
+
+        self.assertEqual(len(result), len(events))
+
+        for triggered_event in result:
+            self.assertIsInstance(triggered_event, EventDto)
+            self.assertTrue(triggered_event.acknowledged)
+            self.assertEqual(triggered_event.status, EventStatus.PROCESSED.value)
+            self.assertIn(triggered_event.transaction_id, transaction_ids)
+
+        mock_request.assert_called_once_with(
+            method="POST",
+            url="sample.novu.com/v1/events/trigger/bulk",
+            headers={"Authorization": "ApiKey api-key"},
+            json={
+                "events": [
+                    {"name": "test-template", "to": "recipient_1", "payload": {}},
+                    {"name": "test-template", "to": "recipient_2", "payload": {}},
+                ]
+            },
+            params=None,
+            timeout=5,
+        )
+
+    @mock.patch("requests.request")
+    def test_trigger_bulk_with_multiple_events_and_overrides(self, mock_request: mock.MagicMock) -> None:
+        transaction_ids = ["sample-test", "another-sample-test"]
+
+        mock_request.return_value = MockResponse(
+            201,
+            {
+                "data": [
+                    {"acknowledged": True, "status": EventStatus.PROCESSED.value, "transactionId": transaction_ids[0]},
+                    {"acknowledged": True, "status": EventStatus.PROCESSED.value, "transactionId": transaction_ids[1]},
+                ]
+            },
+        )
+
+        events = [
+            InputEventDto(name="test-template", recipients="recipient_1", payload={}, overrides={"an": "override"}),
+            InputEventDto(name="test-template", recipients="recipient_2", payload={}),
+        ]
+
+        result = self.api.trigger_bulk(events)
+
+        self.assertEqual(len(result), len(events))
+
+        for triggered_event in result:
+            self.assertIsInstance(triggered_event, EventDto)
+            self.assertTrue(triggered_event.acknowledged)
+            self.assertEqual(triggered_event.status, EventStatus.PROCESSED.value)
+            self.assertIn(triggered_event.transaction_id, transaction_ids)
+
+        mock_request.assert_called_once_with(
+            method="POST",
+            url="sample.novu.com/v1/events/trigger/bulk",
+            headers={"Authorization": "ApiKey api-key"},
+            json={
+                "events": [
+                    {"name": "test-template", "to": "recipient_1", "payload": {}, "overrides": {"an": "override"}},
+                    {"name": "test-template", "to": "recipient_2", "payload": {}},
+                ]
+            },
+            params=None,
+            timeout=5,
+        )
+
+    @mock.patch("requests.request")
+    def test_trigger_bulk_with_multiple_events_and_actor(self, mock_request: mock.MagicMock) -> None:
+        transaction_ids = ["sample-test", "another-sample-test"]
+
+        mock_request.return_value = MockResponse(
+            201,
+            {
+                "data": [
+                    {"acknowledged": True, "status": EventStatus.PROCESSED.value, "transactionId": transaction_ids[0]},
+                    {"acknowledged": True, "status": EventStatus.PROCESSED.value, "transactionId": transaction_ids[1]},
+                ]
+            },
+        )
+
+        events = [
+            InputEventDto(name="test-template", recipients="recipient_1", payload={}, actor="actor-id"),
+            InputEventDto(name="test-template", recipients="recipient_2", payload={}),
+        ]
+
+        result = self.api.trigger_bulk(events)
+
+        self.assertEqual(len(result), len(events))
+
+        for triggered_event in result:
+            self.assertIsInstance(triggered_event, EventDto)
+            self.assertTrue(triggered_event.acknowledged)
+            self.assertEqual(triggered_event.status, EventStatus.PROCESSED.value)
+            self.assertIn(triggered_event.transaction_id, transaction_ids)
+
+        mock_request.assert_called_once_with(
+            method="POST",
+            url="sample.novu.com/v1/events/trigger/bulk",
+            headers={"Authorization": "ApiKey api-key"},
+            json={
+                "events": [
+                    {"name": "test-template", "to": "recipient_1", "payload": {}, "actor": "actor-id"},
+                    {"name": "test-template", "to": "recipient_2", "payload": {}},
+                ]
+            },
+            params=None,
+            timeout=5,
+        )
+
+    @mock.patch("requests.request")
+    def test_trigger_bulk_with_multiple_events_and_transaction_id(self, mock_request: mock.MagicMock) -> None:
+        transaction_ids = ["sample-test", "another-sample-test"]
+
+        mock_request.return_value = MockResponse(
+            201,
+            {
+                "data": [
+                    {"acknowledged": True, "status": EventStatus.PROCESSED.value, "transactionId": transaction_ids[0]},
+                    {"acknowledged": True, "status": EventStatus.PROCESSED.value, "transactionId": transaction_ids[1]},
+                ]
+            },
+        )
+
+        events = [
+            InputEventDto(
+                name="test-template", recipients="recipient_1", payload={}, transaction_id=transaction_ids[0]
+            ),
+            InputEventDto(name="test-template", recipients="recipient_2", payload={}),
+        ]
+
+        result = self.api.trigger_bulk(events)
+
+        self.assertEqual(len(result), len(events))
+
+        for triggered_event in result:
+            self.assertIsInstance(triggered_event, EventDto)
+            self.assertTrue(triggered_event.acknowledged)
+            self.assertEqual(triggered_event.status, EventStatus.PROCESSED.value)
+            self.assertIn(triggered_event.transaction_id, transaction_ids)
+
+        mock_request.assert_called_once_with(
+            method="POST",
+            url="sample.novu.com/v1/events/trigger/bulk",
+            headers={"Authorization": "ApiKey api-key"},
+            json={
+                "events": [
+                    {"name": "test-template", "to": "recipient_1", "payload": {}, "transactionId": transaction_ids[0]},
+                    {"name": "test-template", "to": "recipient_2", "payload": {}},
+                ]
             },
             params=None,
             timeout=5,
