@@ -62,3 +62,20 @@ class ApiTests(TestCase):
             params=None,
             timeout=5,
         )
+
+    @mock.patch("requests.request")
+    def test_override_requests_timeout(self, mock_request: mock.MagicMock) -> None:
+        mock_request.return_value = MockResponse(500, raise_on_json_decode=True)
+
+        api = Api(requests_timeout=60)
+
+        self.assertRaises(HTTPError, lambda: api.handle_request("GET", api._url, headers={"MyHeader": "value"}))
+
+        mock_request.assert_called_once_with(
+            method="GET",
+            url="sample.novu.com",
+            headers={"Authorization": "ApiKey api-key", "MyHeader": "value"},
+            json=None,
+            params=None,
+            timeout=60,
+        )

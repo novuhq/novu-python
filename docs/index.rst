@@ -2,6 +2,12 @@
 
 .. toctree::
    :maxdepth: 2
+   :caption: Guides
+
+   guides/cookbook
+
+.. toctree::
+   :maxdepth: 2
    :caption: References
 
    references/api

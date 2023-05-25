@@ -12,8 +12,10 @@ from novu.dto import ExecutionDetailDto
 class ExecutionDetailApi(Api):
     """This class aims to handle all API methods around execution details in Novu"""
 
-    def __init__(self, url: Optional[str] = None, api_key: Optional[str] = None) -> None:
-        super().__init__(url, api_key)
+    def __init__(
+        self, url: Optional[str] = None, api_key: Optional[str] = None, requests_timeout: Optional[int] = None
+    ) -> None:
+        super().__init__(url, api_key, requests_timeout)
 
         self._execution_detail_url = f"{self._url}{EXECUTION_DETAILS_ENDPOINT}"
 
