@@ -2,11 +2,18 @@ name: Semver to tag new version
 
 on:
   push:
-    branches: [main, alpha, beta]
+    branches: [main]
+  workflow_dispatch:
 
 jobs:
   semver:
     runs-on: ubuntu-latest
+    if: | # Only trigger this job on manual trigger from alpha/beta or on main.
+      (
+        github.event_name == 'workflow_dispatch' &&
+        (github.ref == 'refs/heads/alpha' || github.ref == 'refs/heads/beta')
+      ) ||
+      github.ref == 'refs/heads/main'
     steps:
       - name: Checkout
         uses: actions/checkout@v3
