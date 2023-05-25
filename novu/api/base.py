@@ -1,6 +1,7 @@
 """This module is used to defined an abstract class for all reusable methods to communicate with the Novu API"""
 import copy
 import logging
+import os
 from json.decoder import JSONDecodeError
 from typing import Optional
 
@@ -15,7 +16,12 @@ LOGGER = logging.getLogger(__name__)
 class Api:  # pylint: disable=R0903
     """Base class for all API in the Novu client"""
 
-    def __init__(self, url: Optional[str] = None, api_key: Optional[str] = None) -> None:
+    requests_timeout: int = 5
+    """This field allow you to change the :param:`~requests.request.timeout` params which is used during API calls."""
+
+    def __init__(
+        self, url: Optional[str] = None, api_key: Optional[str] = None, requests_timeout: Optional[int] = None
+    ) -> None:
         config = NovuConfig()
 
         url = url or config.url
@@ -23,6 +29,7 @@ class Api:  # pylint: disable=R0903
 
         self._url = url
         self._headers = {"Authorization": f"ApiKey {api_key}"}
+        self.requests_timeout = requests_timeout or int(os.getenv("NOVU_PYTHON_REQUESTS_TIMEOUT", "5"))
 
     def handle_request(
         self,
@@ -60,7 +67,7 @@ class Api:  # pylint: disable=R0903
             headers=_headers,
             json=json,
             params=payload,
-            timeout=5,
+            timeout=self.requests_timeout,
             **kwargs,
         )
 

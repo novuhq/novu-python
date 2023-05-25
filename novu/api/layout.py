@@ -11,8 +11,10 @@ from novu.dto.layout import LayoutDto, PaginatedLayoutDto
 class LayoutApi(Api):
     """This class aims to handle all API methods around layout in API"""
 
-    def __init__(self, url: Optional[str] = None, api_key: Optional[str] = None) -> None:
-        super().__init__(url, api_key)
+    def __init__(
+        self, url: Optional[str] = None, api_key: Optional[str] = None, requests_timeout: Optional[int] = None
+    ) -> None:
+        super().__init__(url, api_key, requests_timeout)
 
         self._layout_url = f"{self._url}{LAYOUTS_ENDPOINT}"
 
