@@ -3,6 +3,8 @@ This module is used to define the ``TopicApi``, a python wrapper to interact wit
 """
 from typing import Dict, List, Optional, Tuple, Union
 
+import requests
+
 from novu.api.base import Api
 from novu.constants import TOPICS_ENDPOINT
 from novu.dto.topic import PaginatedTopicDto, TopicDto
@@ -12,9 +14,13 @@ class TopicApi(Api):
     """This class aims to handle all API methods around topics in API"""
 
     def __init__(
-        self, url: Optional[str] = None, api_key: Optional[str] = None, requests_timeout: Optional[int] = None
+        self,
+        url: Optional[str] = None,
+        api_key: Optional[str] = None,
+        requests_timeout: Optional[int] = None,
+        session: Optional[requests.Session] = None,
     ) -> None:
-        super().__init__(url, api_key, requests_timeout)
+        super().__init__(url=url, api_key=api_key, requests_timeout=requests_timeout, session=session)
 
         self._topic_url = f"{self._url}{TOPICS_ENDPOINT}"
 
