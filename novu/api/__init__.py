@@ -7,6 +7,7 @@ from novu.api.environment import EnvironmentApi
 from novu.api.event import EventApi
 from novu.api.execution_detail import ExecutionDetailApi
 from novu.api.feed import FeedApi
+from novu.api.inbound_parse import InboundParseApi
 from novu.api.integration import IntegrationApi
 from novu.api.layout import LayoutApi
 from novu.api.message import MessageApi
@@ -21,6 +22,7 @@ __all__ = [
     "EventApi",
     "ExecutionDetailApi",
     "FeedApi",
+    "InboundParseApi",
     "IntegrationApi",
     "LayoutApi",
     "MessageApi",
