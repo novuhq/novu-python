@@ -3,6 +3,8 @@ This module is used to define the ``MessageApi``, a python wrapper to interact w
 """
 from typing import Dict, Optional, Union
 
+import requests
+
 from novu.api.base import Api
 from novu.constants import MESSAGES_ENDPOINT
 from novu.dto.message import PaginatedMessageDto
@@ -12,9 +14,13 @@ class MessageApi(Api):
     """This class aims to handle all API methods around messages in Novu"""
 
     def __init__(
-        self, url: Optional[str] = None, api_key: Optional[str] = None, requests_timeout: Optional[int] = None
+        self,
+        url: Optional[str] = None,
+        api_key: Optional[str] = None,
+        requests_timeout: Optional[int] = None,
+        session: Optional[requests.Session] = None,
     ) -> None:
-        super().__init__(url, api_key, requests_timeout)
+        super().__init__(url=url, api_key=api_key, requests_timeout=requests_timeout, session=session)
 
         self._message_url = f"{self._url}{MESSAGES_ENDPOINT}"
 

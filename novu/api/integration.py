@@ -3,6 +3,8 @@ This module is used to define the ``IntregrationApi``, a python wrapper to inter
 """
 from typing import Iterator, Optional
 
+import requests
+
 from novu.api.base import Api
 from novu.constants import INTEGRATIONS_ENDPOINT
 from novu.dto.integration import IntegrationChannelUsageDto, IntegrationDto
@@ -13,9 +15,13 @@ class IntegrationApi(Api):
     """This class aims to handle all API methods around integrations in API"""
 
     def __init__(
-        self, url: Optional[str] = None, api_key: Optional[str] = None, requests_timeout: Optional[int] = None
+        self,
+        url: Optional[str] = None,
+        api_key: Optional[str] = None,
+        requests_timeout: Optional[int] = None,
+        session: Optional[requests.Session] = None,
     ) -> None:
-        super().__init__(url, api_key, requests_timeout)
+        super().__init__(url=url, api_key=api_key, requests_timeout=requests_timeout, session=session)
 
         self._integration_url = f"{self._url}{INTEGRATIONS_ENDPOINT}"
 
