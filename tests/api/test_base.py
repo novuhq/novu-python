@@ -79,3 +79,22 @@ class ApiTests(TestCase):
             params=None,
             timeout=60,
         )
+
+    @mock.patch("requests.request")
+    def test_use_requests_session(self, mock_request: mock.MagicMock) -> None:
+        session_mock = mock.MagicMock()
+        session_mock.request.return_value = MockResponse(200, {})
+        api = Api(session=session_mock)
+
+        res = api.handle_request("GET", api._url, headers={"MyHeader": "value"})
+        self.assertEqual(res, {})
+
+        mock_request.assert_not_called()
+        session_mock.request.assert_called_once_with(
+            method="GET",
+            url="sample.novu.com",
+            headers={"Authorization": "ApiKey api-key", "MyHeader": "value"},
+            json=None,
+            params=None,
+            timeout=5,
+        )

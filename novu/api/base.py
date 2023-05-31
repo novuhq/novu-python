@@ -19,8 +19,15 @@ class Api:  # pylint: disable=R0903
     requests_timeout: int = 5
     """This field allow you to change the :param:`~requests.request.timeout` params which is used during API calls."""
 
+    session: Optional[requests.Session] = None
+    """This field allow you to use a :class:`~requests.Session` during API calls."""
+
     def __init__(
-        self, url: Optional[str] = None, api_key: Optional[str] = None, requests_timeout: Optional[int] = None
+        self,
+        url: Optional[str] = None,
+        api_key: Optional[str] = None,
+        requests_timeout: Optional[int] = None,
+        session: Optional[requests.Session] = None,
     ) -> None:
         config = NovuConfig()
 
@@ -29,7 +36,9 @@ class Api:  # pylint: disable=R0903
 
         self._url = url
         self._headers = {"Authorization": f"ApiKey {api_key}"}
+
         self.requests_timeout = requests_timeout or int(os.getenv("NOVU_PYTHON_REQUESTS_TIMEOUT", "5"))
+        self.session = session
 
     def handle_request(
         self,
@@ -61,7 +70,7 @@ class Api:  # pylint: disable=R0903
         else:
             _headers = self._headers
 
-        res: requests.Response = requests.request(
+        res = (self.session.request if self.session else requests.request)(
             method=method,
             url=url,
             headers=_headers,
