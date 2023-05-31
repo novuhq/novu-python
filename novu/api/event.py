@@ -4,6 +4,8 @@ This module is used to define the ``EventApi``, a python wrapper to interact wit
 from collections.abc import Iterable
 from typing import Dict, Iterable as _Iterable, List, Optional, Union
 
+import requests
+
 from novu.api.base import Api
 from novu.constants import EVENTS_ENDPOINT
 from novu.dto.event import EventDto, InputEventDto
@@ -14,9 +16,13 @@ class EventApi(Api):
     """This class aims to handle all API methods around events in Novu"""
 
     def __init__(
-        self, url: Optional[str] = None, api_key: Optional[str] = None, requests_timeout: Optional[int] = None
+        self,
+        url: Optional[str] = None,
+        api_key: Optional[str] = None,
+        requests_timeout: Optional[int] = None,
+        session: Optional[requests.Session] = None,
     ) -> None:
-        super().__init__(url, api_key, requests_timeout)
+        super().__init__(url=url, api_key=api_key, requests_timeout=requests_timeout, session=session)
 
         self._event_url = f"{self._url}{EVENTS_ENDPOINT}"
 
