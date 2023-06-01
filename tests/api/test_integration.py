@@ -4,7 +4,7 @@ from unittest import TestCase, mock
 from novu.api import IntegrationApi
 from novu.config import NovuConfig
 from novu.dto.integration import IntegrationChannelUsageDto, IntegrationDto
-from novu.enums import Channel, ChatProviderIdEnum
+from novu.enums import Channel, ChatProviderIdEnum, EmailProviderIdEnum
 from tests.factories import MockResponse
 
 
@@ -17,8 +17,8 @@ class IntegrationApiTests(TestCase):
             "_id": "63dfe50ecac5cff328ca5d24",
             "_environmentId": "63dafed97779f59258e38445",
             "_organizationId": "63dafed97779f59258e3843f",
-            "providerId": "nodemailer",
-            "channel": "email",
+            "providerId": EmailProviderIdEnum.CUSTOM_SMTP,
+            "channel": Channel.EMAIL,
             "credentials": {
                 "user": "test",
                 "password": "test",
@@ -36,8 +36,8 @@ class IntegrationApiTests(TestCase):
         cls.response_list = {"data": [cls.integration_json]}
         cls.response_get = {"data": cls.integration_json}
         cls.expected_dto = IntegrationDto(
-            provider_id="nodemailer",
-            channel="email",
+            provider_id=EmailProviderIdEnum.CUSTOM_SMTP,
+            channel=Channel.EMAIL,
             credentials={
                 "user": "test",
                 "password": "test",
@@ -131,8 +131,8 @@ class IntegrationApiTests(TestCase):
 
         result = self.api.create(
             IntegrationDto(
-                provider_id="nodemailer",
-                channel="email",
+                provider_id=EmailProviderIdEnum.CUSTOM_SMTP,
+                channel=Channel.EMAIL,
                 credentials={
                     "user": "test",
                     "password": "test",
@@ -151,8 +151,8 @@ class IntegrationApiTests(TestCase):
             url="sample.novu.com/v1/integrations",
             headers={"Authorization": "ApiKey api-key"},
             json={
-                "providerId": "nodemailer",
-                "channel": "email",
+                "providerId": EmailProviderIdEnum.CUSTOM_SMTP,
+                "channel": Channel.EMAIL,
                 "credentials": {
                     "user": "test",
                     "password": "test",
@@ -174,8 +174,8 @@ class IntegrationApiTests(TestCase):
 
         result = self.api.create(
             IntegrationDto(
-                provider_id="nodemailer",
-                channel="email",
+                provider_id=EmailProviderIdEnum.CUSTOM_SMTP,
+                channel=Channel.EMAIL,
                 credentials={
                     "user": "test",
                     "password": "test",
@@ -195,8 +195,8 @@ class IntegrationApiTests(TestCase):
             url="sample.novu.com/v1/integrations",
             headers={"Authorization": "ApiKey api-key"},
             json={
-                "providerId": "nodemailer",
-                "channel": "email",
+                "providerId": EmailProviderIdEnum.CUSTOM_SMTP,
+                "channel": Channel.EMAIL,
                 "credentials": {
                     "user": "test",
                     "password": "test",
@@ -221,8 +221,8 @@ class IntegrationApiTests(TestCase):
                     "_id": "63dfe50ecac5cff328ca5d24",
                     "_environmentId": "63dafed97779f59258e38445",
                     "_organizationId": "63dafed97779f59258e3843f",
-                    "providerId": ChatProviderIdEnum.MS_TEAMS.value,
-                    "channel": Channel.CHAT.value,
+                    "providerId": ChatProviderIdEnum.MS_TEAMS,
+                    "channel": Channel.CHAT,
                     "active": True,
                     "deleted": False,
                     "createdAt": "2023-02-05T17:19:10.826Z",
@@ -234,8 +234,8 @@ class IntegrationApiTests(TestCase):
 
         result = self.api.create(
             IntegrationDto(
-                channel=Channel.CHAT.value,
-                provider_id=ChatProviderIdEnum.MS_TEAMS.value,
+                channel=Channel.CHAT,
+                provider_id=ChatProviderIdEnum.MS_TEAMS,
                 credentials={},
                 active=True,
             ),
@@ -244,8 +244,8 @@ class IntegrationApiTests(TestCase):
         self.assertEqual(
             result,
             IntegrationDto(
-                provider_id=ChatProviderIdEnum.MS_TEAMS.value,
-                channel=Channel.CHAT.value,
+                provider_id=ChatProviderIdEnum.MS_TEAMS,
+                channel=Channel.CHAT,
                 credentials=None,
                 active=True,
                 _id="63dfe50ecac5cff328ca5d24",
@@ -264,8 +264,8 @@ class IntegrationApiTests(TestCase):
             url="sample.novu.com/v1/integrations",
             headers={"Authorization": "ApiKey api-key"},
             json={
-                "providerId": ChatProviderIdEnum.MS_TEAMS.value,
-                "channel": Channel.CHAT.value,
+                "providerId": ChatProviderIdEnum.MS_TEAMS,
+                "channel": Channel.CHAT,
                 "credentials": {},
                 "active": True,
                 "check": False,
@@ -296,8 +296,8 @@ class IntegrationApiTests(TestCase):
 
         result = self.api.update(
             IntegrationDto(
-                provider_id="nodemailer",
-                channel="email",
+                provider_id=EmailProviderIdEnum.CUSTOM_SMTP,
+                channel=Channel.EMAIL,
                 credentials={
                     "user": "test",
                     "password": "test",
@@ -317,8 +317,8 @@ class IntegrationApiTests(TestCase):
             url="sample.novu.com/v1/integrations/identifier",
             headers={"Authorization": "ApiKey api-key"},
             json={
-                "providerId": "nodemailer",
-                "channel": "email",
+                "providerId": EmailProviderIdEnum.CUSTOM_SMTP,
+                "channel": Channel.EMAIL,
                 "credentials": {
                     "user": "test",
                     "password": "test",
@@ -340,8 +340,8 @@ class IntegrationApiTests(TestCase):
 
         result = self.api.update(
             IntegrationDto(
-                provider_id="nodemailer",
-                channel="email",
+                provider_id=EmailProviderIdEnum.CUSTOM_SMTP,
+                channel=Channel.EMAIL,
                 credentials={
                     "user": "test",
                     "password": "test",
@@ -362,8 +362,8 @@ class IntegrationApiTests(TestCase):
             url="sample.novu.com/v1/integrations/identifier",
             headers={"Authorization": "ApiKey api-key"},
             json={
-                "providerId": "nodemailer",
-                "channel": "email",
+                "providerId": EmailProviderIdEnum.CUSTOM_SMTP,
+                "channel": Channel.EMAIL,
                 "credentials": {
                     "user": "test",
                     "password": "test",
@@ -399,7 +399,7 @@ class IntegrationApiTests(TestCase):
     def test_limit(self, mock_request: mock.MagicMock) -> None:
         mock_request.return_value = MockResponse(200, {"data": {"limit": 300, "count": 3}})
 
-        result = self.api.limit("email")
+        result = self.api.limit(Channel.EMAIL)
         self.assertIsInstance(result, IntegrationChannelUsageDto)
         self.assertEqual(result.limit, 300)
         self.assertEqual(result.count, 3)

@@ -1,8 +1,8 @@
 """This module is used to gather enumerations related to the Change resource in Novu"""
-from enum import Enum
+from novu.enums.polyfill import StrEnum
 
 
-class ChangeKind(Enum):
+class ChangeKind(StrEnum):
     """This enumeration define all kinds of change in Novu"""
 
     FEED = "Feed"

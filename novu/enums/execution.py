@@ -1,8 +1,8 @@
 """This module is used to gather enumerations related to the Execution resource in Novu"""
-from enum import Enum
+from novu.enums.polyfill import StrEnum
 
 
-class ExecutionSource(Enum):
+class ExecutionSource(StrEnum):
     """This enumeration define all sources possible for an execution in Novu"""
 
     CREDENTIALS = "Credentials"
@@ -18,7 +18,7 @@ class ExecutionSource(Enum):
     """Execution detail source is webhook"""
 
 
-class ExecutionStatus(Enum):
+class ExecutionStatus(StrEnum):
     """This enumeration define all status possible for an execution in Novu"""
 
     SUCCESS = "Success"
