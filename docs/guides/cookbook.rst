@@ -25,8 +25,8 @@ provide your own session and reuse it over and over again.
 To illustrate this use case, let's take the example of setting up an automatic retry mechanism on
 requests when the API responds with a 502, 503 or 504 HTTP codes.
 
-To do this, before initializing the Event API, we'll first instantiate a :class:`~requests.Session` from the
-:module:`requests` module, then we'ill inject it into the keywords arguments of our API constructor. We finally
+To do this, before initializing the Event API, we will first instantiate a :class:`~requests.Session` from the
+:module:`requests` module, then we will inject it into the keywords arguments of our API constructor. We finally
 call the method we want to use and retry.
 
 .. code-block:: python
