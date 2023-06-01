@@ -1,8 +1,8 @@
 """This module is used to gather enumerations related to the Channel resource in Novu"""
-from enum import Enum
+from novu.enums.polyfill import StrEnum
 
 
-class Channel(Enum):
+class Channel(StrEnum):
     """This enumeration define all available channel in Novu"""
 
     EMAIL = "email"
@@ -22,7 +22,7 @@ class Channel(Enum):
     """Push channel (Expo, Firebase Cloud Messaging, ...)"""
 
 
-class ChannelExtended(Enum):
+class ChannelExtended(StrEnum):
     """
     This enumeration define all available channel in Novu and intermediate provider between channel.
 

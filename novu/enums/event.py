@@ -1,8 +1,8 @@
 """This module is used to gather enumerations related to the Event resource in Novu"""
-from enum import Enum
+from novu.enums.polyfill import StrEnum
 
 
-class EventStatus(Enum):
+class EventStatus(StrEnum):
     """This enumeration define possible status of an event"""
 
     PROCESSED = "processed"

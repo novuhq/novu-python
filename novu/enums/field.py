@@ -1,8 +1,8 @@
 """This module is used to gather enumerations related to the Field resource in Novu"""
-from enum import Enum
+from novu.enums.polyfill import StrEnum
 
 
-class FieldFilterPartOperator(Enum):
+class FieldFilterPartOperator(StrEnum):
     """This enumeration define possible operator for a field filter part"""
 
     LARGER = "LARGER"
@@ -48,7 +48,7 @@ class FieldFilterPartOperator(Enum):
     """Not equal operator (``in``)"""
 
 
-class FieldFilterPartOn(Enum):
+class FieldFilterPartOn(StrEnum):
     """This enumeration define possible trigger (``on``) for a field filter part"""
 
     SUBSCRIBER = "subscriber"
@@ -67,7 +67,7 @@ class FieldFilterPartOn(Enum):
     """Allow to check if the subscriber is online in last X given minutes"""
 
 
-class FieldFilterPartTimeOperator(Enum):
+class FieldFilterPartTimeOperator(StrEnum):
     """
     This enumeration define possible operator for a filed filter part which is used if
     ``FieldFilterPartDto.on`` is set to ``FieldFilterPartOn.IS_ONLINE_IN_LAST``"""
