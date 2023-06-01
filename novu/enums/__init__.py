@@ -13,7 +13,6 @@ from novu.enums.notification import (
     NotificationStepMetadataType,
     NotificationStepMetadataUnit,
 )
-from novu.enums.polyfill import StrEnum
 from novu.enums.provider import (
     ChatProviderIdEnum,
     CredentialsKeyEnum,
@@ -48,5 +47,4 @@ __all__ = [
     "StepFilterType",
     "StepFilterValue",
     "TemplateVariableTypeEnum",
-    "StrEnum",
 ]
