@@ -1,3 +1,12 @@
+# [1.3.0-alpha.2](https://github.com/novuhq/novu-python/compare/v1.3.0-alpha.1...v1.3.0-alpha.2) (2023-06-01)
+
+
+### Features
+
+* **api:** add the inbound-parse api ([#35](https://github.com/novuhq/novu-python/issues/35)) ([2962d51](https://github.com/novuhq/novu-python/commit/2962d51d415bfa095b7ca3bf452d31b9e34c4e38)), closes [#8](https://github.com/novuhq/novu-python/issues/8)
+* **api:** allow to override the timeout of `requests` module ([e1a5064](https://github.com/novuhq/novu-python/commit/e1a5064c23db2564d2ce4dcbdf99e63b3940d3d6))
+* **api:** allow users to provide a `requests` Session ([#34](https://github.com/novuhq/novu-python/issues/34)) ([75fdaf6](https://github.com/novuhq/novu-python/commit/75fdaf615273dcafc386cdb7bbc4d09f7be1607d)), closes [#25](https://github.com/novuhq/novu-python/issues/25)
+
 # [1.3.0-alpha.1](https://github.com/novuhq/novu-python/compare/v1.2.1-alpha.1...v1.3.0-alpha.1) (2023-05-25)
 
 
