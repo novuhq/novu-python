@@ -1,3 +1,19 @@
+# [1.3.0](https://github.com/novuhq/novu-python/compare/v1.2.0...v1.3.0) (2023-06-02)
+
+
+### Bug Fixes
+
+* allow Novu's enums to be JSON-serializable ([#31](https://github.com/novuhq/novu-python/issues/31)) ([368733e](https://github.com/novuhq/novu-python/commit/368733e4e173288076901c3a1f6d1ec431ec204e)), closes [#26](https://github.com/novuhq/novu-python/issues/26)
+* **integration:** ``credentials`` are optionals for an integration ([284c2fd](https://github.com/novuhq/novu-python/commit/284c2fd00b45045e7d49cd910afde051e94c3b46))
+
+
+### Features
+
+* add function to bulk trigger events ([53a80b7](https://github.com/novuhq/novu-python/commit/53a80b765c9761fae6fade04a4e578885d61ec59))
+* **api:** add the inbound-parse api ([#35](https://github.com/novuhq/novu-python/issues/35)) ([ad606eb](https://github.com/novuhq/novu-python/commit/ad606eba9d5be9d022bc553a3941609392ed326a)), closes [#8](https://github.com/novuhq/novu-python/issues/8)
+* **api:** allow to override the timeout of `requests` module ([bec1671](https://github.com/novuhq/novu-python/commit/bec1671d8133aa9c337a7bd4864e6f76321e54ac))
+* **api:** allow users to provide a `requests` Session ([#34](https://github.com/novuhq/novu-python/issues/34)) ([faf6f7f](https://github.com/novuhq/novu-python/commit/faf6f7f225d5feb4781c9f0c8a8b58f05462ed90)), closes [#25](https://github.com/novuhq/novu-python/issues/25)
+
 # [1.3.0-alpha.2](https://github.com/novuhq/novu-python/compare/v1.3.0-alpha.1...v1.3.0-alpha.2) (2023-06-01)
 
 
