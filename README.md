@@ -39,7 +39,7 @@ To do this, you will need to:
 ```python
 from novu.api import EventApi
 
-event_api = EventApi("https://api.novu.co/api/", "<NOVU_API_TOKEN>")
+event_api = EventApi("https://api.novu.co", "<NOVU_API_TOKEN>")
 event_api.trigger(
     name="<YOUR_TEMPLATE_NAME>",
     recipients="<YOUR_SUBSCRIBER_ID>",
