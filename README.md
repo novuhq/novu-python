@@ -49,6 +49,12 @@ event_api.trigger(
 
 This will trigger a notification to the subscribers.
 
+## Go further
+
+After a quick start with the SDK, you'll quickly get to grips with the advanced use of the SDK and the other APIs available.
+
+For this purpose, documentation is available here: https://novu-python.readthedocs.io/
+
 ## Development
 
 ```bash
