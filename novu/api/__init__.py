@@ -11,6 +11,7 @@ from novu.api.inbound_parse import InboundParseApi
 from novu.api.integration import IntegrationApi
 from novu.api.layout import LayoutApi
 from novu.api.message import MessageApi
+from novu.api.notification import NotificationApi
 from novu.api.notification_group import NotificationGroupApi
 from novu.api.notification_template import NotificationTemplateApi
 from novu.api.subscriber import SubscriberApi
@@ -27,6 +28,7 @@ __all__ = [
     "IntegrationApi",
     "LayoutApi",
     "MessageApi",
+    "NotificationApi",
     "NotificationGroupApi",
     "NotificationTemplateApi",
     "SubscriberApi",
