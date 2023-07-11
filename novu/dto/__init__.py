@@ -17,6 +17,16 @@ from novu.dto.field import FieldFilterPartDto
 from novu.dto.integration import IntegrationChannelUsageDto, IntegrationDto
 from novu.dto.layout import LayoutDto, LayoutVariableDto, PaginatedLayoutDto
 from novu.dto.message import MessageDto, PaginatedMessageDto
+from novu.dto.notification import (
+    ActivityGraphStatesDto,
+    ActivityNotificationDto,
+    ActivityNotificationExecutionDetailResponseDto,
+    ActivityNotificationJobResponseDto,
+    ActivityNotificationStepResponseDto,
+    ActivityNotificationSubscriberResponseDTO,
+    ActivityNotificationTemplateResponseDto,
+    ActivityNotificationTriggerResponseDto,
+)
 from novu.dto.notification_group import (
     NotificationGroupDto,
     PaginatedNotificationGroupDto,
@@ -64,6 +74,14 @@ __all__ = [
     "NotificationTemplateFormDto",
     "NotificationTriggerDto",
     "NotificationTriggerVariableDto",
+    "ActivityGraphStatesDto",
+    "ActivityNotificationSubscriberResponseDTO",
+    "ActivityNotificationStepResponseDto",
+    "ActivityNotificationTriggerResponseDto",
+    "ActivityNotificationTemplateResponseDto",
+    "ActivityNotificationExecutionDetailResponseDto",
+    "ActivityNotificationJobResponseDto",
+    "ActivityNotificationDto",
     "PaginatedChangeDto",
     "PaginatedLayoutDto",
     "PaginatedMessageDto",
