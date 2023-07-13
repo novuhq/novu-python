@@ -1,5 +1,4 @@
-"""
-This module is used to define the ``NotificationAPI`, a python wrapper
+"""This module is used to define the ``NotificationAPI`, a python wrapper
 to interact with ``Notifications`` in Novu.
 """
 from typing import Optional
@@ -7,7 +6,7 @@ from typing import Optional
 import requests
 
 from novu.api.base import Api
-from novu.constants import NOTIFICATIONS
+from novu.constants import NOTIFICATION_ENDPOINT
 from novu.dto.notification import NotificationDto
 
 
@@ -23,7 +22,7 @@ class NotificationApi(Api):
     ) -> None:
         super().__init__(url=url, api_key=api_key, requests_timeout=requests_timeout, session=session)
 
-        self._notification_url = f"{self._url}{NOTIFICATIONS}"
+        self._notification_url = f"{self._url}{NOTIFICATION_ENDPOINT}"
 
     def notification(
         self,
@@ -57,7 +56,7 @@ class NotificationApi(Api):
             "transactionId": transaction_id,
         }
         return NotificationDto.from_camel_case(
-            self.handle_request("GET", f"{self._notification_url}/notifications", payload)["data"]
+            self.handle_request("GET", f"{self._notification_url}", payload=payload)["data"]
         )
 
     def notifications_stats(
@@ -65,7 +64,7 @@ class NotificationApi(Api):
         id: Optional[str] = None,
         start_date: Optional[str] = None,
         end_date: Optional[str] = None,
-    ) -> dict:
+    ):
         """Gets notifications stats
         Args:
             id: is an optional parameter and should be a string. It represents the notification ID.
@@ -82,7 +81,7 @@ class NotificationApi(Api):
             "start_date": start_date,
             "end_date": end_date,
         }
-        response = self.handle_request("GET", f"{self._notification_url}/notifications/stats", payload)
+        response = self.handle_request("GET", f"{self._notification_url}/stats", payload=payload)
         return response
 
     def notifications_graph_stats(
@@ -91,7 +90,7 @@ class NotificationApi(Api):
         start_date: Optional[str] = None,
         end_date: Optional[str] = None,
         days: Optional[int] = None,
-    ) -> dict:
+    ):
         """Gets notifications graph stats
         Args:
            id: is an optional parameter and should be a string. It represents the notification ID.
@@ -110,7 +109,7 @@ class NotificationApi(Api):
             "end_date": end_date,
             "days": days,
         }
-        response = self.handle_request("GET", f"{self._notification_url}/notification/graph/stats", payload)
+        response = self.handle_request("GET", f"{self._notification_url}/graph/stats", payload=payload)
         return response["data"]
 
     def check_notification_by_id(self, notification_id: str) -> NotificationDto:

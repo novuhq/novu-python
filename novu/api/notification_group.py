@@ -7,7 +7,7 @@ from typing import Optional
 import requests
 
 from novu.api.base import Api
-from novu.constants import NOTIFICATIONS
+from novu.constants import NOTIFICATION_GROUPS_ENDPOINT
 from novu.dto.notification_group import (
     NotificationGroupDto,
     PaginatedNotificationGroupDto,
