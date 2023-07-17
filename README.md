@@ -21,7 +21,7 @@ To install this package
 ```shell
 # Via pip
 pip install novu
-ßß
+
 # Via poetry
 poetry add novu
 ```
@@ -208,7 +208,7 @@ api_key = "<NOVU_API_KEY>"
 
 # Create an Environment
 novu = EnvironmentApi(url, api_key).create(
-    name="<INSERT_NAME>", 
+    name="<INSERT_NAME>",
     parent_id="<INSERT_PARENT_ID>" # Optional. Defaults to None
 )
 
