@@ -34,7 +34,12 @@ class SubscriberApiTests(TestCase):
             "email": "oscar.marie-taillefer@spikeelabs.fr",
             "lastOnlineAt": "2023-02-06T23:03:22.645Z",
         }
-        cls.response_list = {"page": 0, "totalCount": 1, "pageSize": 10, "data": [cls.subscriber_json]}
+        cls.response_list = {
+            "page": 0,
+            "totalCount": 1,
+            "pageSize": 10,
+            "data": [cls.subscriber_json],
+        }
         cls.response_get = {"data": cls.subscriber_json}
         cls.expected_dto = SubscriberDto(
             subscriber_id="63dafed4117f8c850991ec4a",
@@ -251,8 +256,15 @@ class SubscriberApiTests(TestCase):
             {
                 "data": [
                     {
-                        "template": {"_id": "63daff36c037e013fd82da05", "name": "Absences", "critical": False},
-                        "preference": {"enabled": True, "channels": {"email": True, "in_app": True}},
+                        "template": {
+                            "_id": "63daff36c037e013fd82da05",
+                            "name": "Absences",
+                            "critical": False,
+                        },
+                        "preference": {
+                            "enabled": True,
+                            "channels": {"email": True, "in_app": True},
+                        },
                     }
                 ]
             },
@@ -265,7 +277,8 @@ class SubscriberApiTests(TestCase):
             [
                 SubscriberPreferenceDto(
                     preference=SubscriberPreferencePreferenceDto(
-                        enabled=True, channels=SubscriberPreferenceChannelDto(email=True, in_app=True)
+                        enabled=True,
+                        channels=SubscriberPreferenceChannelDto(email=True, in_app=True),
                     ),
                     template=SubscriberPreferenceTemplateDto(
                         _id="63daff36c037e013fd82da05", name="Absences", critical=False
@@ -289,8 +302,15 @@ class SubscriberApiTests(TestCase):
             200,
             {
                 "data": {
-                    "template": {"_id": "63daff36c037e013fd82da05", "name": "Absences", "critical": False},
-                    "preference": {"enabled": True, "channels": {"email": True, "in_app": True}},
+                    "template": {
+                        "_id": "63daff36c037e013fd82da05",
+                        "name": "Absences",
+                        "critical": False,
+                    },
+                    "preference": {
+                        "enabled": True,
+                        "channels": {"email": True, "in_app": True},
+                    },
                 }
             },
         )
@@ -300,7 +320,8 @@ class SubscriberApiTests(TestCase):
             res,
             SubscriberPreferenceDto(
                 preference=SubscriberPreferencePreferenceDto(
-                    enabled=True, channels=SubscriberPreferenceChannelDto(email=True, in_app=True)
+                    enabled=True,
+                    channels=SubscriberPreferenceChannelDto(email=True, in_app=True),
                 ),
                 template=SubscriberPreferenceTemplateDto(
                     _id="63daff36c037e013fd82da05", name="Absences", critical=False
@@ -323,8 +344,15 @@ class SubscriberApiTests(TestCase):
             200,
             {
                 "data": {
-                    "template": {"_id": "63daff36c037e013fd82da05", "name": "Absences", "critical": False},
-                    "preference": {"enabled": True, "channels": {"email": True, "in_app": True}},
+                    "template": {
+                        "_id": "63daff36c037e013fd82da05",
+                        "name": "Absences",
+                        "critical": False,
+                    },
+                    "preference": {
+                        "enabled": True,
+                        "channels": {"email": True, "in_app": True},
+                    },
                 }
             },
         )
@@ -334,7 +362,8 @@ class SubscriberApiTests(TestCase):
             res,
             SubscriberPreferenceDto(
                 preference=SubscriberPreferencePreferenceDto(
-                    enabled=True, channels=SubscriberPreferenceChannelDto(email=True, in_app=True)
+                    enabled=True,
+                    channels=SubscriberPreferenceChannelDto(email=True, in_app=True),
                 ),
                 template=SubscriberPreferenceTemplateDto(
                     _id="63daff36c037e013fd82da05", name="Absences", critical=False
@@ -357,8 +386,15 @@ class SubscriberApiTests(TestCase):
             200,
             {
                 "data": {
-                    "template": {"_id": "63daff36c037e013fd82da05", "name": "Absences", "critical": False},
-                    "preference": {"enabled": False, "channels": {"email": True, "in_app": True}},
+                    "template": {
+                        "_id": "63daff36c037e013fd82da05",
+                        "name": "Absences",
+                        "critical": False,
+                    },
+                    "preference": {
+                        "enabled": False,
+                        "channels": {"email": True, "in_app": True},
+                    },
                 }
             },
         )
@@ -368,7 +404,8 @@ class SubscriberApiTests(TestCase):
             res,
             SubscriberPreferenceDto(
                 preference=SubscriberPreferencePreferenceDto(
-                    enabled=False, channels=SubscriberPreferenceChannelDto(email=True, in_app=True)
+                    enabled=False,
+                    channels=SubscriberPreferenceChannelDto(email=True, in_app=True),
                 ),
                 template=SubscriberPreferenceTemplateDto(
                     _id="63daff36c037e013fd82da05", name="Absences", critical=False

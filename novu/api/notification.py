@@ -1,7 +1,7 @@
 """This module is used to define the ``NotificationAPI`, a python wrapper
 to interact with ``Notifications`` in Novu.
 """
-from typing import Optional
+from typing import Any, Dict, List, Optional
 
 import requests
 
@@ -26,14 +26,14 @@ class NotificationApi(Api):
 
     def notification(
         self,
-        channels: list[str],
-        templates: list[str],
-        emails: list[str],
+        channels: List[str],
+        templates: List[str],
+        emails: List[str],
         search: str,
         page: Optional[int] = 0,
         transaction_id: Optional[str] = None,
-    ) -> NotificationDto:
-        """Trigger an event to get  notifications
+    ):
+        """Trigger an event to get all notifications
         Args:
            channels: is a required parameter and should be an array of strings. It represents the available notification channels, such as "in_app", "email", "sms", "chat", and "push".
            templates: is a required parameter and should be an array of strings. It represents the notification templates.
@@ -90,7 +90,8 @@ class NotificationApi(Api):
         start_date: Optional[str] = None,
         end_date: Optional[str] = None,
         days: Optional[int] = None,
-    ):
+    ) -> List[Dict[str, Any]]:
+
         """Gets notifications graph stats
         Args:
            id: is an optional parameter and should be a string. It represents the notification ID.

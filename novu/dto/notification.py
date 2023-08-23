@@ -1,63 +1,38 @@
 """This module is used to gather all DTO definitions related to the Notifications resource in Novu"""
 import dataclasses
-from typing import List
+from typing import List, Optional
 
 from novu.dto.base import CamelCaseDto
+from novu.dto.notification_template import (
+    NotificationBaseStepDto,
+    NotificationBaseTemplateDto,
+)
+
+# from novu.dto.subscriber import SubscriberBaseDto
 
 
 @dataclasses.dataclass
-class SubscriberDto(CamelCaseDto["SubscriberDto"]):
-    """Definition of  the subscriber"""
-
-    first_name: str
-    """The subscriber's first name"""
+class NotificationSubscriberBaseDto(CamelCaseDto["NotificationSubscriberBaseDto"]):
+    """Base class for the subscriber in both notification and subscriber"""
 
     _id: str
     """The subscriber's unique ID"""
 
-    last_name: str
-    """The subscriber's last name"""
-
-    email: str
+    email: Optional[str] = None
     """The subscriber's email"""
 
-    phone: str
+    first_name: Optional[str] = None
+    """The subscriber's first name"""
+
+    last_name: Optional[str] = None
+    """The subscriber's last name"""
+
+    phone: Optional[str] = None
     """The subscriber's phone number"""
 
 
 @dataclasses.dataclass
-class TriggerDto(CamelCaseDto["TriggerDto"]):
-    """Definition of  the triggers"""
-
-    type: str
-    """The type of trigger"""
-
-    identifier: str
-    """The identifier of the trigger"""
-
-    variables: List[dict]
-    """The variables for the trigger"""
-
-    subscriber_variables: List[dict]
-    """The subscriber variables for the trigger"""
-
-
-@dataclasses.dataclass
-class TemplateDto(CamelCaseDto["TemplateDto"]):
-    """Definition of  the template used to send the notification"""
-
-    _id: str
-    """The unique ID of the template"""
-
-    name: str
-    """The name of the template"""
-
-    triggers: List[TriggerDto]
-    """The triggers for the template"""
-
-
-@dataclasses.dataclass
-class ExecutionDetailDto(CamelCaseDto["ExecutionDetailDto"]):
+class NotificationExecutionDetailDto(CamelCaseDto["NotificationExecutionDetailDto"]):
     """Definition of  the execution of the notification"""
 
     _id: str
@@ -81,32 +56,15 @@ class ExecutionDetailDto(CamelCaseDto["ExecutionDetailDto"]):
     provider_id: dict
     """The ID of the provider that executed the notification"""
 
-    raw: str
-    """The raw data of the execution"""
-
     source: str
     """The source of the execution"""
 
-
-@dataclasses.dataclass
-class StepDto(CamelCaseDto["StepDto"]):
-    """Definition of  the step the notification is in"""
-
-    _id: str
-    """The unique ID of the step"""
-
-    active: bool
-    """Whether the step is active"""
-
-    filters: dict
-    """The filters for the step"""
-
-    template: dict
-    """The template for the step"""
+    raw: Optional[str] = None
+    """The raw data of the execution"""
 
 
 @dataclasses.dataclass
-class JobDto(CamelCaseDto["JobDto"]):
+class NotificationJobDto(CamelCaseDto["NotificationJobDto"]):
     """Definition of  the job that executed the notification"""
 
     _id: str
@@ -115,17 +73,11 @@ class JobDto(CamelCaseDto["JobDto"]):
     type: str
     """The type of the job"""
 
-    digest: dict
-    """The digest of the job"""
-
-    execution_details: List[ExecutionDetailDto]
+    execution_details: List[NotificationExecutionDetailDto]
     """The execution details of the job"""
 
-    step: StepDto
+    step: NotificationBaseStepDto
     """The step of the job"""
-
-    payload: dict
-    """The payload of the job"""
 
     provider_id: dict
     """The ID of the provider that executed the job"""
@@ -133,9 +85,15 @@ class JobDto(CamelCaseDto["JobDto"]):
     status: str
     """The status of the job"""
 
+    digest: Optional[dict] = None
+    """The digest of the job"""
+
+    payload: Optional[dict] = None
+    """The payload of the job"""
+
 
 @dataclasses.dataclass
-class NotificationDto(CamelCaseDto["TemplateDto"]):
+class NotificationDto(CamelCaseDto["NotificationDto"]):
     """Definition of  the notification"""
 
     _id: str
@@ -156,11 +114,11 @@ class NotificationDto(CamelCaseDto["TemplateDto"]):
     channels: str
     """The channels of the notification"""
 
-    subscriber: SubscriberDto
+    subscriber: NotificationSubscriberBaseDto
     """The subscriber of the notification"""
 
-    template: TemplateDto
+    template: NotificationBaseTemplateDto
     """The template of the notification"""
 
-    jobs: List[JobDto]
+    jobs: List[NotificationJobDto]
     """The jobs of the notification"""

@@ -17,11 +17,20 @@ from novu.dto.field import FieldFilterPartDto
 from novu.dto.integration import IntegrationChannelUsageDto, IntegrationDto
 from novu.dto.layout import LayoutDto, LayoutVariableDto, PaginatedLayoutDto
 from novu.dto.message import MessageDto, PaginatedMessageDto
+from novu.dto.notification import (
+    NotificationDto,
+    NotificationExecutionDetailDto,
+    NotificationJobDto,
+    NotificationSubscriberBaseDto,
+)
 from novu.dto.notification_group import (
     NotificationGroupDto,
     PaginatedNotificationGroupDto,
 )
 from novu.dto.notification_template import (
+    NotificationBaseStepDto,
+    NotificationBaseTemplateDto,
+    NotificationBaseTriggerDto,
     NotificationStepDto,
     NotificationStepMetadataDto,
     NotificationTemplateDto,
@@ -31,7 +40,7 @@ from novu.dto.notification_template import (
     PaginatedNotificationTemplateDto,
 )
 from novu.dto.step_filter import StepFilterDto
-from novu.dto.subscriber import (
+from novu.dto.subscriber import (  # SubscriberBaseDto,
     PaginatedSubscriberDto,
     SubscriberDto,
     SubscriberPreferenceChannelDto,
@@ -63,6 +72,12 @@ __all__ = [
     "NotificationTemplateFormDto",
     "NotificationTriggerDto",
     "NotificationTriggerVariableDto",
+    "NotificationBaseStepDto",
+    "NotificationBaseTriggerDto",
+    "NotificationBaseTemplateDto",
+    "NotificationExecutionDetailDto",
+    "NotificationJobDto",
+    "NotificationDto",
     "PaginatedChangeDto",
     "PaginatedLayoutDto",
     "PaginatedMessageDto",
@@ -71,6 +86,7 @@ __all__ = [
     "PaginatedSubscriberDto",
     "PaginatedTopicDto",
     "StepFilterDto",
+    "NotificationSubscriberBaseDto",
     "SubscriberDto",
     "SubscriberPreferenceChannelDto",
     "SubscriberPreferenceDto",

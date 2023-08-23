@@ -1,16 +1,22 @@
 from unittest import TestCase, mock
+
 from novu.api.notification import NotificationApi
+from novu.config import NovuConfig
 from novu.dto.notification import (
     NotificationDto,
-    SubscriberDto,
-    TriggerDto,
-    ExecutionDetailDto,
-    StepDto,
-    JobDto,
-    TemplateDto,
+    NotificationExecutionDetailDto,
+    NotificationJobDto,
+    NotificationSubscriberBaseDto,
 )
+from novu.dto.notification_template import (
+    NotificationBaseStepDto,
+    NotificationBaseTemplateDto,
+    NotificationBaseTriggerDto,
+)
+
+# from novu.dto.subscriber import SubscriberBaseDto
+# from novu.dto.notification import SubscriberBaseDto
 from tests.factories import MockResponse
-from novu.config import NovuConfig
 
 
 class NotificationApiTests(TestCase):
@@ -62,7 +68,12 @@ class NotificationApiTests(TestCase):
                             "source": "Credentials",
                         }
                     ],
-                    "step": {"_id": "123", "active": True, "filters": {}, "template": {}},
+                    "step": {
+                        "_id": "123",
+                        "active": True,
+                        "filters": {},
+                        "template": {},
+                    },
                     "payload": {},
                     "providerId": {},
                     "status": "completed",
@@ -77,14 +88,18 @@ class NotificationApiTests(TestCase):
             transaction_id="fefrey56v",
             created_at="2023-07-13",
             channels=["in_app"],
-            subscriber=SubscriberDto(
-                first_name="Max", _id="123", last_name="Moe", email="max.moe@example.com", phone="+441234567893"
+            subscriber=NotificationSubscriberBaseDto(
+                first_name="Max",
+                _id="123",
+                last_name="Moe",
+                email="max.moe@example.com",
+                phone="+441234567893",
             ),
-            template=TemplateDto(
+            template=NotificationBaseTemplateDto(
                 _id="12crefr3",
                 name="Template3",
                 triggers=[
-                    TriggerDto(
+                    NotificationBaseTriggerDto(
                         type="type1",
                         identifier="identifier1",
                         variables=[{"name": "variable4"}],
@@ -93,12 +108,12 @@ class NotificationApiTests(TestCase):
                 ],
             ),
             jobs=[
-                JobDto(
+                NotificationJobDto(
                     _id="123vivie3",
                     type="Type1",
                     digest={},
                     execution_details=[
-                        ExecutionDetailDto(
+                        NotificationExecutionDetailDto(
                             _id="123",
                             _job_id="456",
                             status="Success",
@@ -110,7 +125,7 @@ class NotificationApiTests(TestCase):
                             source="Credentials",
                         )
                     ],
-                    step=StepDto(
+                    step=NotificationBaseStepDto(
                         _id="123",
                         active=True,
                         filters={},
@@ -175,7 +190,14 @@ class NotificationApiTests(TestCase):
     @mock.patch("requests.request")
     def test_notifications_graph_stats(self, mock_request: mock.MagicMock) -> None:
         response_graph_stats = {
-            "data": [{"_id": "123", "count": 10, "templates": ["Template1"], "channels": ["in_app"]}]
+            "data": [
+                {
+                    "_id": "123",
+                    "count": 10,
+                    "templates": ["Template1"],
+                    "channels": ["in_app"],
+                }
+            ]
         }
         mock_request.return_value = MockResponse(200, response_graph_stats)
 
@@ -190,7 +212,12 @@ class NotificationApiTests(TestCase):
             url="sample.novu.com/v1/notifications/graph/stats",
             headers={"Authorization": "ApiKey api-key"},
             json=None,
-            params={"id": "123", "start_date": "2023-07-01", "end_date": "2023-07-31", "days": 7},
+            params={
+                "id": "123",
+                "start_date": "2023-07-01",
+                "end_date": "2023-07-31",
+                "days": 7,
+            },
             timeout=5,
         )
 
