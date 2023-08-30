@@ -125,7 +125,7 @@ class LayoutApiTests(TestCase):
             url="sample.novu.com/v1/layouts",
             headers={"Authorization": "ApiKey api-key"},
             json=None,
-            params={},
+            params={"page": 0, "pageSize": 100},
             timeout=5,
         )
 

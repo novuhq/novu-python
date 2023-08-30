@@ -34,11 +34,7 @@ class LayoutApi(Api):
         Returns:
             Paginated list of layout
         """
-        payload = {}
-        if page:
-            payload["page"] = page
-        if limit:
-            payload["pageSize"] = limit
+        payload = {"page": page if page is not None else 0, "pageSize": limit if limit is not None else 100}
 
         return PaginatedLayoutDto.from_camel_case(self.handle_request("GET", self._layout_url, payload=payload))
 
