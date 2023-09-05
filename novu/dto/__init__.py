@@ -43,6 +43,8 @@ from novu.dto.notification_template import (
 from novu.dto.step_filter import StepFilterDto
 from novu.dto.subscriber import (
     PaginatedSubscriberDto,
+    SubscriberChannelSettingsCredentialsDto,
+    SubscriberChannelSettingsDto,
     SubscriberDto,
     SubscriberPreferenceChannelDto,
     SubscriberPreferenceDto,
@@ -92,6 +94,8 @@ __all__ = [
     "PaginatedTopicDto",
     "StepFilterDto",
     "SubscriberDto",
+    "SubscriberChannelSettingsDto",
+    "SubscriberChannelSettingsCredentialsDto",
     "SubscriberPreferenceChannelDto",
     "SubscriberPreferenceDto",
     "SubscriberPreferencePreferenceDto",
