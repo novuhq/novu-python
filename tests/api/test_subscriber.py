@@ -31,14 +31,12 @@ class SubscriberApiTests(TestCase):
             "updatedAt": "2023-02-06T23:03:22.645Z",
             "__v": 0,
             "isOnline": False,
-            "email": "oscar.marie-taillefer@spikeelabs.fr",
             "lastOnlineAt": "2023-02-06T23:03:22.645Z",
         }
         cls.response_list = {"page": 0, "totalCount": 1, "pageSize": 10, "data": [cls.subscriber_json]}
         cls.response_get = {"data": cls.subscriber_json}
         cls.expected_dto = SubscriberDto(
             subscriber_id="63dafed4117f8c850991ec4a",
-            email="oscar.marie-taillefer@spikeelabs.fr",
             first_name=None,
             last_name=None,
             phone=None,
