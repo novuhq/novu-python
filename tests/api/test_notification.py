@@ -3,19 +3,14 @@ from unittest import TestCase, mock
 from novu.api.notification import NotificationApi
 from novu.config import NovuConfig
 from novu.dto.notification import (
-    NotificationDto,
-    NotificationExecutionDetailDto,
-    NotificationJobDto,
-    NotificationSubscriberBaseDto,
+    ActivityNotificationDto,
+    ActivityNotificationExecutionDetailResponseDto,
+    ActivityNotificationJobResponseDto,
+    ActivityNotificationStepResponseDto,
+    ActivityNotificationSubscriberResponseDTO,
+    ActivityNotificationTemplateResponseDto,
+    ActivityNotificationTriggerResponseDto,
 )
-from novu.dto.notification_template import (
-    NotificationBaseStepDto,
-    NotificationBaseTemplateDto,
-    NotificationBaseTriggerDto,
-)
-
-# from novu.dto.subscriber import SubscriberBaseDto
-# from novu.dto.notification import SubscriberBaseDto
 from tests.factories import MockResponse
 
 
@@ -81,25 +76,25 @@ class NotificationApiTests(TestCase):
             ],
         }
         cls.response_notification = {"data": cls.notification_json}
-        cls.expected_dto = NotificationDto(
+        cls.expected_dto = ActivityNotificationDto(
             _id="63dafed97779f59258e44954",
             _environment_id="63dafed97779f59258e38445",
             _organization_id="789er454569345",
             transaction_id="fefrey56v",
             created_at="2023-07-13",
             channels=["in_app"],
-            subscriber=NotificationSubscriberBaseDto(
+            subscriber=ActivityNotificationSubscriberResponseDTO(
                 first_name="Max",
                 _id="123",
                 last_name="Moe",
                 email="max.moe@example.com",
                 phone="+441234567893",
             ),
-            template=NotificationBaseTemplateDto(
+            template=ActivityNotificationTemplateResponseDto(
                 _id="12crefr3",
                 name="Template3",
                 triggers=[
-                    NotificationBaseTriggerDto(
+                    ActivityNotificationTriggerResponseDto(
                         type="type1",
                         identifier="identifier1",
                         variables=[{"name": "variable4"}],
@@ -108,12 +103,12 @@ class NotificationApiTests(TestCase):
                 ],
             ),
             jobs=[
-                NotificationJobDto(
+                ActivityNotificationJobResponseDto(
                     _id="123vivie3",
                     type="Type1",
                     digest={},
                     execution_details=[
-                        NotificationExecutionDetailDto(
+                        ActivityNotificationExecutionDetailResponseDto(
                             _id="123",
                             _job_id="456",
                             status="Success",
@@ -125,7 +120,7 @@ class NotificationApiTests(TestCase):
                             source="Credentials",
                         )
                     ],
-                    step=NotificationBaseStepDto(
+                    step=ActivityNotificationStepResponseDto(
                         _id="123",
                         active=True,
                         filters={},
@@ -148,7 +143,7 @@ class NotificationApiTests(TestCase):
         search = "example"
         notification_result = self.api.notification(channels, templates, emails, search)
 
-        self.assertIsInstance(notification_result, NotificationDto)
+        self.assertIsInstance(notification_result, ActivityNotificationDto)
         self.assertEqual(notification_result._id, self.expected_dto._id)
         self.assertEqual(notification_result._environment_id, self.expected_dto._environment_id)
         self.assertEqual(notification_result._organization_id, self.expected_dto._organization_id)
@@ -228,7 +223,7 @@ class NotificationApiTests(TestCase):
 
         notification_result = self.api.check_notification_by_id(notification_id)
 
-        self.assertIsInstance(notification_result, NotificationDto)
+        self.assertIsInstance(notification_result, ActivityNotificationDto)
         self.assertEqual(notification_result._id, self.expected_dto._id)
         self.assertEqual(notification_result._environment_id, self.expected_dto._environment_id)
         self.assertEqual(notification_result._organization_id, self.expected_dto._organization_id)

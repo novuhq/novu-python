@@ -3,17 +3,11 @@ import dataclasses
 from typing import List, Optional
 
 from novu.dto.base import CamelCaseDto
-from novu.dto.notification_template import (
-    NotificationBaseStepDto,
-    NotificationBaseTemplateDto,
-)
-
-# from novu.dto.subscriber import SubscriberBaseDto
 
 
 @dataclasses.dataclass
-class NotificationSubscriberBaseDto(CamelCaseDto["NotificationSubscriberBaseDto"]):
-    """Base class for the subscriber in both notification and subscriber"""
+class ActivityNotificationSubscriberResponseDTO(CamelCaseDto["ActivityNotificationSubscriberResponseDTO"]):
+    """Definition of the specific response for an activity notification subscriber request."""
 
     _id: str
     """The subscriber's unique ID"""
@@ -32,7 +26,38 @@ class NotificationSubscriberBaseDto(CamelCaseDto["NotificationSubscriberBaseDto"
 
 
 @dataclasses.dataclass
-class NotificationExecutionDetailDto(CamelCaseDto["NotificationExecutionDetailDto"]):
+class ActivityNotificationTriggerResponseDto(CamelCaseDto["ActivityNotificationTriggerResponseDto"]):
+    """Definition of  the triggers for the notifications"""
+
+    type: str
+    """The type of trigger"""
+
+    identifier: str
+    """The identifier of the trigger"""
+
+    variables: List[dict]
+    """The variables for the trigger"""
+
+    subscriber_variables: Optional[List[dict]] = None
+    """The subscriber variables for the trigger"""
+
+
+@dataclasses.dataclass
+class ActivityNotificationTemplateResponseDto(CamelCaseDto["ActivityNotificationTemplateResponseDto"]):
+    """Definition of  the template used to send the notification"""
+
+    name: str
+    """The name of the template"""
+
+    triggers: List[ActivityNotificationTriggerResponseDto]
+    """The triggers for the template"""
+
+    _id: Optional[str] = None
+    """The unique ID of the template"""
+
+
+@dataclasses.dataclass
+class ActivityNotificationExecutionDetailResponseDto(CamelCaseDto["ActivityNotificationExecutionDetailResponseDto"]):
     """Definition of  the execution of the notification"""
 
     _id: str
@@ -64,7 +89,24 @@ class NotificationExecutionDetailDto(CamelCaseDto["NotificationExecutionDetailDt
 
 
 @dataclasses.dataclass
-class NotificationJobDto(CamelCaseDto["NotificationJobDto"]):
+class ActivityNotificationStepResponseDto(CamelCaseDto["ActivityNotificationStepResponseDto"]):
+    """Definition for the Notification for the Step Dto"""
+
+    _id: str
+    """The unique ID of the step"""
+
+    active: bool
+    """Whether the step is active"""
+
+    filters: dict
+    """The filters for the step"""
+
+    template: Optional[dict] = None
+    """The template for the step"""
+
+
+@dataclasses.dataclass
+class ActivityNotificationJobResponseDto(CamelCaseDto["ActivityNotificationJobResponseDto"]):
     """Definition of  the job that executed the notification"""
 
     _id: str
@@ -73,10 +115,10 @@ class NotificationJobDto(CamelCaseDto["NotificationJobDto"]):
     type: str
     """The type of the job"""
 
-    execution_details: List[NotificationExecutionDetailDto]
+    execution_details: List[ActivityNotificationExecutionDetailResponseDto]
     """The execution details of the job"""
 
-    step: NotificationBaseStepDto
+    step: ActivityNotificationStepResponseDto
     """The step of the job"""
 
     provider_id: dict
@@ -93,11 +135,8 @@ class NotificationJobDto(CamelCaseDto["NotificationJobDto"]):
 
 
 @dataclasses.dataclass
-class NotificationDto(CamelCaseDto["NotificationDto"]):
+class ActivityNotificationDto(CamelCaseDto["ActivityNotificationDto"]):
     """Definition of  the notification"""
-
-    _id: str
-    """The unique ID of the notification"""
 
     _environment_id: str
     """The environment ID of the notification"""
@@ -108,17 +147,20 @@ class NotificationDto(CamelCaseDto["NotificationDto"]):
     transaction_id: str
     """The transaction ID of the notification"""
 
-    created_at: str
+    created_at: Optional[str] = None
     """The creation date of the notification"""
 
-    channels: str
+    channels: Optional[str] = None
     """The channels of the notification"""
 
-    subscriber: NotificationSubscriberBaseDto
+    subscriber: Optional[ActivityNotificationSubscriberResponseDTO] = None
     """The subscriber of the notification"""
 
-    template: NotificationBaseTemplateDto
+    template: Optional[ActivityNotificationTemplateResponseDto] = None
     """The template of the notification"""
 
-    jobs: List[NotificationJobDto]
+    jobs: Optional[List[ActivityNotificationJobResponseDto]] = None
     """The jobs of the notification"""
+
+    _id: Optional[str] = None
+    """The unique ID of the notification"""

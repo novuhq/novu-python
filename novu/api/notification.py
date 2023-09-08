@@ -7,7 +7,7 @@ import requests
 
 from novu.api.base import Api
 from novu.constants import NOTIFICATION_ENDPOINT
-from novu.dto.notification import NotificationDto
+from novu.dto.notification import ActivityNotificationDto
 
 
 class NotificationApi(Api):
@@ -34,17 +34,27 @@ class NotificationApi(Api):
         transaction_id: Optional[str] = None,
     ):
         """Trigger an event to get all notifications
-        Args:
-           channels: is a required parameter and should be an array of strings. It represents the available notification channels, such as "in_app", "email", "sms", "chat", and "push".
-           templates: is a required parameter and should be an array of strings. It represents the notification templates.
-           emails is a required parameter and should be an array of strings. It represents the email addresses associated with the notification.
-           search is a required parameter and should be a string. It represents the search query.
-           page is an optional parameter with a default value of 0. It represents the page number for search results.
-           transactionId is a required parameter and should be a string. It represents the transaction ID associated with the notification.
+         Args:
+        channels: A required parameter, should be an array of strings representing
+                  available notification channels, such as "in_app", "email", "sms",
+                  "chat", and "push".
 
+        templates: A required parameter, should be an array of strings representing
+                   the notification templates.
 
-        Returns:
-           Gets notifications in Novu
+        emails: A required parameter, should be an array of strings representing
+                the email addresses associated with the notification.
+
+        search: A required parameter, should be a string representing the search query.
+
+        page: An optional parameter with a default value of 0, representing the page
+              number for search results.
+
+        transactionId: A required parameter, should be a string representing the
+                       transaction ID associated with the notification.
+
+            Returns:
+               Gets notifications in Novu
 
         """
         payload = {
@@ -55,7 +65,7 @@ class NotificationApi(Api):
             "page": page,
             "transactionId": transaction_id,
         }
-        return NotificationDto.from_camel_case(
+        return ActivityNotificationDto.from_camel_case(
             self.handle_request("GET", f"{self._notification_url}", payload=payload)["data"]
         )
 
@@ -91,7 +101,6 @@ class NotificationApi(Api):
         end_date: Optional[str] = None,
         days: Optional[int] = None,
     ) -> List[Dict[str, Any]]:
-
         """Gets notifications graph stats
         Args:
            id: is an optional parameter and should be a string. It represents the notification ID.
@@ -113,8 +122,8 @@ class NotificationApi(Api):
         response = self.handle_request("GET", f"{self._notification_url}/graph/stats", payload=payload)
         return response["data"]
 
-    def check_notification_by_id(self, notification_id: str) -> NotificationDto:
+    def check_notification_by_id(self, notification_id: str) -> ActivityNotificationDto:
         """Trigger an event to get  notification by id"""
         url = f"{self._notification_url}/{notification_id}"
         response = self.handle_request("GET", url)
-        return NotificationDto.from_camel_case(response["data"])
+        return ActivityNotificationDto.from_camel_case(response["data"])

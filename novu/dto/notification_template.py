@@ -6,7 +6,8 @@ from novu.dto.base import CamelCaseDto, DtoDescriptor, DtoIterableDescriptor
 from novu.dto.notification_group import NotificationGroupDto
 from novu.dto.step_filter import StepFilterDto
 from novu.dto.subscriber import SubscriberPreferenceChannelDto
-from novu.enums import notification
+
+# from novu.enums import notification
 from novu.enums.notification import (
     NotificationStepMetadataType,
     NotificationStepMetadataUnit,
@@ -48,24 +49,7 @@ class NotificationStepMetadataDto(CamelCaseDto["NotificationStepMetadataDto"]):
 
 
 @dataclasses.dataclass
-class NotificationBaseStepDto(CamelCaseDto["NotificationBaseStepDto"]):
-    """Base class for the Notification and Notification template for the Step Dto"""
-
-    _id: str
-    """The unique ID of the step"""
-
-    active: bool
-    """Whether the step is active"""
-
-    filters: dict
-    """The filters for the step"""
-
-    template: Optional[dict] = None
-    """The template for the step"""
-
-
-@dataclasses.dataclass
-class NotificationStepDto(NotificationBaseStepDto, CamelCaseDto["NotificationStepDto"]):  # pylint: disable=R0902
+class NotificationStepDto(CamelCaseDto["NotificationStepDto"]):  # pylint: disable=R0902
     """Definition of a notification step"""
 
     _id: Optional[str] = None
@@ -107,24 +91,7 @@ class NotificationTriggerVariableDto(CamelCaseDto["NotificationTriggerVariableDt
 
 
 @dataclasses.dataclass
-class NotificationBaseTriggerDto(CamelCaseDto["NotificationBaseTriggerDto"]):
-    """Definition of  the triggers for the notification and notification template"""
-
-    type: str
-    """The type of trigger"""
-
-    identifier: str
-    """The identifier of the trigger"""
-
-    variables: List[dict]
-    """The variables for the trigger"""
-
-    subscriber_variables: Optional[List[dict]] = None
-    """The subscriber variables for the trigger"""
-
-
-@dataclasses.dataclass
-class NotificationTriggerDto(NotificationBaseTriggerDto, CamelCaseDto["NotificationTriggerDto"]):
+class NotificationTriggerDto(CamelCaseDto["NotificationTriggerDto"]):
     """Definition of a trigger for a notification template"""
 
     type: str
@@ -181,23 +148,7 @@ class NotificationTemplateFormDto(CamelCaseDto["NotificationTemplateDto"]):  # p
 
 
 @dataclasses.dataclass
-class NotificationBaseTemplateDto(CamelCaseDto["NotificationBaseTemplateDto"]):
-    """Definition of  the template used to send the notification"""
-
-    name: str
-    """The name of the template"""
-
-    triggers: List[NotificationBaseTriggerDto]
-    """The triggers for the template"""
-
-    _id: Optional[str] = None
-    """The unique ID of the template"""
-
-
-@dataclasses.dataclass
-class NotificationTemplateDto(
-    NotificationBaseTemplateDto, CamelCaseDto["NotificationTemplateDto"]
-):  # pylint: disable=R0902
+class NotificationTemplateDto(CamelCaseDto["NotificationTemplateDto"]):  # pylint: disable=R0902
     """Definition of a notification template"""
 
     name: str
