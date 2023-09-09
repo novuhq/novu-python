@@ -134,14 +134,14 @@ class NotificationApiTests(TestCase):
         )
 
     @mock.patch("requests.request")
-    def test_notification(self, mock_request: mock.MagicMock) -> None:
+    def test_list(self, mock_request: mock.MagicMock) -> None:
         mock_request.return_value = MockResponse(200, self.response_notification)
 
         channels = ["in_app"]
         templates = ["Template3"]
         emails = ["max.moe@example.com"]
         search = "example"
-        notification_result = self.api.notification(channels, templates, emails, search)
+        notification_result = self.api.list(channels, templates, emails, search)
 
         self.assertIsInstance(notification_result, ActivityNotificationDto)
         self.assertEqual(notification_result._id, self.expected_dto._id)
@@ -165,11 +165,11 @@ class NotificationApiTests(TestCase):
         )
 
     @mock.patch("requests.request")
-    def test_notifications_stats(self, mock_request: mock.MagicMock) -> None:
+    def test_stats(self, mock_request: mock.MagicMock) -> None:
         response_stats = {"data": {"weeklySent": 100, "monthlySent": 500}}
         mock_request.return_value = MockResponse(200, response_stats)
 
-        stats_result = self.api.notifications_stats(id="123", start_date="2023-07-01", end_date="2023-07-31")
+        stats_result = self.api.stats(id="123", start_date="2023-07-01", end_date="2023-07-31")
 
         self.assertEqual(stats_result, response_stats)
 
@@ -183,7 +183,7 @@ class NotificationApiTests(TestCase):
         )
 
     @mock.patch("requests.request")
-    def test_notifications_graph_stats(self, mock_request: mock.MagicMock) -> None:
+    def test_graph_stats(self, mock_request: mock.MagicMock) -> None:
         response_graph_stats = {
             "data": [
                 {
@@ -196,9 +196,7 @@ class NotificationApiTests(TestCase):
         }
         mock_request.return_value = MockResponse(200, response_graph_stats)
 
-        graph_stats_result = self.api.notifications_graph_stats(
-            id="123", start_date="2023-07-01", end_date="2023-07-31", days=7
-        )
+        graph_stats_result = self.api.graph_stats(id="123", start_date="2023-07-01", end_date="2023-07-31", days=7)
 
         self.assertEqual(graph_stats_result, response_graph_stats["data"])
 
@@ -217,11 +215,11 @@ class NotificationApiTests(TestCase):
         )
 
     @mock.patch("requests.request")
-    def test_check_notification_by_id(self, mock_request: mock.MagicMock) -> None:
+    def test_get(self, mock_request: mock.MagicMock) -> None:
         mock_request.return_value = MockResponse(200, self.response_notification)
         notification_id = "63dafed97779f59258e44954"
 
-        notification_result = self.api.check_notification_by_id(notification_id)
+        notification_result = self.api.get(notification_id)
 
         self.assertIsInstance(notification_result, ActivityNotificationDto)
         self.assertEqual(notification_result._id, self.expected_dto._id)
