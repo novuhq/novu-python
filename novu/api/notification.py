@@ -24,7 +24,7 @@ class NotificationApi(Api):
 
         self._notification_url = f"{self._url}{NOTIFICATION_ENDPOINT}"
 
-    def notification(
+    def list(
         self,
         channels: List[str],
         templates: List[str],
@@ -32,26 +32,26 @@ class NotificationApi(Api):
         search: str,
         page: Optional[int] = 0,
         transaction_id: Optional[str] = None,
-    ):
+    ) -> ActivityNotificationDto:
         """Trigger an event to get all notifications
-         Args:
-        channels: A required parameter, should be an array of strings representing
-                  available notification channels, such as "in_app", "email", "sms",
-                  "chat", and "push".
+        Args:
+            channels: A required parameter, should be an array of strings representing
+                           available notification channels, such as "in_app", "email", "sms",
+                           "chat", and "push".
 
-        templates: A required parameter, should be an array of strings representing
-                   the notification templates.
+            templates: A required parameter, should be an array of strings representing
+                             the notification templates.
 
-        emails: A required parameter, should be an array of strings representing
-                the email addresses associated with the notification.
+            emails: A required parameter, should be an array of strings representing
+                        the email addresses associated with the notification.
 
-        search: A required parameter, should be a string representing the search query.
+            search: A required parameter, should be a string representing the search query.
 
-        page: An optional parameter with a default value of 0, representing the page
-              number for search results.
+            page: An optional parameter with a default value of 0, representing the page
+                     number for search results.
 
-        transactionId: A required parameter, should be a string representing the
-                       transaction ID associated with the notification.
+            transaction_id: A required parameter, should be a string representing the
+                                transaction ID associated with the notification.
 
             Returns:
                Gets notifications in Novu
@@ -69,22 +69,20 @@ class NotificationApi(Api):
             self.handle_request("GET", f"{self._notification_url}", payload=payload)["data"]
         )
 
-    def notifications_stats(
+    def stats(
         self,
         id: Optional[str] = None,
         start_date: Optional[str] = None,
         end_date: Optional[str] = None,
-    ):
+    ) -> ActivityNotificationDto:
         """Gets notifications stats
         Args:
             id: is an optional parameter and should be a string. It represents the notification ID.
             start_date: is an optional parameter and should be a string. It represents the start date for the stats.
             end_date: is an optional parameter and should be a string. It represents the end date for the stats.
 
-
         Returns:
             Gets notifications stats in Novu
-
         """
         payload = {
             "id": id,
@@ -94,13 +92,13 @@ class NotificationApi(Api):
         response = self.handle_request("GET", f"{self._notification_url}/stats", payload=payload)
         return response
 
-    def notifications_graph_stats(
+    def graph_stats(
         self,
         id: Optional[str] = None,
         start_date: Optional[str] = None,
         end_date: Optional[str] = None,
         days: Optional[int] = None,
-    ) -> List[Dict[str, Any]]:
+    ) -> ActivityNotificationDto:
         """Gets notifications graph stats
         Args:
            id: is an optional parameter and should be a string. It represents the notification ID.
@@ -122,7 +120,7 @@ class NotificationApi(Api):
         response = self.handle_request("GET", f"{self._notification_url}/graph/stats", payload=payload)
         return response["data"]
 
-    def check_notification_by_id(self, notification_id: str) -> ActivityNotificationDto:
+    def get(self, notification_id: str) -> ActivityNotificationDto:
         """Trigger an event to get  notification by id"""
         url = f"{self._notification_url}/{notification_id}"
         response = self.handle_request("GET", url)

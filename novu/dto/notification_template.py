@@ -6,8 +6,6 @@ from novu.dto.base import CamelCaseDto, DtoDescriptor, DtoIterableDescriptor
 from novu.dto.notification_group import NotificationGroupDto
 from novu.dto.step_filter import StepFilterDto
 from novu.dto.subscriber import SubscriberPreferenceChannelDto
-
-# from novu.enums import notification
 from novu.enums.notification import (
     NotificationStepMetadataType,
     NotificationStepMetadataUnit,

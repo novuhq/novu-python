@@ -2,7 +2,7 @@
 import dataclasses
 from typing import List, Optional
 
-from novu.dto.base import CamelCaseDto
+from novu.dto.base import CamelCaseDto, DtoDescriptor, DtoIterableDescriptor
 
 
 @dataclasses.dataclass
@@ -49,7 +49,9 @@ class ActivityNotificationTemplateResponseDto(CamelCaseDto["ActivityNotification
     name: str
     """The name of the template"""
 
-    triggers: List[ActivityNotificationTriggerResponseDto]
+    triggers: DtoIterableDescriptor[ActivityNotificationTriggerResponseDto] = DtoIterableDescriptor[
+        ActivityNotificationTriggerResponseDto
+    ](default_factory=list, item_cls=ActivityNotificationTriggerResponseDto)
     """The triggers for the template"""
 
     _id: Optional[str] = None
@@ -112,12 +114,6 @@ class ActivityNotificationJobResponseDto(CamelCaseDto["ActivityNotificationJobRe
     _id: str
     """The unique ID of the job"""
 
-    type: str
-    """The type of the job"""
-
-    execution_details: List[ActivityNotificationExecutionDetailResponseDto]
-    """The execution details of the job"""
-
     step: ActivityNotificationStepResponseDto
     """The step of the job"""
 
@@ -126,6 +122,14 @@ class ActivityNotificationJobResponseDto(CamelCaseDto["ActivityNotificationJobRe
 
     status: str
     """The status of the job"""
+
+    type: DtoDescriptor[ActivityNotificationTriggerResponseDto] = DtoDescriptor[ActivityNotificationTriggerResponseDto](
+        item_cls=ActivityNotificationTriggerResponseDto
+    )
+    execution_details: DtoIterableDescriptor[ActivityNotificationExecutionDetailResponseDto] = DtoIterableDescriptor[
+        ActivityNotificationExecutionDetailResponseDto
+    ](default_factory=list, item_cls=ActivityNotificationExecutionDetailResponseDto)
+    """The execution details of the job"""
 
     digest: Optional[dict] = None
     """The digest of the job"""
@@ -153,7 +157,9 @@ class ActivityNotificationDto(CamelCaseDto["ActivityNotificationDto"]):
     channels: Optional[str] = None
     """The channels of the notification"""
 
-    subscriber: Optional[ActivityNotificationSubscriberResponseDTO] = None
+    subscriber: Optional[DtoDescriptor[ActivityNotificationSubscriberResponseDTO]] = DtoDescriptor[
+        ActivityNotificationSubscriberResponseDTO
+    ](item_cls=ActivityNotificationSubscriberResponseDTO)
     """The subscriber of the notification"""
 
     template: Optional[ActivityNotificationTemplateResponseDto] = None
