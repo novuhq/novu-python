@@ -195,7 +195,7 @@ class EventApi(Api):
 
         return EventDto.from_camel_case(self.handle_request("POST", f"{self._event_url}/broadcast", payload)["data"])
 
-    def delete(self, transaction_id: str):
+    def delete(self, transaction_id: str) -> None:
         """Using a previously generated transaction ID during the event trigger, will cancel any active or pending
         workflows. This is useful to cancel active digests, delays, etc...
 
