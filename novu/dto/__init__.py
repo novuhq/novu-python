@@ -39,6 +39,7 @@ from novu.dto.subscriber import (
     SubscriberPreferencePreferenceDto,
     SubscriberPreferenceTemplateDto,
 )
+from novu.dto.tenant import PaginatedTenantDto, TenantDto
 from novu.dto.topic import PaginatedTopicDto, TopicDto, TriggerTopicDto
 
 __all__ = [
@@ -69,6 +70,7 @@ __all__ = [
     "PaginatedNotificationGroupDto",
     "PaginatedNotificationTemplateDto",
     "PaginatedSubscriberDto",
+    "PaginatedTenantDto",
     "PaginatedTopicDto",
     "StepFilterDto",
     "SubscriberDto",
@@ -76,6 +78,7 @@ __all__ = [
     "SubscriberPreferenceDto",
     "SubscriberPreferencePreferenceDto",
     "SubscriberPreferenceTemplateDto",
+    "TenantDto",
     "TopicDto",
     "TriggerTopicDto",
 ]
