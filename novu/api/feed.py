@@ -45,13 +45,10 @@ class FeedApi(Api):
         """
         return FeedDto.from_camel_case(self.handle_request("POST", self._feed_url, {"name": name})["data"])
 
-    def delete(self, feed_id: str) -> FeedDto:
+    def delete(self, feed_id: str) -> None:
         """Remove a feed using it's identifier
 
         Args:
-            feed_id: The feed identifier
-
-        Returns:
-            Mapped deleted feed
+            feed_id: The feed identifier in Novu internal storage system (``_id``)
         """
-        return FeedDto.from_camel_case(self.handle_request("DELETE", f"{self._feed_url}/{feed_id}")["data"])
+        self.handle_request("DELETE", f"{self._feed_url}/{feed_id}")

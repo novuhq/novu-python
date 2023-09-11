@@ -192,7 +192,7 @@ api_key = "<NOVU_API_KEY>"
 novu = FeedApi(url, api_key).create(name="<SUPPLY_NAME_FOR_FEED>")
 
 # Delete a Feed
-novu = FeedApi(url, api_key).delete(feed_id="<FEED_IDENTIFIER")
+FeedApi(url, api_key).delete(feed_id="<FEED_NOVU_INTERNAL_ID>")
 
 # List feeds
 novu = FeedApi(url, api_key).list()
