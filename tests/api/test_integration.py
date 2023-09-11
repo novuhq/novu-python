@@ -381,10 +381,9 @@ class IntegrationApiTests(TestCase):
 
     @mock.patch("requests.request")
     def test_delete(self, mock_request: mock.MagicMock) -> None:
-        mock_request.return_value = MockResponse(200)
+        mock_request.return_value = MockResponse(204)
 
-        result = self.api.delete("identifier")
-        self.assertIsNone(result)
+        self.assertIsNone(self.api.delete("identifier"))
 
         mock_request.assert_called_once_with(
             method="DELETE",

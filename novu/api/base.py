@@ -88,4 +88,7 @@ class Api:  # pylint: disable=R0903
                 pass
             res.raise_for_status()
 
+        if res.status_code == 204:
+            return {}
+
         return res.json()
