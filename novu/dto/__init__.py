@@ -40,7 +40,7 @@ from novu.dto.notification_template import (
     PaginatedNotificationTemplateDto,
 )
 from novu.dto.step_filter import StepFilterDto
-from novu.dto.subscriber import (  # SubscriberBaseDto,
+from novu.dto.subscriber import (
     PaginatedSubscriberDto,
     SubscriberDto,
     SubscriberPreferenceChannelDto,
