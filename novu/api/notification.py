@@ -33,7 +33,8 @@ class NotificationApi(Api):
         page: Optional[int] = 0,
         transaction_id: Optional[str] = None,
     ) -> ActivityNotificationDto:
-        """Trigger an event to get all notifications
+        """Trigger an event to get all notifications.
+
         Args:
             channels: A required parameter, should be an array of strings representing
                            available notification channels, such as "in_app", "email", "sms",
@@ -53,8 +54,8 @@ class NotificationApi(Api):
             transaction_id: A required parameter, should be a string representing the
                                 transaction ID associated with the notification.
 
-            Returns:
-               Gets notifications in Novu
+        Returns:
+            Gets notifications in Novu
 
         """
         payload = {
@@ -76,6 +77,7 @@ class NotificationApi(Api):
         end_date: Optional[str] = None,
     ) -> ActivityNotificationDto:
         """Gets notifications stats
+
         Args:
             id: is an optional parameter and should be a string. It represents the notification ID.
             start_date: is an optional parameter and should be a string. It represents the start date for the stats.
@@ -99,17 +101,16 @@ class NotificationApi(Api):
         end_date: Optional[str] = None,
         days: Optional[int] = None,
     ) -> ActivityNotificationDto:
-        """Gets notifications graph stats
+        """Gets notifications graph stats.
+
         Args:
            id: is an optional parameter and should be a string. It represents the notification ID.
            start_date: is an optional parameter and should be a string. It represents the start date for the stats.
            end_date: is an optional parameter and should be a string. It represents the end date for the stats.
            days: is an optional parameter and should be an integer. It represents the number of days to get stats for.
 
-
         Returns:
            Gets notifications graph stats in Novu
-
         """
         payload = {
             "id": id,

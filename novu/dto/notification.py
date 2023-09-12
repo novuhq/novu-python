@@ -114,14 +114,16 @@ class ActivityNotificationJobResponseDto(CamelCaseDto["ActivityNotificationJobRe
     _id: str
     """The unique ID of the job"""
 
-    step: ActivityNotificationStepResponseDto
-    """The step of the job"""
-
     provider_id: dict
     """The ID of the provider that executed the job"""
 
     status: str
     """The status of the job"""
+
+    step: DtoIterableDescriptor[ActivityNotificationStepResponseDto] = DtoIterableDescriptor[
+        ActivityNotificationStepResponseDto
+    ](default_factory=list, item_cls=ActivityNotificationStepResponseDto)
+    """The step of the job"""
 
     type: DtoDescriptor[ActivityNotificationTriggerResponseDto] = DtoDescriptor[ActivityNotificationTriggerResponseDto](
         item_cls=ActivityNotificationTriggerResponseDto
@@ -162,10 +164,14 @@ class ActivityNotificationDto(CamelCaseDto["ActivityNotificationDto"]):
     ](item_cls=ActivityNotificationSubscriberResponseDTO)
     """The subscriber of the notification"""
 
-    template: Optional[ActivityNotificationTemplateResponseDto] = None
+    template: Optional[DtoDescriptor[ActivityNotificationTemplateResponseDto]] = DtoDescriptor[
+        ActivityNotificationTemplateResponseDto
+    ](item_cls=ActivityNotificationTemplateResponseDto)
     """The template of the notification"""
 
-    jobs: Optional[List[ActivityNotificationJobResponseDto]] = None
+    jobs: Optional[DtoDescriptor[ActivityNotificationJobResponseDto]] = DtoDescriptor[
+        ActivityNotificationJobResponseDto
+    ](item_cls=ActivityNotificationJobResponseDto)
     """The jobs of the notification"""
 
     _id: Optional[str] = None

@@ -120,12 +120,14 @@ class NotificationApiTests(TestCase):
                             source="Credentials",
                         )
                     ],
-                    step=ActivityNotificationStepResponseDto(
-                        _id="123",
-                        active=True,
-                        filters={},
-                        template={},
-                    ),
+                    step=[
+                        ActivityNotificationStepResponseDto(
+                            _id="123",
+                            active=True,
+                            filters={},
+                            template={},
+                        ),
+                    ],
                     payload={},
                     provider_id={},
                     status="completed",
