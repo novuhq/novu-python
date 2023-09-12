@@ -1,3 +1,10 @@
+## [1.3.1](https://github.com/novuhq/novu-python/compare/v1.3.0...v1.3.1) (2023-08-30)
+
+
+### Bug Fixes
+
+* **#47:** prevent error when no page or pageSize are provided for LayoutApi list ([#50](https://github.com/novuhq/novu-python/issues/50)) ([f89feae](https://github.com/novuhq/novu-python/commit/f89feae29c259693f0b22f4924c3338de1b4bf6e)), closes [#47](https://github.com/novuhq/novu-python/issues/47)
+
 # [1.3.0](https://github.com/novuhq/novu-python/compare/v1.2.0...v1.3.0) (2023-06-02)
 
 

@@ -26,6 +26,19 @@ pip install novu
 poetry add novu
 ```
 
+## Contents
+
+- [Install](#install)
+- [Quick start](#quick-start)
+- [Code Snippet Examples](#code-snippet-examples)
+  - [Events](#events)
+  - [Subscribers](#subscribers)
+  - [Topics](#topics)
+  - [Feeds](#feeds)
+  - [Environments](#environments)
+- [Go further](#go-further)
+- [Development](#development)
+
 ## Quick start
 
 This package is a wrapper of all the resources offered by Novu, we will just start by triggering an event on Novu.
@@ -39,7 +52,7 @@ To do this, you will need to:
 ```python
 from novu.api import EventApi
 
-event_api = EventApi("https://api.novu.co", "<NOVU_API_TOKEN>")
+event_api = EventApi("https://api.novu.co", "<NOVU_API_KEY>")
 event_api.trigger(
     name="<YOUR_WORKFLOW_ID>",  # The workflow ID is the slug of the workflow name. It can be found on the workflow page.
     recipients="<YOUR_SUBSCRIBER_ID>",
@@ -48,6 +61,167 @@ event_api.trigger(
 ```
 
 This will trigger a notification to the subscribers.
+
+## Code Snippet Examples
+
+### Events
+
+Firstly, make imports and declare the needed variables this way:
+
+```python
+from novu.api import EventApi
+
+url = "https://api.novu.co"
+api_key = "<NOVU_API_KEY>"
+
+# You can sign up on https://web.novu.co to get your API key from https://web.novu.co/settings
+```
+
+**Trigger an event** - Send notification to subscribers:
+
+```python
+from novu.api import EventApi
+
+novu = EventApi(url, api_key).trigger(
+    name="digest-workflow-example",  # This is the Workflow ID. It can be found on the workflow page.
+    recipients="<SUBSCRIBER_IDENTIFIER>", # The subscriber ID can be gotten from the dashboard.
+    payload={},  # Your custom Novu payload goes here
+)
+```
+
+**Bulk Trigger events** - Trigger multiple events at once:
+
+```python
+from novu.dto.event import InputEventDto
+from novu.api import EventApi
+
+url = "https://api.novu.co"
+api_key = "<NOVU_API_KEY>"
+
+event_1 = InputEventDto(
+    name="digest-workflow-example",  # The workflow ID is the slug of the workflow name. It can be found on the workflow page.
+    recipients="<SUBSCRIBER_IDENTIFIER>",
+    payload={},  # Your custom Novu payload goes here
+)
+event_2 = InputEventDto(
+    name="digest-workflow-example",
+    recipients="<SUBSCRIBER_IDENTIFIER>",
+    payload={},
+)
+
+novu = EventApi("https://api.novu.co", api_key).trigger_bulk(events=[event1, event2])
+```
+
+**Broadcast to all current subscribers:**
+
+```python
+novu = EventApi(url, api_key).broadcast(
+    name="digest-workflow-example",
+    payload={"customVariable": "value"},  # Optional
+)
+```
+
+### Subscribers
+
+```python
+from novu.dto.subscriber import SubscriberDto
+from novu.api.subscriber import SubscriberApi
+
+url = "https://api.novu.co"
+api_key = "<NOVU_API_KEY>"
+
+# Define a subscriber instance
+subscriber = SubscriberDto(
+    email="novu_user@mail.com",
+    subscriber_id="82a48af6ac82b3cc2157b57f", #This is what the subscriber_id looks like
+    first_name="",  # Optional
+    last_name="",  # Optional
+    phone="",  # Optional
+    avatar="",  # Optional
+)
+
+# Create a subscriber
+novu = SubscriberApi(url, api_key).create(subscriber)
+
+# Get a subscriber
+novu = SubscriberApi(url, api_key).get(subscriber_id)
+
+# Get list of subscribers
+novu = SubscriberApi(url, api_key).list()
+```
+
+### Topics
+
+```python
+from novu.api import TopicApi
+
+url = "<NOVU_URL>"
+api_key = "<NOVU_API_KEY>"
+
+# Create a topic
+novu = TopicApi(url, api_key).create(
+    key="new-customers", name="New business customers"
+)
+
+# Get a topic
+novu = TopicApi(url, api_key).get(key="new-customers")
+
+# List topics
+novu = TopicApi(url, api_key).list()
+
+# Rename a topic
+novu = TopicApi(url, api_key).rename(key="new-customers", name="New business customers")
+
+# Subscribe a list of subscribers to a topic
+novu = TopicApi(url, api_key).subscribe(key="old-customers", subscribers="<LIST_OF_SUBSCRIBER_IDs>")
+
+# Unsubscribe a list of subscribers from a topic
+novu = TopicApi(url, api_key).unsubscribe(key="old-customers", subscribers="<LIST_OF_SUBSCRIBER_IDs>")
+
+```
+
+### Feeds
+
+```python
+from novu.api.feed import FeedApi
+
+url = "<NOVU_URL>"
+api_key = "<NOVU_API_KEY>"
+
+# Create a Feed
+novu = FeedApi(url, api_key).create(name="<SUPPLY_NAME_FOR_FEED>")
+
+# Delete a Feed
+novu = FeedApi(url, api_key).delete(feed_id="<FEED_IDENTIFIER")
+
+# List feeds
+novu = FeedApi(url, api_key).list()
+```
+
+### Environments
+
+```python
+from novu.api.environment import EnvironmentApi
+
+url = "<NOVU_URL>"
+api_key = "<NOVU_API_KEY>"
+
+# Create an Environment
+novu = EnvironmentApi(url, api_key).create(
+    name="<INSERT_NAME>",
+    parent_id="<INSERT_PARENT_ID>" # Optional. Defaults to None
+)
+
+# # List existing environments
+novu = EnvironmentApi(url, api_key).list()
+
+# # Get the current environment
+novu = EnvironmentApi(url, api_key).current()
+
+# # Retrieve an environment's API_KEY
+novu = EnvironmentApi(url, api_key).api_keys()
+
+```
 
 ## Go further
 
