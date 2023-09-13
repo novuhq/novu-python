@@ -3,6 +3,7 @@ from unittest import TestCase, mock
 from novu.api.notification import NotificationApi
 from novu.config import NovuConfig
 from novu.dto.notification import (
+    ActivityGraphStatesDto,
     ActivityNotificationDto,
     ActivityNotificationExecutionDetailResponseDto,
     ActivityNotificationJobResponseDto,
@@ -196,11 +197,19 @@ class NotificationApiTests(TestCase):
                 }
             ]
         }
+        expected_dto = ActivityGraphStatesDto(
+            _id="123",
+            count=10,
+            templates=["Template1"],
+            channels=["in_app"],
+        )
         mock_request.return_value = MockResponse(200, response_graph_stats)
 
         graph_stats_result = self.api.graph_stats(id="123", start_date="2023-07-01", end_date="2023-07-31", days=7)
-
-        self.assertEqual(graph_stats_result, response_graph_stats["data"])
+        graph_stats_result = list(graph_stats_result)
+        self.assertEqual(len(graph_stats_result), 1)
+        self.assertIsInstance(graph_stats_result[0], ActivityGraphStatesDto)
+        self.assertEqual(graph_stats_result[0], expected_dto)
 
         mock_request.assert_called_once_with(
             method="GET",

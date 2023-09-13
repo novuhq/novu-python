@@ -18,6 +18,7 @@ from novu.dto.integration import IntegrationChannelUsageDto, IntegrationDto
 from novu.dto.layout import LayoutDto, LayoutVariableDto, PaginatedLayoutDto
 from novu.dto.message import MessageDto, PaginatedMessageDto
 from novu.dto.notification import (
+    ActivityGraphStatesDto,
     ActivityNotificationDto,
     ActivityNotificationExecutionDetailResponseDto,
     ActivityNotificationJobResponseDto,
@@ -72,6 +73,7 @@ __all__ = [
     "NotificationTemplateFormDto",
     "NotificationTriggerDto",
     "NotificationTriggerVariableDto",
+    "ActivityGraphStatesDto",
     "ActivityNotificationSubscriberResponseDTO",
     "ActivityNotificationStepResponseDto",
     "ActivityNotificationTriggerResponseDto",

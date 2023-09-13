@@ -176,3 +176,21 @@ class ActivityNotificationDto(CamelCaseDto["ActivityNotificationDto"]):
 
     _id: Optional[str] = None
     """The unique ID of the notification"""
+
+
+@dataclasses.dataclass
+class ActivityGraphStatesDto(CamelCaseDto["ActivityGraphStatesDto"]):
+    """Definition of an activity graph states in Novu."""
+
+    _id: str
+    """Activity graph states ID in Novu internal storage system"""
+
+    count: int
+    """Count."""
+
+    templates: List[str]
+    """Graph states' template."""
+
+    channels: List[Channel]
+    """Graph states' channel."""    
+

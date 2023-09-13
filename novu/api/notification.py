@@ -1,13 +1,13 @@
 """This module is used to define the ``NotificationAPI`, a python wrapper
 to interact with ``Notifications`` in Novu.
 """
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, Iterator, List, Optional
 
 import requests
 
 from novu.api.base import Api
 from novu.constants import NOTIFICATION_ENDPOINT
-from novu.dto.notification import ActivityNotificationDto
+from novu.dto.notification import ActivityGraphStatesDto, ActivityNotificationDto
 
 
 class NotificationApi(Api):
@@ -100,7 +100,7 @@ class NotificationApi(Api):
         start_date: Optional[str] = None,
         end_date: Optional[str] = None,
         days: Optional[int] = None,
-    ) -> ActivityNotificationDto:
+    ) -> Iterator[ActivityGraphStatesDto]:
         """Gets notifications graph stats.
 
         Args:
@@ -110,7 +110,7 @@ class NotificationApi(Api):
            days: is an optional parameter and should be an integer. It represents the number of days to get stats for.
 
         Returns:
-           Gets notifications graph stats in Novu
+           An iterator on notifications graph stats in Novu
         """
         payload = {
             "id": id,
@@ -119,7 +119,8 @@ class NotificationApi(Api):
             "days": days,
         }
         response = self.handle_request("GET", f"{self._notification_url}/graph/stats", payload=payload)
-        return ActivityNotificationDto.from_camel_case(response["data"])
+        for data in response["data"]:
+            yield ActivityGraphStatesDto.from_camel_case(data)
 
     def get(self, notification_id: str) -> ActivityNotificationDto:
         """Trigger an event to get  notification by id"""
