@@ -119,7 +119,7 @@ class NotificationApi(Api):
             "days": days,
         }
         response = self.handle_request("GET", f"{self._notification_url}/graph/stats", payload=payload)
-        return response["data"]
+        return ActivityNotificationDto.from_camel_case(response["data"])
 
     def get(self, notification_id: str) -> ActivityNotificationDto:
         """Trigger an event to get  notification by id"""
