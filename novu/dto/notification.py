@@ -3,6 +3,7 @@ import dataclasses
 from typing import List, Optional
 
 from novu.dto.base import CamelCaseDto, DtoDescriptor, DtoIterableDescriptor
+from novu.enums import Channel
 
 
 @dataclasses.dataclass
