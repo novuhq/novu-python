@@ -59,6 +59,7 @@ class ActivityNotificationTemplateResponseDto(CamelCaseDto["ActivityNotification
     """The unique ID of the template"""
 
 
+# pylint: disable=R0902
 @dataclasses.dataclass
 class ActivityNotificationExecutionDetailResponseDto(CamelCaseDto["ActivityNotificationExecutionDetailResponseDto"]):
     """Definition of  the execution of the notification"""
@@ -109,7 +110,7 @@ class ActivityNotificationStepResponseDto(CamelCaseDto["ActivityNotificationStep
 
 
 @dataclasses.dataclass
-class ActivityNotificationJobResponseDto(CamelCaseDto["ActivityNotificationJobResponseDto"]):
+class ActivityNotificationJobResponseDto(CamelCaseDto["ActivityNotificationJobResponseDto"]):  # pylint: disable=R0902
     """Definition of  the job that executed the notification"""
 
     _id: str
@@ -142,7 +143,7 @@ class ActivityNotificationJobResponseDto(CamelCaseDto["ActivityNotificationJobRe
 
 
 @dataclasses.dataclass
-class ActivityNotificationDto(CamelCaseDto["ActivityNotificationDto"]):
+class ActivityNotificationDto(CamelCaseDto["ActivityNotificationDto"]):  # pylint: disable=R0902
     """Definition of  the notification"""
 
     _environment_id: str
@@ -193,5 +194,4 @@ class ActivityGraphStatesDto(CamelCaseDto["ActivityGraphStatesDto"]):
     """Graph states' template."""
 
     channels: List[Channel]
-    """Graph states' channel."""    
-
+    """Graph states' channel."""

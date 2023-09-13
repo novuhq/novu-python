@@ -1,7 +1,7 @@
 """This module is used to define the ``NotificationAPI`, a python wrapper
 to interact with ``Notifications`` in Novu.
 """
-from typing import Any, Dict, Iterator, List, Optional
+from typing import Iterator, List, Optional, Tuple
 
 import requests
 
@@ -70,33 +70,18 @@ class NotificationApi(Api):
             self.handle_request("GET", f"{self._notification_url}", payload=payload)["data"]
         )
 
-    def stats(
-        self,
-        id: Optional[str] = None,
-        start_date: Optional[str] = None,
-        end_date: Optional[str] = None,
-    ) -> ActivityNotificationDto:
+    def stats(self) -> Tuple[int, int]:
         """Gets notifications stats
 
-        Args:
-            id: is an optional parameter and should be a string. It represents the notification ID.
-            start_date: is an optional parameter and should be a string. It represents the start date for the stats.
-            end_date: is an optional parameter and should be a string. It represents the end date for the stats.
-
         Returns:
-            Gets notifications stats in Novu
+            Tuple including weekly and monthly sent notifications.
         """
-        payload = {
-            "id": id,
-            "start_date": start_date,
-            "end_date": end_date,
-        }
-        response = self.handle_request("GET", f"{self._notification_url}/stats", payload=payload)
-        return response
+        data = self.handle_request("GET", f"{self._notification_url}/stats")["data"]
+        return data["weeklySent"], data["monthlySent"]
 
     def graph_stats(
         self,
-        id: Optional[str] = None,
+        id: Optional[str] = None,  # pylint: disable=C0103,W0622
         start_date: Optional[str] = None,
         end_date: Optional[str] = None,
         days: Optional[int] = None,

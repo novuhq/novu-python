@@ -172,16 +172,16 @@ class NotificationApiTests(TestCase):
         response_stats = {"data": {"weeklySent": 100, "monthlySent": 500}}
         mock_request.return_value = MockResponse(200, response_stats)
 
-        stats_result = self.api.stats(id="123", start_date="2023-07-01", end_date="2023-07-31")
+        stats_result = self.api.stats()
 
-        self.assertEqual(stats_result, response_stats)
+        self.assertEqual(stats_result, (100, 500))
 
         mock_request.assert_called_once_with(
             method="GET",
             url="sample.novu.com/v1/notifications/stats",
             headers={"Authorization": "ApiKey api-key"},
             json=None,
-            params={"id": "123", "start_date": "2023-07-01", "end_date": "2023-07-31"},
+            params=None,
             timeout=5,
         )
 
