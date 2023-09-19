@@ -370,7 +370,7 @@ class NotificationTemplateApiTests(TestCase):
 
     @mock.patch("requests.request")
     def test_delete_notification_template(self, mock_request: mock.MagicMock) -> None:
-        mock_request.return_value = MockResponse(204)
+        mock_request.return_value = MockResponse(204, raise_on_json_decode=True)
 
         result = self.api.delete("63daff36c037e013fd82d9fc")
         self.assertIsNone(result)

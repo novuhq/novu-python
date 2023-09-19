@@ -283,7 +283,7 @@ class LayoutApiTests(TestCase):
 
     @mock.patch("requests.request")
     def test_delete_layout(self, mock_request: mock.MagicMock) -> None:
-        mock_request.return_value = MockResponse(204)
+        mock_request.return_value = MockResponse(204, raise_on_json_decode=True)
 
         res = self.api.delete("63dafeda7779f59258e38450")
         self.assertIsNone(res)

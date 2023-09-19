@@ -192,7 +192,7 @@ api_key = "<NOVU_API_KEY>"
 novu = FeedApi(url, api_key).create(name="<SUPPLY_NAME_FOR_FEED>")
 
 # Delete a Feed
-novu = FeedApi(url, api_key).delete(feed_id="<FEED_IDENTIFIER")
+FeedApi(url, api_key).delete(feed_id="<FEED_NOVU_INTERNAL_ID>")
 
 # List feeds
 novu = FeedApi(url, api_key).list()
@@ -221,6 +221,40 @@ novu = EnvironmentApi(url, api_key).current()
 # # Retrieve an environment's API_KEY
 novu = EnvironmentApi(url, api_key).api_keys()
 
+```
+
+### Tenants
+
+```python
+from novu.api.tenant import TenantApi
+
+url = "<NOVU_URL>"
+api_key = "<NOVU_API_KEY>"
+
+# Create an Environment
+tenant = TenantApi(url, api_key).create(
+    identifier="<INSERT_UNIQUE_TENANT_ID>",
+    name="<INSERT_NAME>",
+    data={} # Optional. Defaults to {}
+)
+
+# List existing tenants
+tenants = TenantApi(url, api_key).list()
+tenants = TenantApi(url, api_key).list(page=1, limit=10)
+
+# Get a tenant
+tenant = TenantApi(url, api_key).get("<TENANT-IDENTIFIER>")
+
+# Patch some field of a tenant
+tenant = TenantApi(url, api_key).patch(
+    "<CURRENT-TENANT-IDENTIFIER>",
+    identifier="<NEW-IDENTIFIER>",
+    name="<NEW-NAME>",
+    data="<NEW-DATA>"
+)
+
+# Delete a tenant
+TenantApi(url, api_key).delete("<TENANT-IDENTIFIER>")
 ```
 
 ## Go further

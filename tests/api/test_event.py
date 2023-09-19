@@ -563,7 +563,7 @@ class EventApiTests(TestCase):
 
     @mock.patch("requests.request")
     def test_delete(self, mock_request: mock.MagicMock) -> None:
-        mock_request.return_value = MockResponse(200)
+        mock_request.return_value = MockResponse(204)
 
         self.assertIsNone(self.api.delete("sample-test"))
 

@@ -80,7 +80,7 @@ class SubscriberDto(CamelCaseDto["SubscriberDto"]):  # pylint: disable=R0902
     subscriber_id: str
     """Subscriber's ID"""
 
-    email: str
+    email: Optional[str] = None
     """Email of the subscriber"""
 
     first_name: Optional[str] = None
