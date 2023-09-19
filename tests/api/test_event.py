@@ -20,7 +20,7 @@ class EventApiTests(TestCase):
             201, {"data": {"acknowledged": True, "status": EventStatus.PROCESSED.value, "transactionId": "sample-test"}}
         )
 
-        result = self.api.trigger("test-template", "sample-recipient", {})
+        result = self.api.trigger("test-template", {"subscriber_id": "sample-recipient"}, {})
 
         self.assertIsInstance(result, EventDto)
         self.assertTrue(result.acknowledged)
@@ -30,7 +30,7 @@ class EventApiTests(TestCase):
             method="POST",
             url="sample.novu.com/v1/events/trigger",
             headers={"Authorization": "ApiKey api-key"},
-            json={"name": "test-template", "to": "sample-recipient", "payload": {}},
+            json={"name": "test-template", "to": {"subscriber_id": "sample-recipient"}, "payload": {}},
             params=None,
             timeout=5,
         )
@@ -51,7 +51,11 @@ class EventApiTests(TestCase):
             method="POST",
             url="sample.novu.com/v1/events/trigger",
             headers={"Authorization": "ApiKey api-key"},
-            json={"name": "test-template", "to": ["sample-recipient-1", "sample-recipient-2"], "payload": {}},
+            json={
+                "name": "test-template",
+                "to": ["sample-recipient-1", "sample-recipient-2"],
+                "payload": {},
+            },
             params=None,
             timeout=5,
         )
@@ -72,7 +76,12 @@ class EventApiTests(TestCase):
             method="POST",
             url="sample.novu.com/v1/events/trigger",
             headers={"Authorization": "ApiKey api-key"},
-            json={"name": "test-template", "to": "sample-recipient", "payload": {}, "overrides": {"an": "override"}},
+            json={
+                "name": "test-template",
+                "to": "sample-recipient",
+                "payload": {},
+                "overrides": {"an": "override"},
+            },
             params=None,
             timeout=5,
         )
@@ -93,7 +102,12 @@ class EventApiTests(TestCase):
             method="POST",
             url="sample.novu.com/v1/events/trigger",
             headers={"Authorization": "ApiKey api-key"},
-            json={"name": "test-template", "to": "sample-recipient", "payload": {}, "actor": "actor-id"},
+            json={
+                "name": "test-template",
+                "to": "sample-recipient",
+                "payload": {},
+                "actor": "actor-id",
+            },
             params=None,
             timeout=5,
         )
@@ -114,7 +128,12 @@ class EventApiTests(TestCase):
             method="POST",
             url="sample.novu.com/v1/events/trigger",
             headers={"Authorization": "ApiKey api-key"},
-            json={"name": "test-template", "to": "sample-recipient", "payload": {}, "transactionId": "sample-test"},
+            json={
+                "name": "test-template",
+                "to": "sample-recipient",
+                "payload": {},
+                "transactionId": "sample-test",
+            },
             params=None,
             timeout=5,
         )
@@ -136,7 +155,11 @@ class EventApiTests(TestCase):
             method="POST",
             url="sample.novu.com/v1/events/trigger",
             headers={"Authorization": "ApiKey api-key"},
-            json={"name": "test-template", "to": [{"topicKey": "topic-key", "type": "type"}], "payload": {}},
+            json={
+                "name": "test-template",
+                "to": [{"topicKey": "topic-key", "type": "type"}],
+                "payload": {},
+            },
             params=None,
             timeout=5,
         )
@@ -261,7 +284,7 @@ class EventApiTests(TestCase):
         )
 
         events = [
-            InputEventDto(name="test-template", recipients="recipient_1", payload={}),
+            InputEventDto(name="test-template", recipients=["recipient_1"], payload={}),
         ]
 
         result = self.api.trigger_bulk(events)
@@ -279,7 +302,7 @@ class EventApiTests(TestCase):
             headers={"Authorization": "ApiKey api-key"},
             json={
                 "events": [
-                    {"name": "test-template", "to": "recipient_1", "payload": {}},
+                    {"name": "test-template", "to": ["recipient_1"], "payload": {}},
                 ]
             },
             params=None,
@@ -301,10 +324,9 @@ class EventApiTests(TestCase):
         )
 
         events = [
-            InputEventDto(name="test-template", recipients="recipient_1", payload={}),
-            InputEventDto(name="test-template", recipients="recipient_2", payload={}),
+            InputEventDto(name="test-template", recipients=["recipient_1"], payload={}),
+            InputEventDto(name="test-template", recipients=["recipient_2"], payload={}),
         ]
-
         result = self.api.trigger_bulk(events)
 
         self.assertEqual(len(result), len(events))
@@ -321,8 +343,8 @@ class EventApiTests(TestCase):
             headers={"Authorization": "ApiKey api-key"},
             json={
                 "events": [
-                    {"name": "test-template", "to": "recipient_1", "payload": {}},
-                    {"name": "test-template", "to": "recipient_2", "payload": {}},
+                    {"name": "test-template", "to": ["recipient_1"], "payload": {}},
+                    {"name": "test-template", "to": ["recipient_2"], "payload": {}},
                 ]
             },
             params=None,
@@ -344,8 +366,8 @@ class EventApiTests(TestCase):
         )
 
         events = [
-            InputEventDto(name="test-template", recipients="recipient_1", payload={}, overrides={"an": "override"}),
-            InputEventDto(name="test-template", recipients="recipient_2", payload={}),
+            InputEventDto(name="test-template", recipients=["recipient_1"], payload={}, overrides={"an": "override"}),
+            InputEventDto(name="test-template", recipients=["recipient_2"], payload={}),
         ]
 
         result = self.api.trigger_bulk(events)
@@ -364,8 +386,8 @@ class EventApiTests(TestCase):
             headers={"Authorization": "ApiKey api-key"},
             json={
                 "events": [
-                    {"name": "test-template", "to": "recipient_1", "payload": {}, "overrides": {"an": "override"}},
-                    {"name": "test-template", "to": "recipient_2", "payload": {}},
+                    {"name": "test-template", "to": ["recipient_1"], "payload": {}, "overrides": {"an": "override"}},
+                    {"name": "test-template", "to": ["recipient_2"], "payload": {}},
                 ]
             },
             params=None,
@@ -387,10 +409,9 @@ class EventApiTests(TestCase):
         )
 
         events = [
-            InputEventDto(name="test-template", recipients="recipient_1", payload={}, actor="actor-id"),
-            InputEventDto(name="test-template", recipients="recipient_2", payload={}),
+            InputEventDto(name="test-template", recipients=["recipient_1"], payload={}, actor="actor-id"),
+            InputEventDto(name="test-template", recipients=["recipient_2"], payload={}),
         ]
-
         result = self.api.trigger_bulk(events)
 
         self.assertEqual(len(result), len(events))
@@ -407,8 +428,8 @@ class EventApiTests(TestCase):
             headers={"Authorization": "ApiKey api-key"},
             json={
                 "events": [
-                    {"name": "test-template", "to": "recipient_1", "payload": {}, "actor": "actor-id"},
-                    {"name": "test-template", "to": "recipient_2", "payload": {}},
+                    {"name": "test-template", "to": ["recipient_1"], "payload": {}, "actor": "actor-id"},
+                    {"name": "test-template", "to": ["recipient_2"], "payload": {}},
                 ]
             },
             params=None,
@@ -431,9 +452,9 @@ class EventApiTests(TestCase):
 
         events = [
             InputEventDto(
-                name="test-template", recipients="recipient_1", payload={}, transaction_id=transaction_ids[0]
+                name="test-template", recipients=["recipient_1"], payload={}, transaction_id=transaction_ids[0]
             ),
-            InputEventDto(name="test-template", recipients="recipient_2", payload={}),
+            InputEventDto(name="test-template", recipients=["recipient_2"], payload={}),
         ]
 
         result = self.api.trigger_bulk(events)
@@ -452,8 +473,13 @@ class EventApiTests(TestCase):
             headers={"Authorization": "ApiKey api-key"},
             json={
                 "events": [
-                    {"name": "test-template", "to": "recipient_1", "payload": {}, "transactionId": transaction_ids[0]},
-                    {"name": "test-template", "to": "recipient_2", "payload": {}},
+                    {
+                        "name": "test-template",
+                        "to": ["recipient_1"],
+                        "payload": {},
+                        "transactionId": transaction_ids[0],
+                    },
+                    {"name": "test-template", "to": ["recipient_2"], "payload": {}},
                 ]
             },
             params=None,

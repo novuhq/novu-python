@@ -29,7 +29,7 @@ class EventApi(Api):
     def trigger(
         self,
         name: str,
-        recipients: Union[str, List[str]],
+        recipients: dict,
         payload: dict,
         overrides: Optional[dict] = None,
         transaction_id: Optional[str] = None,
@@ -147,7 +147,11 @@ class EventApi(Api):
         """
         _recipients = topics if isinstance(topics, Iterable) else [topics]
 
-        payload = {"name": name, "to": [r.to_camel_case() for r in _recipients], "payload": payload}
+        payload = {
+            "name": name,
+            "to": [r.to_camel_case() for r in _recipients],
+            "payload": payload,
+        }
         if overrides:
             payload["overrides"] = overrides
         if actor:

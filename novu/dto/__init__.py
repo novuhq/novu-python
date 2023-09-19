@@ -10,7 +10,7 @@ from novu.dto.environment import (
     EnvironmentDto,
     EnvironmentWidgetDto,
 )
-from novu.dto.event import EventDto
+from novu.dto.event import EventDto, InputEventDto, RecipientDto
 from novu.dto.execution_detail import ExecutionDetailDto
 from novu.dto.feed import FeedDto
 from novu.dto.field import FieldFilterPartDto
@@ -58,6 +58,8 @@ __all__ = [
     "EnvironmentDto",
     "EnvironmentWidgetDto",
     "EventDto",
+    "RecipientDto",
+    "InputEventDto",
     "ExecutionDetailDto",
     "FeedDto",
     "FieldFilterPartDto",
