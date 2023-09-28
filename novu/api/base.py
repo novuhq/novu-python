@@ -3,7 +3,7 @@ import copy
 import logging
 import os
 from json.decoder import JSONDecodeError
-from typing import Generic, List, Optional, Type, TypeVar
+from typing import Generic, List, Optional, Type, TypeVar, Union
 
 import requests
 
@@ -110,7 +110,7 @@ class Api:  # pylint: disable=R0903
         self,
         method: str,
         url: str,
-        json: Optional[dict] = None,
+        json: Optional[Union[dict, list]] = None,
         payload: Optional[dict] = None,
         headers: Optional[dict] = None,
         **kwargs,

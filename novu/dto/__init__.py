@@ -44,6 +44,7 @@ from novu.dto.notification_template import (
 )
 from novu.dto.step_filter import StepFilterDto
 from novu.dto.subscriber import (
+    BulkResultSubscriberDto,
     PaginatedSubscriberDto,
     SubscriberChannelSettingsCredentialsDto,
     SubscriberChannelSettingsDto,
@@ -58,6 +59,7 @@ from novu.dto.topic import PaginatedTopicDto, TopicDto, TriggerTopicDto
 
 __all__ = [
     "BlueprintDto",
+    "BulkResultSubscriberDto",
     "ChangeDetailDto",
     "ChangeDto",
     "EnvironmentApiKeyDto",
