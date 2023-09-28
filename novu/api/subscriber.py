@@ -8,6 +8,7 @@ import requests
 from novu.api.base import Api, PaginationIterator
 from novu.constants import SUBSCRIBERS_ENDPOINT
 from novu.dto.subscriber import (
+    BulkResultSubscriberDto,
     PaginatedSubscriberDto,
     SubscriberDto,
     SubscriberPreferenceDto,
@@ -63,6 +64,23 @@ class SubscriberApi(Api):
         """
         return SubscriberDto.from_camel_case(
             self.handle_request("POST", self._subscriber_url, subscriber.to_camel_case()).get("data", {})
+        )
+
+    def bulk_create(self, subscribers: Iterator[SubscriberDto]) -> BulkResultSubscriberDto:
+        """Using this endpoint you can create multiple subscribers at once, to avoid multiple calls to the API.
+
+        The bulk API is limited to 500 subscribers per request.
+
+        Args:
+            subscribers: An iterator of subscribers instance to push to Novu
+
+        Returns:
+            Result of the bulk operation in Novu.
+        """
+        return BulkResultSubscriberDto.from_camel_case(
+            self.handle_request(
+                "POST", f"{self._subscriber_url}/bulk", [subscriber.to_camel_case() for subscriber in subscribers]
+            ).get("data", {})
         )
 
     def get(self, subscriber_id: str) -> SubscriberDto:

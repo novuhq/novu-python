@@ -5,6 +5,7 @@ from novu.api import SubscriberApi
 from novu.api.base import PaginationIterator
 from novu.config import NovuConfig
 from novu.dto.subscriber import (
+    BulkResultSubscriberDto,
     PaginatedSubscriberDto,
     SubscriberChannelSettingsCredentialsDto,
     SubscriberChannelSettingsDto,
@@ -157,6 +158,112 @@ class SubscriberApiTests(TestCase):
                 "locale": None,
                 "channels": None,
             },
+            params=None,
+            timeout=5,
+        )
+
+    @mock.patch("requests.request")
+    def test_bulk_create_subscribers(self, mock_request: mock.MagicMock) -> None:
+        mock_request.return_value = MockResponse(
+            201,
+            {
+                "data": {
+                    "created": [
+                        {
+                            "_organizationId": None,
+                            "_environmentId": None,
+                            "firstName": None,
+                            "lastName": None,
+                            "phone": None,
+                            "subscriberId": "subscriber-id",
+                            "email": "subscriber@sample.com",
+                            "avatar": None,
+                            "locale": None,
+                            "channels": [],
+                            "_id": "63e2cc7151af34c4b2f2b5d1",
+                            "deleted": None,
+                            "__v": 0,
+                            "id": "63e2cc7151af34c4b2f2b5d1",
+                        },
+                        {
+                            "_organizationId": None,
+                            "_environmentId": None,
+                            "firstName": None,
+                            "lastName": None,
+                            "phone": None,
+                            "subscriberId": "subscriber1-id",
+                            "email": "subscriber1@sample.com",
+                            "avatar": None,
+                            "locale": None,
+                            "channels": [],
+                            "_id": "63e2cc7151af34c4b2f2b5d2",
+                            "deleted": None,
+                            "__v": 0,
+                            "id": "63e2cc7151af34c4b2f2b5d2",
+                        },
+                    ],
+                    "updated": [],
+                    "failed": [],
+                }
+            },
+        )
+
+        subscribers = [
+            SubscriberDto(subscriber_id="subscriber-id", email="subscriber@sample.com"),
+            SubscriberDto(subscriber_id="subscriber1-id", email="subscriber1@sample.com"),
+        ]
+
+        res = self.api.bulk_create(subscribers)
+
+        self.assertIsInstance(res, BulkResultSubscriberDto)
+        self.assertEqual(
+            res,
+            BulkResultSubscriberDto(
+                created=[
+                    SubscriberDto(
+                        subscriber_id="subscriber-id",
+                        email="subscriber@sample.com",
+                        _id="63e2cc7151af34c4b2f2b5d1",
+                        channels=[],
+                    ),
+                    SubscriberDto(
+                        subscriber_id="subscriber1-id",
+                        email="subscriber1@sample.com",
+                        _id="63e2cc7151af34c4b2f2b5d2",
+                        channels=[],
+                    ),
+                ],
+                updated=[],
+                failed=[],
+            ),
+        )
+
+        mock_request.assert_called_once_with(
+            method="POST",
+            url="sample.novu.com/v1/subscribers/bulk",
+            headers={"Authorization": "ApiKey api-key"},
+            json=[
+                {
+                    "subscriberId": "subscriber-id",
+                    "email": "subscriber@sample.com",
+                    "firstName": None,
+                    "lastName": None,
+                    "phone": None,
+                    "avatar": None,
+                    "locale": None,
+                    "channels": None,
+                },
+                {
+                    "subscriberId": "subscriber1-id",
+                    "email": "subscriber1@sample.com",
+                    "firstName": None,
+                    "lastName": None,
+                    "phone": None,
+                    "avatar": None,
+                    "locale": None,
+                    "channels": None,
+                },
+            ],
             params=None,
             timeout=5,
         )
