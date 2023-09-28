@@ -179,3 +179,23 @@ class PaginatedSubscriberDto(CamelCaseDto["PaginatedSubscriberDto"]):
         default_factory=list, item_cls=SubscriberDto
     )
     """Data"""
+
+
+@dataclasses.dataclass
+class BulkResultSubscriberDto(CamelCaseDto["BulkResultSubscriberDto"]):
+    """Definition of paginated subscribers"""
+
+    created: DtoIterableDescriptor[SubscriberDto] = DtoIterableDescriptor[SubscriberDto](
+        default_factory=list, item_cls=SubscriberDto
+    )
+    """List of subscribers that were created during the operation."""
+
+    updated: DtoIterableDescriptor[SubscriberDto] = DtoIterableDescriptor[SubscriberDto](
+        default_factory=list, item_cls=SubscriberDto
+    )
+    """List of subscribers that were updated during the operation."""
+
+    failed: DtoIterableDescriptor[SubscriberDto] = DtoIterableDescriptor[SubscriberDto](
+        default_factory=list, item_cls=SubscriberDto
+    )
+    """List of subscribers whose creation (or update) failed."""
