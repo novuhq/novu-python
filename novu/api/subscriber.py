@@ -12,7 +12,7 @@ from novu.dto.subscriber import (
     SubscriberDto,
     SubscriberPreferenceDto,
 )
-from novu.enums import Channel
+from novu.enums import Channel, ProviderIdEnum
 
 
 class SubscriberApi(Api):
@@ -130,6 +130,20 @@ class SubscriberApi(Api):
         return SubscriberDto.from_camel_case(
             self.handle_request("PUT", f"{self._subscriber_url}/{subscriber_id}/credentials", payload).get("data", {})
         )
+
+    def delete_credentials(
+        self,
+        subscriber_id: str,
+        provider_id: ProviderIdEnum,
+    ) -> None:
+        """Delete subscriber credentials such as slack and expo tokens.
+
+        Args:
+            subscriber_id: The subscriber identifier
+            provider_id: The provider identifier (e.g: slack)
+        """
+
+        self.handle_request("DELETE", f"{self._subscriber_url}/{subscriber_id}/credentials/{provider_id}")
 
     def online_status(self, subscriber_id: str, status: bool) -> SubscriberDto:
         """Used to update the subscriber is_online flag
