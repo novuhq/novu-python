@@ -1,0 +1,34 @@
+name: run-unit-tests
+
+on:
+    push:
+        branches: [main]
+    pull_request:
+        branches: [main]
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        stratergy:
+            matrix:
+                python-version: ["3.9"]
+
+        steps:
+            - name: Check out code
+              uses: actions/checkout@v2
+
+            - name: Set up Python 3.9
+              uses: actions/setup-python@v2
+              with:
+                python-version: ${{ matrix.python-version }}
+
+            - name: Install Dependencies
+              run: |
+                poetry install
+                poetry run pre-commit install --install-hook
+                poetry run pre-commit install --install-hooks --hook-type commit-msg
+            
+            - name: Run unit tests
+              run: |
+                poetry run coverage run
+                poetry run coverage report -m
