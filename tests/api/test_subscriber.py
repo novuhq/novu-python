@@ -529,3 +529,18 @@ class SubscriberApiTests(TestCase):
             params=None,
             timeout=5,
         )
+
+    @mock.patch("requests.request")
+    def test_delete_credentials(self, mock_request: mock.MagicMock) -> None:
+        mock_request.return_value = MockResponse(204)
+
+        self.api.delete_credentials("subscriber-id", ChatProviderIdEnum.SLACK)
+
+        mock_request.assert_called_once_with(
+            method="DELETE",
+            url="sample.novu.com/v1/subscribers/subscriber-id/credentials/slack",
+            headers={"Authorization": "ApiKey api-key"},
+            json=None,
+            params=None,
+            timeout=5,
+        )
