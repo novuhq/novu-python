@@ -6,7 +6,7 @@ from typing import Optional
 
 import requests
 
-from novu.api.base import Api
+from novu.api.base import Api, PaginationIterator
 from novu.constants import NOTIFICATION_TEMPLATES_ENDPOINT
 from novu.dto.notification_template import (
     NotificationTemplateDto,
@@ -44,6 +44,14 @@ class NotificationTemplateApi(Api):
         return PaginatedNotificationTemplateDto.from_camel_case(
             self.handle_request("GET", self._notification_template_url, payload=payload)
         )
+
+    def stream(self) -> PaginationIterator[NotificationTemplateDto]:
+        """Stream all existing workflows into an iterator.
+
+        Returns:
+            An iterator on all workflows available.
+        """
+        return PaginationIterator(self, NotificationTemplateDto, self._notification_template_url)
 
     def create(self, notification_template: NotificationTemplateFormDto) -> NotificationTemplateDto:
         """Create a template using the notification template form definition

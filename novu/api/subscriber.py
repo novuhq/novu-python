@@ -5,7 +5,7 @@ from typing import Dict, Iterator, List, Optional, Union
 
 import requests
 
-from novu.api.base import Api
+from novu.api.base import Api, PaginationIterator
 from novu.constants import SUBSCRIBERS_ENDPOINT
 from novu.dto.subscriber import (
     PaginatedSubscriberDto,
@@ -43,6 +43,14 @@ class SubscriberApi(Api):
             payload["page"] = page
 
         return PaginatedSubscriberDto.from_camel_case(self.handle_request("GET", self._subscriber_url, payload=payload))
+
+    def stream(self) -> PaginationIterator[SubscriberDto]:
+        """Stream all existing subscribers into an iterator.
+
+        Returns:
+            An iterator on all subscribers available.
+        """
+        return PaginationIterator(self, SubscriberDto, self._subscriber_url)
 
     def create(self, subscriber: SubscriberDto) -> SubscriberDto:
         """Method to push a given subscriber instance to Novu

@@ -5,9 +5,9 @@ from typing import Dict, Optional, Union
 
 import requests
 
-from novu.api.base import Api
+from novu.api.base import Api, PaginationIterator
 from novu.constants import MESSAGES_ENDPOINT
-from novu.dto.message import PaginatedMessageDto
+from novu.dto.message import MessageDto, PaginatedMessageDto
 
 
 class MessageApi(Api):
@@ -46,6 +46,27 @@ class MessageApi(Api):
             payload["subscriberId"] = subscriber_id
 
         return PaginatedMessageDto.from_camel_case(self.handle_request("GET", self._message_url, payload=payload))
+
+    def stream(
+        self, channel: Optional[str] = None, subscriber_id: Optional[str] = None
+    ) -> PaginationIterator[MessageDto]:
+        """Stream all existing messages into an iterator.
+
+        Args:
+            channel: The channel for the messages you wish to list. Defaults to None.
+            subscriber_id: The subscriberId for the subscriber you like to list messages for
+
+        Returns:
+            An iterator on all messages available.
+        """
+        payload = {}
+
+        if channel:
+            payload["channel"] = channel
+        if subscriber_id:
+            payload["subscriberId"] = subscriber_id
+
+        return PaginationIterator(self, MessageDto, self._message_url, payload=payload)
 
     def delete(self, message_id: str) -> bool:
         """Deletes a message entity from the Novu platform
