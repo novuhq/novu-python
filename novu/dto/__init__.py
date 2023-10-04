@@ -26,6 +26,7 @@ from novu.dto.notification import (
     ActivityNotificationSubscriberResponseDTO,
     ActivityNotificationTemplateResponseDto,
     ActivityNotificationTriggerResponseDto,
+    PaginatedActivityNotificationDto,
 )
 from novu.dto.notification_group import (
     NotificationGroupDto,
@@ -82,6 +83,7 @@ __all__ = [
     "ActivityNotificationExecutionDetailResponseDto",
     "ActivityNotificationJobResponseDto",
     "ActivityNotificationDto",
+    "PaginatedActivityNotificationDto",
     "PaginatedChangeDto",
     "PaginatedLayoutDto",
     "PaginatedMessageDto",

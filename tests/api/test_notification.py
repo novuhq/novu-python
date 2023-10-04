@@ -11,6 +11,7 @@ from novu.dto.notification import (
     ActivityNotificationSubscriberResponseDTO,
     ActivityNotificationTemplateResponseDto,
     ActivityNotificationTriggerResponseDto,
+    PaginatedActivityNotificationDto,
 )
 from tests.factories import MockResponse
 
@@ -77,6 +78,7 @@ class NotificationApiTests(TestCase):
             ],
         }
         cls.response_notification = {"data": cls.notification_json}
+        cls.response_list = {"page": 0, "hasMore": False, "pageSize": 10, "data": [cls.notification_json]}
         cls.expected_dto = ActivityNotificationDto(
             _id="63dafed97779f59258e44954",
             _environment_id="63dafed97779f59258e38445",
@@ -138,15 +140,16 @@ class NotificationApiTests(TestCase):
 
     @mock.patch("requests.request")
     def test_list(self, mock_request: mock.MagicMock) -> None:
-        mock_request.return_value = MockResponse(200, self.response_notification)
+        mock_request.return_value = MockResponse(200, self.response_list)
 
         channels = ["in_app"]
         templates = ["Template3"]
         emails = ["max.moe@example.com"]
         search = "example"
-        notification_result = self.api.list(channels, templates, emails, search)
+        result = self.api.list(channels, templates, emails, search)
 
-        self.assertIsInstance(notification_result, ActivityNotificationDto)
+        self.assertIsInstance(result, PaginatedActivityNotificationDto)
+        notification_result = result.data[0]
         self.assertEqual(notification_result._id, self.expected_dto._id)
         self.assertEqual(notification_result._environment_id, self.expected_dto._environment_id)
         self.assertEqual(notification_result._organization_id, self.expected_dto._organization_id)

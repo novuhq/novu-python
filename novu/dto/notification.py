@@ -195,3 +195,22 @@ class ActivityGraphStatesDto(CamelCaseDto["ActivityGraphStatesDto"]):
 
     channels: List[Channel]
     """Graph states' channel."""
+
+
+@dataclasses.dataclass
+class PaginatedActivityNotificationDto(CamelCaseDto["PaginatedActivityNotificationDto"]):
+    """Definition of paginated subscribers"""
+
+    page: int = 0
+    """Page number"""
+
+    has_more: bool = False
+    """If their is more notifications available"""
+
+    page_size: int = 0
+    """Page size"""
+
+    data: DtoIterableDescriptor[ActivityNotificationDto] = DtoIterableDescriptor[ActivityNotificationDto](
+        default_factory=list, item_cls=ActivityNotificationDto
+    )
+    """Data"""
