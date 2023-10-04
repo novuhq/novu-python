@@ -108,3 +108,6 @@ fail_under = 100
 [tool.pytest.ini_options]
 testpaths = "tests/"
 # addopts = "--doctest-modules -ra -l --tb=short --show-capture=all --color=yes"
+
+[tool.codespell]
+skip = 'poetry.lock,CHANGELOG.md'
