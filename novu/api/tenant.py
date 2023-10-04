@@ -5,7 +5,7 @@ from typing import Dict, Optional, Union
 
 import requests
 
-from novu.api.base import Api
+from novu.api.base import Api, PaginationIterator
 from novu.constants import TENANTS_ENDPOINT
 from novu.dto.tenant import PaginatedTenantDto, TenantDto
 
@@ -41,6 +41,14 @@ class TenantApi(Api):
             payload["limit"] = limit
 
         return PaginatedTenantDto.from_camel_case(self.handle_request("GET", self._tenant_url, payload=payload))
+
+    def stream(self) -> PaginationIterator[TenantDto]:
+        """Stream all existing tenants into an iterator.
+
+        Returns:
+            An iterator on all tenants available.
+        """
+        return PaginationIterator(self, TenantDto, self._tenant_url)
 
     def create(self, identifier: str, name: str, data: Optional[dict] = None) -> TenantDto:
         """Create a tenant
