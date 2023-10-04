@@ -5,13 +5,15 @@ from novu.api import SubscriberApi
 from novu.config import NovuConfig
 from novu.dto.subscriber import (
     PaginatedSubscriberDto,
+    SubscriberChannelSettingsCredentialsDto,
+    SubscriberChannelSettingsDto,
     SubscriberDto,
     SubscriberPreferenceChannelDto,
     SubscriberPreferenceDto,
     SubscriberPreferencePreferenceDto,
     SubscriberPreferenceTemplateDto,
 )
-from novu.enums import Channel
+from novu.enums import Channel, ChatProviderIdEnum
 from tests.factories import MockResponse
 
 
@@ -50,6 +52,7 @@ class SubscriberApiTests(TestCase):
             _id="63dafedbc037e013fd82d37a",
             _environment_id="63dafed97779f59258e38445",
             _organization_id="63dafed97779f59258e3843f",
+            channels=[],
             deleted=False,
             created_at="2023-02-02T00:07:55.459Z",
             updated_at="2023-02-06T23:03:22.645Z",
@@ -134,6 +137,7 @@ class SubscriberApiTests(TestCase):
                 "phone": None,
                 "avatar": None,
                 "locale": None,
+                "channels": None,
             },
             params=None,
             timeout=5,
@@ -146,6 +150,77 @@ class SubscriberApiTests(TestCase):
         res = self.api.get("subscriber-id")
         self.assertIsInstance(res, SubscriberDto)
         self.assertEqual(res, self.expected_dto)
+
+        mock_request.assert_called_once_with(
+            method="GET",
+            url="sample.novu.com/v1/subscribers/subscriber-id",
+            headers={"Authorization": "ApiKey api-key"},
+            json=None,
+            params=None,
+            timeout=5,
+        )
+
+    @mock.patch("requests.request")
+    def test_get_subscriber_with_credentials_info(self, mock_request: mock.MagicMock) -> None:
+        mock_request.return_value = MockResponse(
+            200,
+            {
+                "data": {
+                    "_id": "63dafedbc037e013fd82d37a",
+                    "_organizationId": "63dafed97779f59258e3843f",
+                    "_environmentId": "63dafed97779f59258e38445",
+                    "subscriberId": "63dafed4117f8c850991ec4a",
+                    "channels": [
+                        {
+                            "provider_id": "slack",
+                            "_integration_id": "64f6d74be166fcd7f2751111",
+                            "credentials": {"webhook_url": "TEST", "channel": "slack", "device_tokens": ["TEST"]},
+                            "integration_identifier": None,
+                        }
+                    ],
+                    "deleted": False,
+                    "createdAt": "2023-02-02T00:07:55.459Z",
+                    "updatedAt": "2023-02-06T23:03:22.645Z",
+                    "__v": 0,
+                    "isOnline": False,
+                    "email": "oscar.marie-taillefer@spikeelabs.fr",
+                    "lastOnlineAt": "2023-02-06T23:03:22.645Z",
+                }
+            },
+        )
+
+        res = self.api.get("subscriber-id")
+        self.assertIsInstance(res, SubscriberDto)
+        self.assertEqual(
+            res,
+            SubscriberDto(
+                subscriber_id="63dafed4117f8c850991ec4a",
+                email="oscar.marie-taillefer@spikeelabs.fr",
+                first_name=None,
+                last_name=None,
+                phone=None,
+                avatar=None,
+                locale=None,
+                _id="63dafedbc037e013fd82d37a",
+                _environment_id="63dafed97779f59258e38445",
+                _organization_id="63dafed97779f59258e3843f",
+                channels=[
+                    SubscriberChannelSettingsDto(
+                        provider_id=ChatProviderIdEnum.SLACK,
+                        _integration_id="64f6d74be166fcd7f2751111",
+                        credentials=SubscriberChannelSettingsCredentialsDto(
+                            webhook_url="TEST", channel="slack", device_tokens=["TEST"]
+                        ),
+                        integration_identifier=None,
+                    )
+                ],
+                deleted=False,
+                created_at="2023-02-02T00:07:55.459Z",
+                updated_at="2023-02-06T23:03:22.645Z",
+                is_online=False,
+                last_online_at="2023-02-06T23:03:22.645Z",
+            ),
+        )
 
         mock_request.assert_called_once_with(
             method="GET",
@@ -176,6 +251,7 @@ class SubscriberApiTests(TestCase):
                 "phone": "+33612345678",
                 "avatar": None,
                 "locale": None,
+                "channels": None,
             },
             params=None,
             timeout=5,
