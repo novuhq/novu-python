@@ -24,17 +24,20 @@ class ChangeApi(Api):
 
         self._change_url = f"{self._url}{CHANGES_ENDPOINT}"
 
-    def list(self, page: Optional[int] = None, limit: Optional[int] = None) -> PaginatedChangeDto:
+    def list(
+        self, page: Optional[int] = None, limit: Optional[int] = None, promoted: str = "false"
+    ) -> PaginatedChangeDto:
         """List existing changes
 
         Args:
             page: Page to retrieve. Defaults to None.
             limit: Size of the page to retrieve. Defaults to None.
+            promoted: Required string to retrieve changes.
 
         Returns:
             Paginated list of change
         """
-        payload: Dict[str, Union[int, str]] = {}
+        payload: Dict[str, Union[int, str]] = {"promoted": promoted}
         if page:
             payload["page"] = page
         if limit:
