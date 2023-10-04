@@ -111,31 +111,20 @@ class IntegrationApi(Api):
         )
 
 
-    def setPrimary(self, integration_id: str) -> IntegrationDto:
+    def setPrimary(self, integration_id: str) -> bool:
         """Set an integration as primary
 
         Args:
             integration_id: The integration ID
 
         Returns:
-            The instance of the given integration
+            Is integration set active
         """
 
-        return IntegrationDto.from_camel_case(
-            self.handle_request("POST", f"{self._integration_url}/{integration._id}/set-primary")["data"]
-        )
+        res = self.handle_request("POST", f"{self._integration_url}/{integration._id}/set-primary")["data"]
+        # null safe dictionary access
+        if res.get("data") and res.get("data").get("active")==True:
+            return True
+        else:
+            return False
         
-# https://api.novu.co/v1/integrations/1/set-primary
-
-    # def statusInApp(self, channel: Channel) -> IntegrationChannelUsageDto:
-    #     """Get in-app status
-
-    #     Args:
-    #         channel: The channel to retrieve limits
-
-    #     Returns:
-    #         Channel usage definition (including usage and limit)
-    #     """
-    #     return IntegrationChannelUsageDto.from_camel_case(
-    #         self.handle_request("GET", f"{self._integration_url}/{channel}/limit")["data"]
-    #     )
