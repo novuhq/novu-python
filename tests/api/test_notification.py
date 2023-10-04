@@ -1,5 +1,6 @@
 from unittest import TestCase, mock
 
+from novu.api.base import PaginationIterator
 from novu.api.notification import NotificationApi
 from novu.config import NovuConfig
 from novu.dto.notification import (
@@ -165,6 +166,39 @@ class NotificationApiTests(TestCase):
                 "emails": emails,
                 "search": search,
                 "page": 0,
+                "transactionId": None,
+            },
+            timeout=5,
+        )
+
+    @mock.patch("requests.request")
+    def test_stream(self, mock_request: mock.MagicMock) -> None:
+        mock_request.return_value = MockResponse(200, self.response_list)
+
+        channels = ["in_app"]
+        templates = ["Template3"]
+        emails = ["max.moe@example.com"]
+        search = "example"
+        result = self.api.stream(channels, templates, emails, search)
+
+        self.assertIsInstance(result, PaginationIterator)
+        notification_result = next(result)
+        self.assertEqual(notification_result._id, self.expected_dto._id)
+        self.assertEqual(notification_result._environment_id, self.expected_dto._environment_id)
+        self.assertEqual(notification_result._organization_id, self.expected_dto._organization_id)
+
+        mock_request.assert_called_once_with(
+            method="GET",
+            url="sample.novu.com/v1/notifications",
+            headers={"Authorization": "ApiKey api-key"},
+            json=None,
+            params={
+                "channels": channels,
+                "templates": templates,
+                "emails": emails,
+                "search": search,
+                "page": 0,
+                "limit": 10,
                 "transactionId": None,
             },
             timeout=5,
