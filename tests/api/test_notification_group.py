@@ -69,3 +69,52 @@ class NotificationGroupApiTests(TestCase):
             params=None,
             timeout=5,
         )
+
+    @mock.patch("requests.request")
+    def test_get_notification_group(self, mock_request: mock.MagicMock) -> None:
+        mock_request.return_value = MockResponse(200, self.response_get)
+
+        res = self.api.get("63dafed97779f59258e38449")
+        self.assertIsInstance(res, NotificationGroupDto)
+        self.assertEqual(res, self.expected_dto)
+
+        mock_request.assert_called_once_with(
+            method="GET",
+            url="sample.novu.com/v1/notification-groups/63dafed97779f59258e38449",
+            headers={"Authorization": "ApiKey api-key"},
+            json=None,
+            params=None,
+            timeout=5,
+        )
+
+    @mock.patch("requests.request")
+    def test_patch_notification_group(self, mock_request: mock.MagicMock) -> None:
+        mock_request.return_value = MockResponse(200, self.response_get)
+
+        res = self.api.patch("63dafed97779f59258e38449", "Something")
+        self.assertIsInstance(res, NotificationGroupDto)
+        self.assertEqual(res, self.expected_dto)
+
+        mock_request.assert_called_once_with(
+            method="PATCH",
+            url="sample.novu.com/v1/notification-groups/63dafed97779f59258e38449",
+            headers={"Authorization": "ApiKey api-key"},
+            json={"name": "Something"},
+            params=None,
+            timeout=5,
+        )
+
+    @mock.patch("requests.request")
+    def test_delete_notification_group(self, mock_request: mock.MagicMock) -> None:
+        mock_request.return_value = MockResponse(200, self.response_get)
+
+        self.api.delete("63dafed97779f59258e38449")
+
+        mock_request.assert_called_once_with(
+            method="DELETE",
+            url="sample.novu.com/v1/notification-groups/63dafed97779f59258e38449",
+            headers={"Authorization": "ApiKey api-key"},
+            json=None,
+            params=None,
+            timeout=5,
+        )
