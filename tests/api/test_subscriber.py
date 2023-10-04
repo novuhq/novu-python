@@ -2,6 +2,7 @@ from collections.abc import Generator
 from unittest import TestCase, mock
 
 from novu.api import SubscriberApi
+from novu.api.base import PaginationIterator
 from novu.config import NovuConfig
 from novu.dto.subscriber import (
     PaginatedSubscriberDto,
@@ -88,6 +89,23 @@ class SubscriberApiTests(TestCase):
             headers={"Authorization": "ApiKey api-key"},
             json=None,
             params={"page": 1},
+            timeout=5,
+        )
+
+    @mock.patch("requests.request")
+    def test_stream_subscriber(self, mock_request: mock.MagicMock) -> None:
+        mock_request.return_value = MockResponse(200, self.response_list)
+
+        result = self.api.stream()
+        self.assertIsInstance(result, PaginationIterator)
+        self.assertEqual(list(result), [self.expected_dto])
+
+        mock_request.assert_called_once_with(
+            method="GET",
+            url="sample.novu.com/v1/subscribers",
+            headers={"Authorization": "ApiKey api-key"},
+            json=None,
+            params={"page": 0, "limit": 10},
             timeout=5,
         )
 
