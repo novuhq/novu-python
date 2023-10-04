@@ -109,3 +109,21 @@ class IntegrationApi(Api):
         return IntegrationChannelUsageDto.from_camel_case(
             self.handle_request("GET", f"{self._integration_url}/{channel}/limit")["data"]
         )
+
+
+
+    def setPrimary(self, integration_id: str) -> bool:
+        """Set an integration as primary
+
+        Args:
+            integration_id: The integration ID
+
+        Returns:
+            Is integration set active
+        """
+
+        res = self.handle_request("POST", f"{self._integration_url}/{integration_id}/set-primary")["data"]
+        if res.get("active")==True:
+            return True
+        else:
+            return False
