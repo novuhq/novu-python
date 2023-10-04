@@ -48,3 +48,41 @@ class NotificationGroupApi(Api):
         return NotificationGroupDto.from_camel_case(
             self.handle_request("POST", self._notification_group_url, {"name": name})["data"]
         )
+
+    def get(self, _id: str) -> NotificationGroupDto:
+        """Method to get a notification group
+
+        Args:
+            _id: The id of the notification group.
+
+        Returns:
+            The notification group.
+        """
+        return NotificationGroupDto.from_camel_case(
+            self.handle_request("GET", f"{self._notification_group_url}/{_id}")["data"]
+        )
+
+    def patch(self, _id: str, name: str) -> NotificationGroupDto:
+        """Method to patch a notification group
+
+        Args:
+            _id: The id of the notification group.
+            name: The name of the notification group.
+
+        Returns:
+            The patched notification group.
+        """
+        return NotificationGroupDto.from_camel_case(
+            self.handle_request("PATCH", f"{self._notification_group_url}/{_id}", {"name": name})["data"]
+        )
+
+    def delete(self, _id: str) -> NotificationGroupDto:
+        """Method to delete a notification group
+
+        Args:
+            _id: The id of the notification group.
+
+        Returns:
+            The deleted notification group.
+        """
+        return self.handle_request("DELETE", f"{self._notification_group_url}/{_id}")["data"]
