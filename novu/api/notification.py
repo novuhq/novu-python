@@ -5,9 +5,13 @@ from typing import Iterator, List, Optional, Tuple
 
 import requests
 
-from novu.api.base import Api
+from novu.api.base import Api, PaginationIterator
 from novu.constants import NOTIFICATION_ENDPOINT
-from novu.dto.notification import ActivityGraphStatesDto, ActivityNotificationDto
+from novu.dto.notification import (
+    ActivityGraphStatesDto,
+    ActivityNotificationDto,
+    PaginatedActivityNotificationDto,
+)
 
 
 class NotificationApi(Api):
@@ -26,13 +30,13 @@ class NotificationApi(Api):
 
     def list(
         self,
-        channels: List[str],
-        templates: List[str],
-        emails: List[str],
-        search: str,
+        channels: Optional[List[str]] = None,
+        templates: Optional[List[str]] = None,
+        emails: Optional[List[str]] = None,
+        search: Optional[str] = None,
         page: Optional[int] = 0,
         transaction_id: Optional[str] = None,
-    ) -> ActivityNotificationDto:
+    ) -> PaginatedActivityNotificationDto:
         """Trigger an event to get all notifications.
 
         Args:
@@ -66,9 +70,47 @@ class NotificationApi(Api):
             "page": page,
             "transactionId": transaction_id,
         }
-        return ActivityNotificationDto.from_camel_case(
-            self.handle_request("GET", f"{self._notification_url}", payload=payload)["data"]
+        return PaginatedActivityNotificationDto.from_camel_case(
+            self.handle_request("GET", f"{self._notification_url}", payload=payload)
         )
+
+    def stream(
+        self,
+        channels: Optional[List[str]] = None,
+        templates: Optional[List[str]] = None,
+        emails: Optional[List[str]] = None,
+        search: Optional[str] = None,
+        transaction_id: Optional[str] = None,
+    ) -> PaginationIterator[ActivityNotificationDto]:
+        """Stream all existing notifications into an iterator.
+
+        Args:
+            channels: A required parameter, should be an array of strings representing
+                           available notification channels, such as "in_app", "email", "sms",
+                           "chat", and "push".
+
+            templates: A required parameter, should be an array of strings representing
+                             the notification templates.
+
+            emails: A required parameter, should be an array of strings representing
+                        the email addresses associated with the notification.
+
+            search: A required parameter, should be a string representing the search query.
+
+            transaction_id: A required parameter, should be a string representing the
+                                transaction ID associated with the notification.
+
+        Returns:
+            An iterator on all notifications available.
+        """
+        payload = {
+            "channels": channels,
+            "templates": templates,
+            "emails": emails,
+            "search": search,
+            "transactionId": transaction_id,
+        }
+        return PaginationIterator(self, ActivityNotificationDto, self._notification_url, payload=payload)
 
     def stats(self) -> Tuple[int, int]:
         """Gets notifications stats

@@ -2,6 +2,7 @@ import copy
 from unittest import TestCase, mock
 
 from novu.api import TenantApi
+from novu.api.base import PaginationIterator
 from novu.config import NovuConfig
 from novu.dto.tenant import PaginatedTenantDto, TenantDto
 from tests.factories import MockResponse
@@ -58,6 +59,45 @@ class TenantApiTests(TestCase):
         self.assertEqual(list(result.data), [self.expected_dto])  # type: ignore
 
         mock_request.assert_called_once_with(
+            method="GET",
+            url="sample.novu.com/v1/tenants",
+            headers={"Authorization": "ApiKey api-key"},
+            json=None,
+            params={"page": 1, "limit": 10},
+            timeout=5,
+        )
+
+    @mock.patch("requests.request")
+    def test_stream_tenant(self, mock_request: mock.MagicMock) -> None:
+        mock_request.return_value = MockResponse(200, self.response_list)
+
+        result = self.api.stream()
+        self.assertIsInstance(result, PaginationIterator)
+        self.assertEqual(list(result), [self.expected_dto])  # type: ignore
+
+        mock_request.assert_called_once_with(
+            method="GET",
+            url="sample.novu.com/v1/tenants",
+            headers={"Authorization": "ApiKey api-key"},
+            json=None,
+            params={"page": 0, "limit": 10},
+            timeout=5,
+        )
+
+    @mock.patch("requests.request")
+    def test_stream_with_multiple_pages_tenant(self, mock_request: mock.MagicMock) -> None:
+        mock_request.side_effect = [
+            MockResponse(
+                200, {"page": 0, "hasMore": True, "pageSize": 10, "data": [self.tenant_json for _ in range(10)]}
+            ),
+            MockResponse(200, {"page": 1, "hasMore": False, "pageSize": 10, "data": [self.tenant_json]}),
+        ]
+
+        result = self.api.stream()
+        self.assertIsInstance(result, PaginationIterator)
+        self.assertEqual(list(result), [self.expected_dto for _ in range(11)])  # type: ignore
+
+        mock_request.assert_any_call(
             method="GET",
             url="sample.novu.com/v1/tenants",
             headers={"Authorization": "ApiKey api-key"},
