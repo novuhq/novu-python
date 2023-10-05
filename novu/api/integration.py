@@ -112,7 +112,7 @@ class IntegrationApi(Api):
 
 
 
-    def setPrimary(self, integration_id: str) -> bool:
+    def set_primary(self, integration_id: str) -> bool:
         """Set an integration as primary
 
         Args:
