@@ -32,6 +32,7 @@ class IntegrationApiTests(TestCase):
             "createdAt": "2023-02-05T17:19:10.826Z",
             "updatedAt": "2023-02-05T17:19:10.826Z",
             "__v": 0,
+            "primary": True,
         }
         cls.response_list = {"data": [cls.integration_json]}
         cls.response_get = {"data": cls.integration_json}
@@ -406,6 +407,22 @@ class IntegrationApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="GET",
             url="sample.novu.com/v1/integrations/email/limit",
+            headers={"Authorization": "ApiKey api-key"},
+            json=None,
+            params=None,
+            timeout=5,
+        )
+
+
+    @mock.patch("requests.request")
+    def test_set_primary(self, mock_request: mock.MagicMock) -> None:
+        mock_request.return_value = MockResponse(200, self.response_get)
+
+        self.assertEqual(self.api.set_primary("63dfe50ecac5cff328ca5d24"),True)
+
+        mock_request.assert_called_once_with(
+            method="POST",
+            url="sample.novu.com/v1/integrations/63dfe50ecac5cff328ca5d24/set-primary",
             headers={"Authorization": "ApiKey api-key"},
             json=None,
             params=None,
