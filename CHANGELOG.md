@@ -1,3 +1,17 @@
+# [1.4.0](https://github.com/novuhq/novu-python/compare/v1.3.1...v1.4.0) (2023-09-13)
+
+
+### Bug Fixes
+
+* **#54:** SubscriberApi.list() not returning credentials, field email is missing in SubscriberDto ([#55](https://github.com/novuhq/novu-python/issues/55)) ([5d67f52](https://github.com/novuhq/novu-python/commit/5d67f52c3b844821ad5191a1d840a0d1e464ee12)), closes [#54](https://github.com/novuhq/novu-python/issues/54)
+* **feed:** delete a feed doesn't return any data ([84c3ccb](https://github.com/novuhq/novu-python/commit/84c3ccb2ae9848f2b35475147ef1f9353c901acb))
+
+
+### Features
+
+* **#9:** add notifications ressource in wrappers ([f33a32f](https://github.com/novuhq/novu-python/commit/f33a32fc788085516515ba7a3fa54181248e43bf)), closes [#9](https://github.com/novuhq/novu-python/issues/9)
+* **tenant:** introduce Tenant API ([330cb19](https://github.com/novuhq/novu-python/commit/330cb19a679f1284487acd8f6beabd3edc681448))
+
 ## [1.3.1](https://github.com/novuhq/novu-python/compare/v1.3.0...v1.3.1) (2023-08-30)
 
 
