@@ -122,5 +122,9 @@ class IntegrationApi(Api):
             Is integration set active
         """
 
-        res = self.handle_request("POST", f"{self._integration_url}/{integration_id}/set-primary")["data"]
-        return res.get("primary") == True
+
+        try:
+            res = self.handle_request("POST", f"{self._integration_url}/{integration_id}/set-primary")["data"]
+            return res.get("primary") == True
+        except:
+            return False
