@@ -123,7 +123,4 @@ class IntegrationApi(Api):
         """
 
         res = self.handle_request("POST", f"{self._integration_url}/{integration_id}/set-primary")["data"]
-        if res.get("active")==True:
-            return True
-        else:
-            return False
+        return res.get("active") == True
