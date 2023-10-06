@@ -15,5 +15,6 @@ NOTIFICATION_TEMPLATES_ENDPOINT = "/v1/notification-templates"
 SUBSCRIBERS_ENDPOINT = "/v1/subscribers"
 TENANTS_ENDPOINT = "/v1/tenants"
 TOPICS_ENDPOINT = "/v1/topics"
+BLUEPRINTS_ENDPOINT = "/v1/blueprints"
 
 DATETIME_FORMAT = "%Y-%m-%dT%H:%M:%S.%f%z"

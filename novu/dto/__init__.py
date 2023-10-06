@@ -4,6 +4,7 @@ All definitions of format returned by the Novu API are here, which help us to in
 for developer purpose (instead of getting raw dict without any hint about what is in it).
 """
 
+from novu.dto.blueprint import BlueprintDto, GroupedBlueprintDto
 from novu.dto.change import ChangeDetailDto, ChangeDto, PaginatedChangeDto
 from novu.dto.environment import (
     EnvironmentApiKeyDto,
@@ -56,6 +57,7 @@ from novu.dto.tenant import PaginatedTenantDto, TenantDto
 from novu.dto.topic import PaginatedTopicDto, TopicDto, TriggerTopicDto
 
 __all__ = [
+    "BlueprintDto",
     "ChangeDetailDto",
     "ChangeDto",
     "EnvironmentApiKeyDto",
@@ -65,6 +67,7 @@ __all__ = [
     "ExecutionDetailDto",
     "FeedDto",
     "FieldFilterPartDto",
+    "GroupedBlueprintDto",
     "IntegrationChannelUsageDto",
     "IntegrationDto",
     "LayoutDto",
