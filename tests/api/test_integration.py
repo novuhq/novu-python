@@ -413,16 +413,30 @@ class IntegrationApiTests(TestCase):
             timeout=5,
         )
 
-
     @mock.patch("requests.request")
-    def test_set_primary(self, mock_request: mock.MagicMock) -> None:
+    def test_set_primary_with_valid_integration_id(self, mock_request: mock.MagicMock) -> None:
         mock_request.return_value = MockResponse(200, self.response_get)
 
-        self.assertEqual(self.api.set_primary("63dfe50ecac5cff328ca5d24"),True)
+        self.assertEqual(self.api.set_primary("63dfe50ecac5cff328ca5d24"), True)
 
         mock_request.assert_called_once_with(
             method="POST",
             url="sample.novu.com/v1/integrations/63dfe50ecac5cff328ca5d24/set-primary",
+            headers={"Authorization": "ApiKey api-key"},
+            json=None,
+            params=None,
+            timeout=5,
+        )
+
+    @mock.patch("requests.request")
+    def test_set_primary_with_invalid_integration_id(self, mock_request: mock.MagicMock) -> None:
+        mock_request.return_value = MockResponse(400, self.response_get)
+
+        self.assertEqual(self.api.set_primary("63dfe50ecac5cff328ca5d23"), False)
+
+        mock_request.assert_called_once_with(
+            method="POST",
+            url="sample.novu.com/v1/integrations/63dfe50ecac5cff328ca5d23/set-primary",
             headers={"Authorization": "ApiKey api-key"},
             json=None,
             params=None,

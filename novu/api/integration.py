@@ -110,8 +110,6 @@ class IntegrationApi(Api):
             self.handle_request("GET", f"{self._integration_url}/{channel}/limit")["data"]
         )
 
-
-
     def set_primary(self, integration_id: str) -> bool:
         """Set an integration as primary
 
@@ -121,10 +119,8 @@ class IntegrationApi(Api):
         Returns:
             Is integration set active
         """
-
-
         try:
             res = self.handle_request("POST", f"{self._integration_url}/{integration_id}/set-primary")["data"]
-            return res.get("primary") == True
-        except:
+            return res.get("primary") is True
+        except requests.exceptions.HTTPError:
             return False

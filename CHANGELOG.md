@@ -9,7 +9,7 @@
 
 ### Features
 
-* **#9:** add notifications ressource in wrappers ([f33a32f](https://github.com/novuhq/novu-python/commit/f33a32fc788085516515ba7a3fa54181248e43bf)), closes [#9](https://github.com/novuhq/novu-python/issues/9)
+* **#9:** add notifications resource in wrappers ([f33a32f](https://github.com/novuhq/novu-python/commit/f33a32fc788085516515ba7a3fa54181248e43bf)), closes [#9](https://github.com/novuhq/novu-python/issues/9)
 * **tenant:** introduce Tenant API ([330cb19](https://github.com/novuhq/novu-python/commit/330cb19a679f1284487acd8f6beabd3edc681448))
 
 ## [1.3.1](https://github.com/novuhq/novu-python/compare/v1.3.0...v1.3.1) (2023-08-30)
