@@ -1,3 +1,10 @@
+# [1.6.0](https://github.com/novuhq/novu-python/compare/v1.5.0...v1.6.0) (2023-10-14)
+
+
+### Features
+
+* **event:** [#94](https://github.com/novuhq/novu-python/issues/94) - support tenant in event api ([50116d6](https://github.com/novuhq/novu-python/commit/50116d68a7475f56ca5f74e37e5de397fd86abd3))
+
 # [1.5.0](https://github.com/novuhq/novu-python/compare/v1.4.0...v1.5.0) (2023-10-14)
 
 
