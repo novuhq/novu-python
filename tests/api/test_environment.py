@@ -129,3 +129,20 @@ class EnvironmentApiTests(TestCase):
             params=None,
             timeout=5,
         )
+
+    @mock.patch("requests.request")
+    def test_regenerate_api_key(self, mock_request: mock.MagicMock) -> None:
+        mock_request.return_value = MockResponse(200, {"data": self.response_json_api_key})
+
+        res = self.api.regenerate_api_key()
+        self.assertIsInstance(res, types.GeneratorType)
+        self.assertEqual(list(res), [self.expected_dto_api_key])
+
+        mock_request.assert_called_once_with(
+            method="POST",
+            url="sample.novu.com/v1/environments/api-keys/regenerate",
+            headers={"Authorization": "ApiKey api-key"},
+            json=None,
+            params=None,
+            timeout=5,
+        )
