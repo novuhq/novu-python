@@ -1,3 +1,17 @@
+# [1.5.0](https://github.com/novuhq/novu-python/compare/v1.4.0...v1.5.0) (2023-10-14)
+
+
+### Bug Fixes
+
+* **change:** promoted path parms is required for listing ([#86](https://github.com/novuhq/novu-python/issues/86)) ([9758660](https://github.com/novuhq/novu-python/commit/975866055a0aaab201d27c7fb7f466dd57e46a35))
+* **notification:** list notifications should return a paginated response ([#87](https://github.com/novuhq/novu-python/issues/87)) ([1b47e10](https://github.com/novuhq/novu-python/commit/1b47e10deee9be3a015e826d8111e5e8f312e0fb)), closes [#88](https://github.com/novuhq/novu-python/issues/88)
+
+
+### Features
+
+* added missing methods in notification group class ([#83](https://github.com/novuhq/novu-python/issues/83)) ([951d893](https://github.com/novuhq/novu-python/commit/951d8938ceaca68e211ed3991c0efb93f543b72b))
+* **subscriber:** add channels fields on DTO ([#53](https://github.com/novuhq/novu-python/issues/53)) ([b8809b5](https://github.com/novuhq/novu-python/commit/b8809b5b4b342f4fff15fa515b60599d3079fdba))
+
 # [1.4.0](https://github.com/novuhq/novu-python/compare/v1.3.1...v1.4.0) (2023-09-13)
 
 
