@@ -41,3 +41,8 @@ class InputEventDto(CamelCaseDto["InputEventDto"]):
 
     actor: Optional[str] = None
     """It is used to display the Avatar of the provided actor's subscriber id."""
+
+    tenant: Optional[str] = None
+    """It is used to specify a tenant context during trigger event.
+    If a new tenant object is provided, we will create a new tenant.
+    """
