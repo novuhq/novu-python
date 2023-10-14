@@ -132,7 +132,7 @@ class EnvironmentApiTests(TestCase):
 
     @mock.patch("requests.request")
     def test_regenerate_api_key(self, mock_request: mock.MagicMock) -> None:
-        mock_request.return_value = MockResponse(200, {"data": self.response_json_api_key})
+        mock_request.return_value = MockResponse(200, {"data": [self.response_json_api_key]})
 
         res = self.api.regenerate_api_key()
         self.assertIsInstance(res, types.GeneratorType)

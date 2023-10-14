@@ -75,7 +75,5 @@ class EnvironmentApi(Api):
             Mapped environment's api key
         """
         results = self.handle_request("POST", f"{self._environment_url}/api-keys/regenerate")["data"]
-        if not isinstance(results, list):
-            results = [results]
         for result in results:
             yield EnvironmentApiKeyDto.from_camel_case(result)
