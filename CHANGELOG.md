@@ -1,3 +1,12 @@
+# [1.7.0](https://github.com/novuhq/novu-python/compare/v1.6.0...v1.7.0) (2023-10-14)
+
+
+### Features
+
+* **blueprint:** add blueprint api ([0e885ea](https://github.com/novuhq/novu-python/commit/0e885ea55c9fec7cd70892f4c1935e92f15e1e21))
+* **subscriber:** [#59](https://github.com/novuhq/novu-python/issues/59) - add bulk create for subscribers ([9b5983d](https://github.com/novuhq/novu-python/commit/9b5983d506a020b0361bc03d218196602aa3c857))
+* **subscriber:** added the delete_credentials method to the SubscriberApi ([d6ffc98](https://github.com/novuhq/novu-python/commit/d6ffc98c0c448cf6bbe8326f3c3864a8431d0c50))
+
 # [1.6.0](https://github.com/novuhq/novu-python/compare/v1.5.0...v1.6.0) (2023-10-14)
 
 
