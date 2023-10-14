@@ -67,3 +67,13 @@ class EnvironmentApi(Api):
         results = self.handle_request("GET", f"{self._environment_url}/api-keys")["data"]
         for result in results:
             yield EnvironmentApiKeyDto.from_camel_case(result)
+
+    def regenerate_api_key(self) -> Iterator[EnvironmentApiKeyDto]:
+        """Regenerate an environment api key
+
+        Yields:
+            Mapped environment's api key
+        """
+        results = self.handle_request("POST", f"{self._environment_url}/api-keys/regenerate")["data"]
+        for result in results:
+            yield EnvironmentApiKeyDto.from_camel_case(result)
