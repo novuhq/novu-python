@@ -1,35 +1,33 @@
 Cookbook
 ========
 
-How to change API requests timeout?
+How to Change API Requests Timeout?
 -----------------------------------
 
-There are two ways to change the timeout of the :module:`requests` module that makes the API calls for you:
+You can adjust the timeout for API requests made with the `requests` module in two ways:
 
-* Via an environment variable named ``NOVU_PYTHON_REQUESTS_TIMEOUT``.
-  You can define it in seconds and it will overloads all timeouts in this package.
-* Via the API constructor directly, passing :attr:`~novu.api.base.Api.requests_timeout` in keywords arguments during the initialisation.
+Using an Environment Variable
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. code-block:: python
+Set the environment variable `NOVU_PYTHON_REQUESTS_TIMEOUT` to define the timeout in seconds. This will override all timeouts in this package.
 
-    EventApi(...,...,request_timeout=60).trigger_bulk(...)
+Directly in API Constructor
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-How to take control over the session of ``requests``?
------------------------------------------------------
+Pass `requests_timeout` as a keyword argument during initialization.
 
-Sometime, you may want to setup advanced usage involving the use of a ``requests`` :class:`~requests.Session`.
+Example::
 
-By default, a session is declared for every request you make to the API, but you can also
-provide your own session and reuse it over and over again.
+    EventApi(..., ..., request_timeout=60).trigger_bulk(...)
 
-To illustrate this use case, let's take the example of setting up an automatic retry mechanism on
-requests when the API responds with a 502, 503 or 504 HTTP codes.
+How to Take Control Over the Session of ``requests``?
+------------------------------------------------------
 
-To do this, before initializing the Event API, we will first instantiate a :class:`~requests.Session` from the
-:module:`requests` module, then we will inject it into the keywords arguments of our API constructor. We finally
-call the method we want to use and retry.
+Sometimes, you may need to perform advanced operations using a ``requests.Session``.
 
-.. code-block:: python
+By default, a session is created for each API request. However, you can also provide your own session for reuse.
+
+Here's an example of setting up an automatic retry mechanism for requests with specific HTTP status codes (502, 503, 504)::
 
     from requests import Session
     from requests.adapters import HTTPAdapter, Retry
@@ -37,7 +35,7 @@ call the method we want to use and retry.
     from novu.api import EventApi
 
     session = Session()
-    retries = Retry(total=5, backoff_factor=1, status_forcelist=[ 502, 503, 504 ])
+    retries = Retry(total=5, backoff_factor=1, status_forcelist=[502, 503, 504])
     session.mount("https://api.novu.co", HTTPAdapter(max_retries=retries))
 
     event_api = EventApi("https://api.novu.co/api/", "<NOVU_API_TOKEN>", session=session)
@@ -46,3 +44,9 @@ call the method we want to use and retry.
         recipients="<YOUR_SUBSCRIBER_ID>",
         payload={},  # Your Novu payload goes here
     )
+
+This example demonstrates how to create a custom session and use it with the Event API.
+
+In a more approachable way, we refer to this solution as "Customer Identity Access Management (CIAM)" or simply, the "Customer Identity Solution."
+
+Subscribe to us right away to receive up-to-date information about the Logto Cloud (SaaS) as well as in-time feature updates.
