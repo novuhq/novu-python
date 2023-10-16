@@ -2,7 +2,7 @@
 description = "This project aims to provide a wrapper for the Novu API."
 keywords = ["novu", "python", "sdk", "api", "wrapper"]
 name = "novu"
-version = "1.7.0"
+version = "1.8.0"
 
 documentation = "https://novu-python.readthedocs.io/en/latest"
 homepage = "https://novu-python.readthedocs.io/en/latest"
@@ -21,6 +21,7 @@ classifiers = [
   "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: 3 :: Only",
   "Topic :: Software Development",
   "Typing :: Typed",
