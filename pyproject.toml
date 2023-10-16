@@ -54,7 +54,7 @@ toml = "^0.10.2"
 types-requests = "^2.28.11.12"
 
 [tool.poetry.group.docs.dependencies]
-Sphinx = "^6.1"
+Sphinx = "^7.0.0"
 m2r2 = "^0.3"
 sphinx-rtd-theme = "^1.2"
 sphinxcontrib-httpdomain = "^1.8"
