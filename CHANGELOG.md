@@ -1,3 +1,16 @@
+# [1.8.0](https://github.com/novuhq/novu-python/compare/v1.7.0...v1.8.0) (2023-10-16)
+
+
+### Bug Fixes
+
+* upgrade dependencies for dev environnements ([064e6d0](https://github.com/novuhq/novu-python/commit/064e6d0f13b9777e1f2b07e57472c889b07e9aff))
+
+
+### Features
+
+* added missing regenerate api key method in Environments ([#99](https://github.com/novuhq/novu-python/issues/99)) ([01585c9](https://github.com/novuhq/novu-python/commit/01585c947e9a8cedd9fb40da67c4f44657bdc2c6))
+* **integration:** [#70](https://github.com/novuhq/novu-python/issues/70) - add set_primary method in Integration API ([cfbb7cd](https://github.com/novuhq/novu-python/commit/cfbb7cd3388bb6d604b4d645c9354e75b5698953))
+
 # [1.7.0](https://github.com/novuhq/novu-python/compare/v1.6.0...v1.7.0) (2023-10-14)
 
 
