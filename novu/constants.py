@@ -17,7 +17,7 @@ SUBSCRIBERS_ENDPOINT = "/v1/subscribers"
 TENANTS_ENDPOINT = "/v1/tenants"
 TOPICS_ENDPOINT = "/v1/topics"
 BLUEPRINTS_ENDPOINT = "/v1/blueprints"
-WORKFLOW_ENDPOINT = "/v1/workflow" 
+WORKFLOW_ENDPOINT = "/v1/workflows" 
 
 # Datetime Format
 DATETIME_FORMAT = "%Y-%m-%dT%H:%M:%S.%f%z"
