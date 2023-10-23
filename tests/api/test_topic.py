@@ -185,3 +185,18 @@ class TopicApiTests(TestCase):
             params=None,
             timeout=5,
         )
+
+    @mock.patch("requests.request")
+    def test_delete(self, mock_request: mock.MagicMock) -> None:
+        mock_request.return_value = MockResponse(204)
+
+        self.api.delete("my-topic")
+
+        mock_request.assert_called_once_with(
+            method="DELETE",
+            url="sample.novu.com/v1/topics/my-topic",
+            headers={"Authorization": "ApiKey api-key"},
+            json=None,
+            params=None,
+            timeout=5,
+        )
