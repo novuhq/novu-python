@@ -115,3 +115,12 @@ class TopicApi(Api):
         return TopicDto.from_camel_case(
             self.handle_request("PATCH", f"{self._topic_url}/{key}", {"name": name})["data"]
         )
+
+    def delete(self, key: str) -> None:
+        """Delete a topic by its topic key if it has no subscribers
+
+        Args:
+            Key: The topic key to delete
+        """
+
+        self.handle_request("DELETE", f"{self._topic_url}/{key}")
