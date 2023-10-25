@@ -1,6 +1,5 @@
 # This file is covered by the LICENSE file in the root of this project.
 # Minimal makefile for Sphinx documentation
-#
 
 # You can set these variables from the command line, and also
 # from the environment for the first two.
