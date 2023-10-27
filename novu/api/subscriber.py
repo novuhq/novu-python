@@ -79,7 +79,9 @@ class SubscriberApi(Api):
         """
         return BulkResultSubscriberDto.from_camel_case(
             self.handle_request(
-                "POST", f"{self._subscriber_url}/bulk", [subscriber.to_camel_case() for subscriber in subscribers]
+                "POST",
+                f"{self._subscriber_url}/bulk",
+                {"subscribers": [subscriber.to_camel_case() for subscriber in subscribers]},
             ).get("data", {})
         )
 
