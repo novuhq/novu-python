@@ -3,7 +3,6 @@ import copy
 import dataclasses
 import logging
 import os
-from datetime import datetime
 from json.decoder import JSONDecodeError
 from typing import Generic, List, Optional, Type, TypeVar, Union
 from uuid import uuid4
@@ -26,7 +25,6 @@ def retry_backoff(f):
 
     def wrapper(*args):
         retry_config: RetryConfig = args[0].retry_config
-        print(retry_config)
 
         if retry_config:
             func = retry(
@@ -180,8 +178,6 @@ class Api:  # pylint: disable=R0903
         Returns:
             Return parsed response.
         """
-        print(datetime.now())
-        print(self._headers)
 
         if headers:
             _headers = copy.deepcopy(self._headers)
