@@ -61,7 +61,7 @@ class CamelCaseDto(Generic[_T]):
     @classmethod
     def from_camel_case(cls: Type[_T], data: dict) -> _T:
         """Helper to parse a camel case dict"""
-        fields = {f.name: f.type for f in dataclasses.fields(cls)}  # type: ignore[arg-type]
+        fields = {f.name: f.type for f in dataclasses.fields(cls)}
         kwargs = {}
         for key, val in data.items():
             _key = camel_case_to_snake_case(key)
