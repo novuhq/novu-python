@@ -5,7 +5,7 @@ from typing import Iterator, Optional
 
 import requests
 
-from novu.api.base import Api
+from novu.api.base import Api, RetryConfig
 from novu.constants import FEEDS_ENDPOINT
 from novu.dto.feed import FeedDto
 
@@ -18,9 +18,12 @@ class FeedApi(Api):
         url: Optional[str] = None,
         api_key: Optional[str] = None,
         requests_timeout: Optional[int] = None,
+        retry_config: Optional[RetryConfig] = None,
         session: Optional[requests.Session] = None,
     ) -> None:
-        super().__init__(url=url, api_key=api_key, requests_timeout=requests_timeout, session=session)
+        super().__init__(
+            url=url, api_key=api_key, requests_timeout=requests_timeout, retry_config=retry_config, session=session
+        )
 
         self._feed_url = f"{self._url}{FEEDS_ENDPOINT}"
 

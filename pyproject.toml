@@ -39,6 +39,7 @@ classifiers = [
 python = "^3.8"
 
 requests = "^2.28.2"
+tenacity = "^8.2.3"
 
 [tool.poetry.group.dev.dependencies]
 bandit = "^1.7.4"

@@ -6,7 +6,7 @@ from typing import Optional
 
 import requests
 
-from novu.api.base import Api, PaginationIterator
+from novu.api.base import Api, PaginationIterator, RetryConfig
 from novu.constants import NOTIFICATION_TEMPLATES_ENDPOINT
 from novu.dto.notification_template import (
     NotificationTemplateDto,
@@ -23,9 +23,12 @@ class NotificationTemplateApi(Api):
         url: Optional[str] = None,
         api_key: Optional[str] = None,
         requests_timeout: Optional[int] = None,
+        retry_config: Optional[RetryConfig] = None,
         session: Optional[requests.Session] = None,
     ) -> None:
-        super().__init__(url=url, api_key=api_key, requests_timeout=requests_timeout, session=session)
+        super().__init__(
+            url=url, api_key=api_key, requests_timeout=requests_timeout, retry_config=retry_config, session=session
+        )
 
         self._notification_template_url = f"{self._url}{NOTIFICATION_TEMPLATES_ENDPOINT}"
 
