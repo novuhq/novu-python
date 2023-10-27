@@ -1,3 +1,10 @@
+## [1.9.1](https://github.com/novuhq/novu-python/compare/v1.9.0...v1.9.1) (2023-10-27)
+
+
+### Bug Fixes
+
+* **subscriber:** prevent errors using bulk_create ([5d29027](https://github.com/novuhq/novu-python/commit/5d290271d24bc2441ccdd9d9adf5ac7fd2f41dda))
+
 # [1.9.0](https://github.com/novuhq/novu-python/compare/v1.8.0...v1.9.0) (2023-10-27)
 
 
