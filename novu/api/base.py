@@ -23,7 +23,7 @@ _C_co = TypeVar("_C_co", bound=CamelCaseDto, covariant=True)
 def retry_backoff(f):
     """Decorator to handle retry mechanism based on user configuration"""
 
-    def wrapper(*args):
+    def wrapper(*args, **kwargs):
         retry_config: RetryConfig = args[0].retry_config
 
         if retry_config:
@@ -35,9 +35,9 @@ def retry_backoff(f):
                 stop=stop_after_attempt(retry_config.retry_max),
             )(f)
         else:
-            func: f
+            func = f
 
-        return func(*args)
+        return func(*args, **kwargs)
 
     return wrapper
 
@@ -147,7 +147,10 @@ class Api:  # pylint: disable=R0903
         api_key = api_key or config.api_key
 
         self._url = url
-        self._headers = {"Authorization": f"ApiKey {api_key}", "Idempotency-Key": str(uuid4())}
+        if retry_config:
+            self._headers = {"Authorization": f"ApiKey {api_key}", "Idempotency-Key": str(uuid4())}
+        else:
+            self._headers = {"Authorization": f"ApiKey {api_key}"}
 
         self.requests_timeout = requests_timeout or int(os.getenv("NOVU_PYTHON_REQUESTS_TIMEOUT", "5"))
         self.retry_config = retry_config

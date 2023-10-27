@@ -1,8 +1,10 @@
 from unittest import TestCase, mock
+from uuid import uuid4
 
 from requests.exceptions import HTTPError
+from tenacity import RetryError
 
-from novu.api.base import Api
+from novu.api.base import Api, RetryConfig
 from novu.config import NovuConfig
 from tests.factories import MockResponse
 
@@ -98,3 +100,30 @@ class ApiTests(TestCase):
             params=None,
             timeout=5,
         )
+
+    @mock.patch("requests.request")
+    def test_use_retry_backoff_mechanism(self, mock_request: mock.MagicMock) -> None:
+        mock_request.return_value = MockResponse(500, raise_on_json_decode=True)
+        idempotency_key_header = str(uuid4())
+
+        api = Api(retry_config=RetryConfig(initial_delay=1, wait_min=2, wait_max=100, retry_max=4))
+
+        self.assertRaises(
+            RetryError,
+            lambda: api.handle_request("GET", api._url, headers={"Idempotency-Key": idempotency_key_header}),
+        )
+
+        mock_request.assert_called_with(
+            method="GET",
+            url="sample.novu.com",
+            headers={"Authorization": "ApiKey api-key", "Idempotency-Key": idempotency_key_header},
+            json=None,
+            params=None,
+            timeout=5,
+        )
+
+        idempotency_key_headers = [req.kwargs["headers"]["Idempotency-Key"] for req in mock_request.call_args_list]
+
+        self.assertEqual(idempotency_key_headers, [idempotency_key_header] * 4)
+
+        self.assertEqual(4, mock_request.call_count)
