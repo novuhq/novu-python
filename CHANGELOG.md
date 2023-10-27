@@ -1,3 +1,36 @@
+# [1.9.0](https://github.com/novuhq/novu-python/compare/v1.8.0...v1.9.0) (2023-10-27)
+
+
+### Features
+
+* added missing delete topic method in TopicApi ([2e1219d](https://github.com/novuhq/novu-python/commit/2e1219d5c408e2638e43cb68111b51daf9341d18))
+* **deps:** update abatilo/actions-poetry action to v2.3.0 ([13dc292](https://github.com/novuhq/novu-python/commit/13dc292ea0131ef0202c1f22e6159d5246623339))
+* **deps:** update actions/checkout action to v4 ([0bc3aff](https://github.com/novuhq/novu-python/commit/0bc3affd1066b4eefbf80ff990c8ae5be60a38c2))
+* **deps:** update actions/setup-python action to v4 ([c76ed15](https://github.com/novuhq/novu-python/commit/c76ed15e3b9fc4322dac51d1824cd505a961df66))
+* **deps:** update dependency black to v23.10.0 ([1cd0805](https://github.com/novuhq/novu-python/commit/1cd0805f68c6353c4004eea0198ab3289196b0a0))
+* **deps:** update dependency black to v23.10.1 ([2651b2c](https://github.com/novuhq/novu-python/commit/2651b2c3415d66e0ef403ee9ba147d39e9601d92))
+* **deps:** update dependency mypy to v1.6.1 ([c7d7899](https://github.com/novuhq/novu-python/commit/c7d7899a5cb20aa551e66662bc1df2979dc1c738))
+* **deps:** update dependency pre-commit to v3 ([a0d7020](https://github.com/novuhq/novu-python/commit/a0d7020903c98f49fa9c686b9407dadf3314dede))
+* **deps:** update dependency pylint to v3 ([2739d9e](https://github.com/novuhq/novu-python/commit/2739d9e41f8f03e196ad72ff827fe50b570cc85d))
+* **deps:** update dependency pylint to v3.0.2 ([e6289ac](https://github.com/novuhq/novu-python/commit/e6289acbade6f508aa56d1110ca117a87360b965))
+* **deps:** update dependency pytest to v7.4.3 ([8fa399f](https://github.com/novuhq/novu-python/commit/8fa399fa5a3260bfc05072f0edb8f712355e1872))
+* **deps:** update dependency sphinx to v7 ([4b55b00](https://github.com/novuhq/novu-python/commit/4b55b00e3f8f1df14d2e1e8fb268a4b65afee78a))
+* **deps:** update dependency sphinxcontrib-mermaid to ^0.9.0 ([0c1aeca](https://github.com/novuhq/novu-python/commit/0c1aeca37716b240cf857b5654e0b29fd4476873))
+* **deps:** update pre-commit hook alessandrojcm/commitlint-pre-commit-hook to v9.5.0 ([fdf285e](https://github.com/novuhq/novu-python/commit/fdf285e428c80994f1d25400833d3efdc71bc80a))
+* **deps:** update pre-commit hook ambv/black to v23 ([6c320c9](https://github.com/novuhq/novu-python/commit/6c320c92f29a688bfa13f9c11deb45cf5602eb08))
+* **deps:** update pre-commit hook ambv/black to v23.10.0 ([78cc46a](https://github.com/novuhq/novu-python/commit/78cc46aa30d5d65aa0cce8230506fc0036880dda))
+* **deps:** update pre-commit hook ambv/black to v23.10.1 ([4c53350](https://github.com/novuhq/novu-python/commit/4c53350bc1866fd0fe15f69a7bd2926f13f41a13))
+* **deps:** update pre-commit hook asottile/pyupgrade to v3.15.0 ([824a0fd](https://github.com/novuhq/novu-python/commit/824a0fdf5ebdef5f7d736960e718e265a394ad64))
+* **deps:** update pre-commit hook asottile/pyupgrade to v3.3.2 ([30df8a9](https://github.com/novuhq/novu-python/commit/30df8a96f2d890fe7d9c6d6f2d5bfece32166b71))
+* **deps:** update pre-commit hook codespell-project/codespell to v2.2.6 ([51b3448](https://github.com/novuhq/novu-python/commit/51b3448d54e183e0d46452c9fb2651db58edf458))
+* **deps:** update pre-commit hook lucas-c/pre-commit-hooks-safety to v1.3.2 ([e122efa](https://github.com/novuhq/novu-python/commit/e122efa6faabadf2cf9ab9079adfe9133b623878))
+* **deps:** update pre-commit hook pre-commit/mirrors-mypy to v1.0.1 ([0e4c5ca](https://github.com/novuhq/novu-python/commit/0e4c5ca47eca79cb4efae37f2882662a843e99b5))
+* **deps:** update pre-commit hook pre-commit/mirrors-mypy to v1.6.0 ([5d1916a](https://github.com/novuhq/novu-python/commit/5d1916a371557701799e09ed292a4dcde0f18010))
+* **deps:** update pre-commit hook pre-commit/mirrors-mypy to v1.6.1 ([029e0c7](https://github.com/novuhq/novu-python/commit/029e0c708fe0c859765a4371a7118b89ee1dab83))
+* **deps:** update pre-commit hook pre-commit/pre-commit-hooks to v4.5.0 ([939836f](https://github.com/novuhq/novu-python/commit/939836f761057833d32aa9126ff78110a00a90dc))
+* **deps:** update pre-commit hook pre-commit/pygrep-hooks to v1.10.0 ([fe1d9cf](https://github.com/novuhq/novu-python/commit/fe1d9cf2cb06522d4d8c8a54f12b70a3b3bc4ecb))
+* **deps:** update pre-commit hook pycqa/bandit to v1.7.5 ([58cd4d4](https://github.com/novuhq/novu-python/commit/58cd4d41b6bce6b3b3f497f465de29f694816ae8))
+
 # [1.8.0](https://github.com/novuhq/novu-python/compare/v1.7.0...v1.8.0) (2023-10-16)
 
 
