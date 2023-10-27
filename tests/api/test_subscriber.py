@@ -242,28 +242,30 @@ class SubscriberApiTests(TestCase):
             method="POST",
             url="sample.novu.com/v1/subscribers/bulk",
             headers={"Authorization": "ApiKey api-key"},
-            json=[
-                {
-                    "subscriberId": "subscriber-id",
-                    "email": "subscriber@sample.com",
-                    "firstName": None,
-                    "lastName": None,
-                    "phone": None,
-                    "avatar": None,
-                    "locale": None,
-                    "channels": None,
-                },
-                {
-                    "subscriberId": "subscriber1-id",
-                    "email": "subscriber1@sample.com",
-                    "firstName": None,
-                    "lastName": None,
-                    "phone": None,
-                    "avatar": None,
-                    "locale": None,
-                    "channels": None,
-                },
-            ],
+            json={
+                "subscribers": [
+                    {
+                        "subscriberId": "subscriber-id",
+                        "email": "subscriber@sample.com",
+                        "firstName": None,
+                        "lastName": None,
+                        "phone": None,
+                        "avatar": None,
+                        "locale": None,
+                        "channels": None,
+                    },
+                    {
+                        "subscriberId": "subscriber1-id",
+                        "email": "subscriber1@sample.com",
+                        "firstName": None,
+                        "lastName": None,
+                        "phone": None,
+                        "avatar": None,
+                        "locale": None,
+                        "channels": None,
+                    },
+                ]
+            },
             params=None,
             timeout=5,
         )
