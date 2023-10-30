@@ -90,7 +90,9 @@ class MessageApiTests(TestCase):
     def test_list_messages_with_filters(self, mock_request: mock.MagicMock) -> None:
         mock_request.return_value = MockResponse(200, {"data": [self.response_json]})
 
-        res = self.api.list(10, 0, Channel.IN_APP.value, "63dafedbc037e013fd82d37a")
+        res = self.api.list(
+            10, 0, Channel.IN_APP.value, "63dafedbc037e013fd82d37a", "aa287682-cb30-4a5f-a03a-f28f59c9d46d"
+        )
         self.assertIsInstance(res, PaginatedMessageDto)
         self.assertEqual(list(res.data), [self.expected_dto])
 
@@ -99,7 +101,13 @@ class MessageApiTests(TestCase):
             url="sample.novu.com/v1/messages",
             headers={"Authorization": "ApiKey api-key"},
             json=None,
-            params={"limit": 10, "page": 0, "channel": "in_app", "subscriberId": "63dafedbc037e013fd82d37a"},
+            params={
+                "limit": 10,
+                "page": 0,
+                "channel": "in_app",
+                "subscriberId": "63dafedbc037e013fd82d37a",
+                "transactionId": "aa287682-cb30-4a5f-a03a-f28f59c9d46d",
+            },
             timeout=5,
         )
 
