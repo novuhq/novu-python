@@ -25,7 +25,12 @@ class MessageApi(Api):
         self._message_url = f"{self._url}{MESSAGES_ENDPOINT}"
 
     def list(
-        self, limit: int = 10, page: int = 0, channel: Optional[str] = None, subscriber_id: Optional[str] = None
+        self,
+        limit: int = 10,
+        page: int = 0,
+        channel: Optional[str] = None,
+        subscriber_id: Optional[str] = None,
+        transaction_id: Optional[str] = None,
     ) -> PaginatedMessageDto:
         """List messages
 
@@ -34,6 +39,7 @@ class MessageApi(Api):
             page: The page to fetch, defaults to 0
             channel: The channel for the messages you wish to list. Defaults to None.
             subscriber_id: The subscriberId for the subscriber you like to list messages for
+            transaction_id: The transactionId for the messages you wish to list. Defaults to None.
 
         Returns:
             Returned a paginated struct containing retrieved messages
@@ -44,6 +50,8 @@ class MessageApi(Api):
             payload["channel"] = channel
         if subscriber_id:
             payload["subscriberId"] = subscriber_id
+        if transaction_id:
+            payload["transactionId"] = transaction_id
 
         return PaginatedMessageDto.from_camel_case(self.handle_request("GET", self._message_url, payload=payload))
 
