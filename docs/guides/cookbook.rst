@@ -12,7 +12,7 @@ There are two ways to modify the timeout for API requests made by the :module:`r
 
    Example:
 
-   .. code-block:: python
+   .. code-block:: bash
 
       export NOVU_PYTHON_REQUESTS_TIMEOUT=60
 
