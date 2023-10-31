@@ -289,22 +289,24 @@ class SubscriberApiTests(TestCase):
 
     @mock.patch("requests.request")
     def test_get_subscriber_with_credentials_info(self, mock_request: mock.MagicMock) -> None:
-        all_three = {"response": {"webhook_url": "TEST", "channel": "slack", "device_tokens": ["TEST"]},
-                        "expected": SubscriberChannelSettingsCredentialsDto(
-                            webhook_url="TEST", channel="slack", device_tokens=["TEST"]
-                        )}
-        only_webhook = {"response": {"webhook_url": "TEST"},
-                        "expected": SubscriberChannelSettingsCredentialsDto(
-                            webhook_url="TEST", channel=None, device_tokens=None
-                        )}
-        only_channel = {"response": {"channel": "slack"},
-                     "expected": SubscriberChannelSettingsCredentialsDto(
-                         webhook_url=None, channel="slack", device_tokens=None
-                     )}
-        only_device_tokens = {"response": {"device_tokens": ["TEST"]},
-                        "expected": SubscriberChannelSettingsCredentialsDto(
-                            webhook_url=None, channel=None, device_tokens=["TEST"]
-                        )}
+        all_three = {
+            "response": {"webhook_url": "TEST", "channel": "slack", "device_tokens": ["TEST"]},
+            "expected": SubscriberChannelSettingsCredentialsDto(
+                webhook_url="TEST", channel="slack", device_tokens=["TEST"]
+            ),
+        }
+        only_webhook = {
+            "response": {"webhook_url": "TEST"},
+            "expected": SubscriberChannelSettingsCredentialsDto(webhook_url="TEST", channel=None, device_tokens=None),
+        }
+        only_channel = {
+            "response": {"channel": "slack"},
+            "expected": SubscriberChannelSettingsCredentialsDto(webhook_url=None, channel="slack", device_tokens=None),
+        }
+        only_device_tokens = {
+            "response": {"device_tokens": ["TEST"]},
+            "expected": SubscriberChannelSettingsCredentialsDto(webhook_url=None, channel=None, device_tokens=["TEST"]),
+        }
 
         for test in [all_three, only_webhook, only_channel, only_device_tokens]:
             mock_request.return_value = MockResponse(
