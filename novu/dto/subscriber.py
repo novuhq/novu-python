@@ -75,10 +75,10 @@ class SubscriberPreferenceDto(CamelCaseDto["SubscriberPreferenceDto"]):
 class SubscriberChannelSettingsCredentialsDto(CamelCaseDto["SubscriberChannelSettingsCredentialsDto"]):
     """Credentials payload for the specified provider."""
 
-    webhook_url: str
+    webhook_url: Optional[str] = None
     """Webhook url used by chat app integrations. The webhook should be obtained from the chat app provider"""
 
-    channel: str
+    channel: Optional[str] = None
     """Channel specification for Mattermost chat notifications"""
 
     device_tokens: Optional[List[str]] = None
