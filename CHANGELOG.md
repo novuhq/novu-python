@@ -1,3 +1,18 @@
+# [1.10.0](https://github.com/novuhq/novu-python/compare/v1.9.1...v1.10.0) (2023-11-01)
+
+
+### Bug Fixes
+
+* [#148](https://github.com/novuhq/novu-python/issues/148) make webhook_url and channel optional in SubscriberChannelSettingsCredentialsDto ([a334e48](https://github.com/novuhq/novu-python/commit/a334e4874bfa4ef8b7cfe57f5de696045c568bd3))
+
+
+### Features
+
+* **api:** add transaction id param to  MessageApi list method ([4fc5dad](https://github.com/novuhq/novu-python/commit/4fc5dad80f7d2ecbb6a8fc983f99d30654bae874))
+* **deps:** update dependency sentry-sdk to v1.33.0 ([939e10d](https://github.com/novuhq/novu-python/commit/939e10de2c9c546341cb8c51a197871622e68d4c))
+* **deps:** update dependency sentry-sdk to v1.33.1 ([7d0f327](https://github.com/novuhq/novu-python/commit/7d0f327183fdd06eaac960e662d9ddbcc27f0d48))
+* **deps:** update dependency sphinx to v7.2.6 ([f430a40](https://github.com/novuhq/novu-python/commit/f430a40a68d1d0b73bab1ed97ec445537de67bfa))
+
 ## [1.9.1](https://github.com/novuhq/novu-python/compare/v1.9.0...v1.9.1) (2023-10-27)
 
 
