@@ -45,7 +45,7 @@ class FieldFilterPartOperator(StrEnum):
     """Not LIKE operator (``not sentence.find(item)``)"""
 
     IN = "IN"
-    """Not equal operator (``in``)"""
+    """Membership operator (``in``)"""
 
 
 class FieldFilterPartOn(StrEnum):
