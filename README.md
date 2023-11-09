@@ -273,3 +273,16 @@ poetry install
 poetry run pre-commit install --install-hook
 poetry run pre-commit install --install-hooks --hook-type commit-msg
 ```
+
+## Contributing
+
+Feature requests, bug reports and pull requests are welcome. Please create an [issue](https://github.com/novuhq/novu-python/issues).
+
+## Support and Feedback
+
+Be sure to visit the Novu official [documentation website](https://docs.novu.co/docs) for additional information about our SDK.
+If you need additional assistance, join our Discord server [here](https://discord.novu.co).
+
+## License
+
+Novu Python SDK is licensed under the MIT License - see the [LICENSE](https://github.com/novuhq/novu-python/blob/main/LICENSE) file for details.
