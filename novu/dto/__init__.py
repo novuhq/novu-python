@@ -4,6 +4,7 @@ All definitions of format returned by the Novu API are here, which help us to in
 for developer purpose (instead of getting raw dict without any hint about what is in it).
 """
 
+from novu.dto.blueprint import BlueprintDto, GroupedBlueprintDto
 from novu.dto.change import ChangeDetailDto, ChangeDto, PaginatedChangeDto
 from novu.dto.environment import (
     EnvironmentApiKeyDto,
@@ -26,6 +27,7 @@ from novu.dto.notification import (
     ActivityNotificationSubscriberResponseDTO,
     ActivityNotificationTemplateResponseDto,
     ActivityNotificationTriggerResponseDto,
+    PaginatedActivityNotificationDto,
 )
 from novu.dto.notification_group import (
     NotificationGroupDto,
@@ -42,7 +44,10 @@ from novu.dto.notification_template import (
 )
 from novu.dto.step_filter import StepFilterDto
 from novu.dto.subscriber import (
+    BulkResultSubscriberDto,
     PaginatedSubscriberDto,
+    SubscriberChannelSettingsCredentialsDto,
+    SubscriberChannelSettingsDto,
     SubscriberDto,
     SubscriberPreferenceChannelDto,
     SubscriberPreferenceDto,
@@ -53,6 +58,8 @@ from novu.dto.tenant import PaginatedTenantDto, TenantDto
 from novu.dto.topic import PaginatedTopicDto, TopicDto, TriggerTopicDto
 
 __all__ = [
+    "BlueprintDto",
+    "BulkResultSubscriberDto",
     "ChangeDetailDto",
     "ChangeDto",
     "EnvironmentApiKeyDto",
@@ -64,6 +71,7 @@ __all__ = [
     "ExecutionDetailDto",
     "FeedDto",
     "FieldFilterPartDto",
+    "GroupedBlueprintDto",
     "IntegrationChannelUsageDto",
     "IntegrationDto",
     "LayoutDto",
@@ -84,6 +92,7 @@ __all__ = [
     "ActivityNotificationExecutionDetailResponseDto",
     "ActivityNotificationJobResponseDto",
     "ActivityNotificationDto",
+    "PaginatedActivityNotificationDto",
     "PaginatedChangeDto",
     "PaginatedLayoutDto",
     "PaginatedMessageDto",
@@ -94,6 +103,8 @@ __all__ = [
     "PaginatedTopicDto",
     "StepFilterDto",
     "SubscriberDto",
+    "SubscriberChannelSettingsDto",
+    "SubscriberChannelSettingsCredentialsDto",
     "SubscriberPreferenceChannelDto",
     "SubscriberPreferenceDto",
     "SubscriberPreferencePreferenceDto",

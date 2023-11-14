@@ -5,14 +5,15 @@ from typing import Dict, Iterator, List, Optional, Union
 
 import requests
 
-from novu.api.base import Api
+from novu.api.base import Api, PaginationIterator
 from novu.constants import SUBSCRIBERS_ENDPOINT
 from novu.dto.subscriber import (
+    BulkResultSubscriberDto,
     PaginatedSubscriberDto,
     SubscriberDto,
     SubscriberPreferenceDto,
 )
-from novu.enums import Channel
+from novu.enums import Channel, ProviderIdEnum
 
 
 class SubscriberApi(Api):
@@ -44,6 +45,14 @@ class SubscriberApi(Api):
 
         return PaginatedSubscriberDto.from_camel_case(self.handle_request("GET", self._subscriber_url, payload=payload))
 
+    def stream(self) -> PaginationIterator[SubscriberDto]:
+        """Stream all existing subscribers into an iterator.
+
+        Returns:
+            An iterator on all subscribers available.
+        """
+        return PaginationIterator(self, SubscriberDto, self._subscriber_url)
+
     def create(self, subscriber: SubscriberDto) -> SubscriberDto:
         """Method to push a given subscriber instance to Novu
 
@@ -55,6 +64,25 @@ class SubscriberApi(Api):
         """
         return SubscriberDto.from_camel_case(
             self.handle_request("POST", self._subscriber_url, subscriber.to_camel_case()).get("data", {})
+        )
+
+    def bulk_create(self, subscribers: Iterator[SubscriberDto]) -> BulkResultSubscriberDto:
+        """Using this endpoint you can create multiple subscribers at once, to avoid multiple calls to the API.
+
+        The bulk API is limited to 500 subscribers per request.
+
+        Args:
+            subscribers: An iterator of subscribers instance to push to Novu
+
+        Returns:
+            Result of the bulk operation in Novu.
+        """
+        return BulkResultSubscriberDto.from_camel_case(
+            self.handle_request(
+                "POST",
+                f"{self._subscriber_url}/bulk",
+                {"subscribers": [subscriber.to_camel_case() for subscriber in subscribers]},
+            ).get("data", {})
         )
 
     def get(self, subscriber_id: str) -> SubscriberDto:
@@ -122,6 +150,20 @@ class SubscriberApi(Api):
         return SubscriberDto.from_camel_case(
             self.handle_request("PUT", f"{self._subscriber_url}/{subscriber_id}/credentials", payload).get("data", {})
         )
+
+    def delete_credentials(
+        self,
+        subscriber_id: str,
+        provider_id: ProviderIdEnum,
+    ) -> None:
+        """Delete subscriber credentials such as slack and expo tokens.
+
+        Args:
+            subscriber_id: The subscriber identifier
+            provider_id: The provider identifier (e.g: slack)
+        """
+
+        self.handle_request("DELETE", f"{self._subscriber_url}/{subscriber_id}/credentials/{provider_id}")
 
     def online_status(self, subscriber_id: str, status: bool) -> SubscriberDto:
         """Used to update the subscriber is_online flag

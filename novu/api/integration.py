@@ -1,5 +1,5 @@
 """
-This module is used to define the ``IntregrationApi``, a python wrapper to interact with ``Intregrations`` in Novu.
+This module is used to define the ``IntregrationApi``, a python wrapper to interact with ``Integrations`` in Novu.
 """
 from typing import Iterator, Optional
 
@@ -108,4 +108,18 @@ class IntegrationApi(Api):
         """
         return IntegrationChannelUsageDto.from_camel_case(
             self.handle_request("GET", f"{self._integration_url}/{channel}/limit")["data"]
+        )
+
+    def set_primary(self, integration_id: str) -> IntegrationDto:
+        """Set an integration as primary
+        Args:
+            integration_id: The integration ID
+        Raises:
+            HTTPError: Raise a 400 error when provided integration identifier is not found in the application
+            HTTPError: Raise a 401 error when you are not authorized to do this action
+        Returns:
+            The instance of the updated integration
+        """
+        return IntegrationDto.from_camel_case(
+            self.handle_request("POST", f"{self._integration_url}/{integration_id}/set-primary")["data"]
         )

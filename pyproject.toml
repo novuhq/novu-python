@@ -2,7 +2,7 @@
 description = "This project aims to provide a wrapper for the Novu API."
 keywords = ["novu", "python", "sdk", "api", "wrapper"]
 name = "novu"
-version = "1.4.0"
+version = "1.10.0"
 
 documentation = "https://novu-python.readthedocs.io/en/latest"
 homepage = "https://novu-python.readthedocs.io/en/latest"
@@ -21,6 +21,7 @@ classifiers = [
   "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: 3 :: Only",
   "Topic :: Software Development",
   "Typing :: Typed",
@@ -44,20 +45,20 @@ bandit = "^1.7.4"
 black = "^23.0.0"
 coverage = "^7.0.4"
 mypy = "^1.1"
-pre-commit = "^2.21.0"
+pre-commit = "^3.0.0"
 pylama = "^8.4.1"
-pylint = "^2.15.9"
+pylint = "^3.0.0"
 pytest = "^7.2.0"
 sentry-sdk = "^1.14.0"
 toml = "^0.10.2"
 types-requests = "^2.28.11.12"
 
 [tool.poetry.group.docs.dependencies]
-Sphinx = "^6.1"
+Sphinx = "^7.0.0"
 m2r2 = "^0.3"
 sphinx-rtd-theme = "^1.2"
 sphinxcontrib-httpdomain = "^1.8"
-sphinxcontrib-mermaid = "^0.8"
+sphinxcontrib-mermaid = "^0.9.0"
 
 [tool.bandit]
 targets = ["novu"]
@@ -108,3 +109,6 @@ fail_under = 100
 [tool.pytest.ini_options]
 testpaths = "tests/"
 # addopts = "--doctest-modules -ra -l --tb=short --show-capture=all --color=yes"
+
+[tool.codespell]
+skip = 'poetry.lock,CHANGELOG.md'
