@@ -1,5 +1,6 @@
-from collections.abc import Generator
 from unittest import TestCase, mock
+
+import pkg_resources
 
 from novu.api import NotificationGroupApi
 from novu.config import NovuConfig
@@ -8,6 +9,8 @@ from novu.dto.notification_group import (
     PaginatedNotificationGroupDto,
 )
 from tests.factories import MockResponse
+
+__version__ = pkg_resources.get_distribution("novu").version
 
 
 class NotificationGroupApiTests(TestCase):
@@ -47,7 +50,7 @@ class NotificationGroupApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="GET",
             url="sample.novu.com/v1/notification-groups",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json=None,
             params=None,
             timeout=5,
@@ -64,7 +67,7 @@ class NotificationGroupApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="POST",
             url="sample.novu.com/v1/notification-groups",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json={"name": "something"},
             params=None,
             timeout=5,
@@ -81,7 +84,7 @@ class NotificationGroupApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="GET",
             url="sample.novu.com/v1/notification-groups/63dafed97779f59258e38449",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json=None,
             params=None,
             timeout=5,
@@ -98,7 +101,7 @@ class NotificationGroupApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="PATCH",
             url="sample.novu.com/v1/notification-groups/63dafed97779f59258e38449",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json={"name": "Something"},
             params=None,
             timeout=5,
@@ -113,7 +116,7 @@ class NotificationGroupApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="DELETE",
             url="sample.novu.com/v1/notification-groups/63dafed97779f59258e38449",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json=None,
             params=None,
             timeout=5,

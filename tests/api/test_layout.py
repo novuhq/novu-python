@@ -1,9 +1,13 @@
 from unittest import TestCase, mock
 
+import pkg_resources
+
 from novu.api import LayoutApi
 from novu.config import NovuConfig
 from novu.dto import LayoutDto, LayoutVariableDto, PaginatedLayoutDto
 from tests.factories import MockResponse
+
+__version__ = pkg_resources.get_distribution("novu").version
 
 
 class LayoutApiTests(TestCase):
@@ -123,7 +127,7 @@ class LayoutApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="GET",
             url="sample.novu.com/v1/layouts",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json=None,
             params={"page": 0, "pageSize": 100},
             timeout=5,
@@ -140,7 +144,7 @@ class LayoutApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="GET",
             url="sample.novu.com/v1/layouts",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json=None,
             params={"page": 1, "pageSize": 20},
             timeout=5,
@@ -157,7 +161,7 @@ class LayoutApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="POST",
             url="sample.novu.com/v1/layouts",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json={
                 "name": "Default Layout",
                 "description": "The default layout created by Novu",
@@ -216,7 +220,7 @@ class LayoutApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="GET",
             url="sample.novu.com/v1/layouts/63dafeda7779f59258e38450",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json=None,
             params=None,
             timeout=5,
@@ -233,7 +237,7 @@ class LayoutApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="PATCH",
             url="sample.novu.com/v1/layouts/63dafeda7779f59258e38450",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json={
                 "name": "Default Layout",
                 "description": "The default layout created by Novu",
@@ -291,7 +295,7 @@ class LayoutApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="DELETE",
             url="sample.novu.com/v1/layouts/63dafeda7779f59258e38450",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json=None,
             params=None,
             timeout=5,
@@ -307,7 +311,7 @@ class LayoutApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="POST",
             url="sample.novu.com/v1/layouts/63dafeda7779f59258e38450/default",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json=None,
             params=None,
             timeout=5,

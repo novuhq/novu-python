@@ -1,9 +1,13 @@
 from unittest import TestCase, mock
 
+import pkg_resources
+
 from novu.api import TopicApi
 from novu.config import NovuConfig
 from novu.dto.topic import PaginatedTopicDto, TopicDto
 from tests.factories import MockResponse
+
+__version__ = pkg_resources.get_distribution("novu").version
 
 
 class TopicApiTests(TestCase):
@@ -41,7 +45,7 @@ class TopicApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="GET",
             url="sample.novu.com/v1/topics",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json=None,
             params={},
             timeout=5,
@@ -58,7 +62,7 @@ class TopicApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="GET",
             url="sample.novu.com/v1/topics",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json=None,
             params={"page": 1, "limit": 10, "key": "my-topic"},
             timeout=5,
@@ -77,7 +81,7 @@ class TopicApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="POST",
             url="sample.novu.com/v1/topics",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json={"key": "my-topic", "name": "My Topic"},
             params=None,
             timeout=5,
@@ -96,7 +100,7 @@ class TopicApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="GET",
             url="sample.novu.com/v1/topics/my-topic",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json=None,
             params=None,
             timeout=5,
@@ -113,7 +117,7 @@ class TopicApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="POST",
             url="sample.novu.com/v1/topics/my-topic/subscribers",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json={"subscribers": ["63dafed4117f8c850991ec4a"]},
             params=None,
             timeout=5,
@@ -132,7 +136,7 @@ class TopicApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="POST",
             url="sample.novu.com/v1/topics/my-topic/subscribers",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json={"subscribers": ["63dafed4117f8c850991ec4a", "not-defined"]},
             params=None,
             timeout=5,
@@ -147,7 +151,7 @@ class TopicApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="POST",
             url="sample.novu.com/v1/topics/my-topic/subscribers/removal",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json={"subscribers": ["not-defined"]},
             params=None,
             timeout=5,
@@ -162,7 +166,7 @@ class TopicApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="POST",
             url="sample.novu.com/v1/topics/my-topic/subscribers/removal",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json={"subscribers": ["63dafed4117f8c850991ec4a", "not-defined"]},
             params=None,
             timeout=5,
@@ -180,7 +184,7 @@ class TopicApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="PATCH",
             url="sample.novu.com/v1/topics/my-topic",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json={"name": "My Topic"},
             params=None,
             timeout=5,
@@ -195,7 +199,7 @@ class TopicApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="DELETE",
             url="sample.novu.com/v1/topics/my-topic",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json=None,
             params=None,
             timeout=5,
