@@ -15,6 +15,7 @@ from novu.api.message import MessageApi
 from novu.api.notification import NotificationApi
 from novu.api.notification_group import NotificationGroupApi
 from novu.api.notification_template import NotificationTemplateApi
+from novu.api.organization import OrganizationApi
 from novu.api.subscriber import SubscriberApi
 from novu.api.tenant import TenantApi
 from novu.api.topic import TopicApi
@@ -33,6 +34,7 @@ __all__ = [
     "NotificationApi",
     "NotificationGroupApi",
     "NotificationTemplateApi",
+    "OrganizationApi",
     "SubscriberApi",
     "TenantApi",
     "TopicApi",
