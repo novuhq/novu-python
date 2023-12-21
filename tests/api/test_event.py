@@ -1,11 +1,15 @@
 from unittest import TestCase, mock
 
+import pkg_resources
+
 from novu.api import EventApi
 from novu.config import NovuConfig
 from novu.dto.event import EventDto, InputEventDto
 from novu.dto.topic import TriggerTopicDto
 from novu.enums import EventStatus
 from tests.factories import MockResponse
+
+__version__ = pkg_resources.get_distribution("novu").version
 
 
 class EventApiTests(TestCase):
@@ -31,7 +35,7 @@ class EventApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="POST",
             url="sample.novu.com/v1/events/trigger",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json={"name": "test-template", "to": "sample-recipient", "payload": {}},
             params=None,
             timeout=5,
@@ -52,7 +56,7 @@ class EventApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="POST",
             url="sample.novu.com/v1/events/trigger",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json={"name": "test-template", "to": ["sample-recipient-1", "sample-recipient-2"], "payload": {}},
             params=None,
             timeout=5,
@@ -73,7 +77,7 @@ class EventApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="POST",
             url="sample.novu.com/v1/events/trigger",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json={"name": "test-template", "to": "sample-recipient", "payload": {}, "overrides": {"an": "override"}},
             params=None,
             timeout=5,
@@ -94,7 +98,7 @@ class EventApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="POST",
             url="sample.novu.com/v1/events/trigger",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json={"name": "test-template", "to": "sample-recipient", "payload": {}, "actor": "actor-id"},
             params=None,
             timeout=5,
@@ -115,7 +119,7 @@ class EventApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="POST",
             url="sample.novu.com/v1/events/trigger",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json={"name": "test-template", "to": "sample-recipient", "payload": {}, "transactionId": "sample-test"},
             params=None,
             timeout=5,
@@ -136,7 +140,7 @@ class EventApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="POST",
             url="sample.novu.com/v1/events/trigger",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json={"name": "test-template", "to": "sample-recipient", "payload": {}, "tenant": "tenant-id"},
             params=None,
             timeout=5,
@@ -158,7 +162,7 @@ class EventApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="POST",
             url="sample.novu.com/v1/events/trigger",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json={"name": "test-template", "to": [{"topicKey": "topic-key", "type": "type"}], "payload": {}},
             params=None,
             timeout=5,
@@ -181,7 +185,7 @@ class EventApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="POST",
             url="sample.novu.com/v1/events/trigger",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json={
                 "name": "test-template",
                 "to": [{"topicKey": "topic-key-1", "type": "type"}, {"topicKey": "topic-key-2", "type": "type"}],
@@ -207,7 +211,7 @@ class EventApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="POST",
             url="sample.novu.com/v1/events/trigger",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json={
                 "name": "test-template",
                 "to": [{"topicKey": "topic-key", "type": "type"}],
@@ -234,7 +238,7 @@ class EventApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="POST",
             url="sample.novu.com/v1/events/trigger",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json={
                 "name": "test-template",
                 "to": [{"topicKey": "topic-key", "type": "type"}],
@@ -261,7 +265,7 @@ class EventApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="POST",
             url="sample.novu.com/v1/events/trigger",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json={
                 "name": "test-template",
                 "to": [{"topicKey": "topic-key", "type": "type"}],
@@ -288,7 +292,7 @@ class EventApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="POST",
             url="sample.novu.com/v1/events/trigger",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json={
                 "name": "test-template",
                 "to": [{"topicKey": "topic-key", "type": "type"}],
@@ -326,7 +330,7 @@ class EventApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="POST",
             url="sample.novu.com/v1/events/trigger/bulk",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json={
                 "events": [
                     {"name": "test-template", "to": "recipient_1", "payload": {}},
@@ -368,7 +372,7 @@ class EventApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="POST",
             url="sample.novu.com/v1/events/trigger/bulk",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json={
                 "events": [
                     {"name": "test-template", "to": "recipient_1", "payload": {}},
@@ -411,7 +415,7 @@ class EventApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="POST",
             url="sample.novu.com/v1/events/trigger/bulk",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json={
                 "events": [
                     {"name": "test-template", "to": "recipient_1", "payload": {}, "overrides": {"an": "override"}},
@@ -454,7 +458,7 @@ class EventApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="POST",
             url="sample.novu.com/v1/events/trigger/bulk",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json={
                 "events": [
                     {"name": "test-template", "to": "recipient_1", "payload": {}, "actor": "actor-id"},
@@ -499,7 +503,7 @@ class EventApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="POST",
             url="sample.novu.com/v1/events/trigger/bulk",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json={
                 "events": [
                     {"name": "test-template", "to": "recipient_1", "payload": {}, "transactionId": transaction_ids[0]},
@@ -542,7 +546,7 @@ class EventApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="POST",
             url="sample.novu.com/v1/events/trigger/bulk",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json={
                 "events": [
                     {"name": "test-template", "to": "recipient_1", "payload": {}, "tenant": "tenant-id"},
@@ -568,7 +572,7 @@ class EventApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="POST",
             url="sample.novu.com/v1/events/trigger/broadcast",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json={
                 "name": "test-template",
                 "payload": {},
@@ -593,7 +597,7 @@ class EventApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="POST",
             url="sample.novu.com/v1/events/trigger/broadcast",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json={
                 "name": "test-template",
                 "payload": {},
@@ -618,7 +622,7 @@ class EventApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="POST",
             url="sample.novu.com/v1/events/trigger/broadcast",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json={
                 "name": "test-template",
                 "payload": {},
@@ -643,7 +647,7 @@ class EventApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="POST",
             url="sample.novu.com/v1/events/trigger/broadcast",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json={
                 "name": "test-template",
                 "payload": {},
@@ -662,7 +666,7 @@ class EventApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="DELETE",
             url="sample.novu.com/v1/events/trigger/sample-test",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json=None,
             params=None,
             timeout=5,

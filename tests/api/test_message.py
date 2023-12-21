@@ -1,11 +1,15 @@
 from unittest import TestCase, mock
 
+import pkg_resources
+
 from novu.api import MessageApi
 from novu.api.base import PaginationIterator
 from novu.config import NovuConfig
 from novu.dto.message import MessageDto, PaginatedMessageDto
 from novu.enums import Channel
 from tests.factories import MockResponse
+
+__version__ = pkg_resources.get_distribution("novu").version
 
 
 class MessageApiTests(TestCase):
@@ -80,7 +84,7 @@ class MessageApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="GET",
             url="sample.novu.com/v1/messages",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json=None,
             params={"limit": 10, "page": 0},
             timeout=5,
@@ -99,7 +103,7 @@ class MessageApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="GET",
             url="sample.novu.com/v1/messages",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json=None,
             params={
                 "limit": 10,
@@ -122,7 +126,7 @@ class MessageApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="GET",
             url="sample.novu.com/v1/messages",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json=None,
             params={"limit": 10, "page": 0},
             timeout=5,
@@ -139,7 +143,7 @@ class MessageApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="GET",
             url="sample.novu.com/v1/messages",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json=None,
             params={"limit": 10, "page": 0, "channel": "in_app", "subscriberId": "63dafedbc037e013fd82d37a"},
             timeout=5,
@@ -156,7 +160,7 @@ class MessageApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="DELETE",
             url="sample.novu.com/v1/messages/63e969fcb6729e21337e2360",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json=None,
             params=None,
             timeout=5,

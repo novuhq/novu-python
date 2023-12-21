@@ -1,8 +1,12 @@
 from unittest import TestCase, mock
 
+import pkg_resources
+
 from novu.api import InboundParseApi
 from novu.config import NovuConfig
 from tests.factories import MockResponse
+
+__version__ = pkg_resources.get_distribution("novu").version
 
 
 class InboundParseApiTests(TestCase):
@@ -20,7 +24,7 @@ class InboundParseApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="GET",
             url="sample.novu.com/v1/inbound-parse/mx/status",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json=None,
             params=None,
             timeout=5,

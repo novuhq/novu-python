@@ -5,6 +5,7 @@ import os
 from json.decoder import JSONDecodeError
 from typing import Generic, List, Optional, Type, TypeVar, Union
 
+import pkg_resources
 import requests
 
 from novu.config import NovuConfig
@@ -13,7 +14,7 @@ from novu.helpers import SentryProxy
 
 LOGGER = logging.getLogger(__name__)
 
-
+__version__ = pkg_resources.get_distribution("novu").version
 _C_co = TypeVar("_C_co", bound=CamelCaseDto, covariant=True)
 
 
@@ -101,7 +102,10 @@ class Api:  # pylint: disable=R0903
         api_key = api_key or config.api_key
 
         self._url = url
-        self._headers = {"Authorization": f"ApiKey {api_key}"}
+        self._headers = {
+            "Authorization": f"ApiKey {api_key}",
+            "User-Agent": f"novu/python@{__version__}",
+        }
 
         self.requests_timeout = requests_timeout or int(os.getenv("NOVU_PYTHON_REQUESTS_TIMEOUT", "5"))
         self.session = session

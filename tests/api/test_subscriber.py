@@ -1,6 +1,8 @@
 from collections.abc import Generator
 from unittest import TestCase, mock
 
+import pkg_resources
+
 from novu.api import SubscriberApi
 from novu.api.base import PaginationIterator
 from novu.config import NovuConfig
@@ -17,6 +19,8 @@ from novu.dto.subscriber import (
 )
 from novu.enums import Channel, ChatProviderIdEnum
 from tests.factories import MockResponse
+
+__version__ = pkg_resources.get_distribution("novu").version
 
 
 class SubscriberApiTests(TestCase):
@@ -73,7 +77,7 @@ class SubscriberApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="GET",
             url="sample.novu.com/v1/subscribers",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json=None,
             params={},
             timeout=5,
@@ -90,7 +94,7 @@ class SubscriberApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="GET",
             url="sample.novu.com/v1/subscribers",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json=None,
             params={"page": 1},
             timeout=5,
@@ -107,7 +111,7 @@ class SubscriberApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="GET",
             url="sample.novu.com/v1/subscribers",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json=None,
             params={"page": 0, "limit": 10},
             timeout=5,
@@ -147,7 +151,7 @@ class SubscriberApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="POST",
             url="sample.novu.com/v1/subscribers",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json={
                 "subscriberId": "subscriber-id",
                 "email": "subscriber@sample.com",
@@ -241,7 +245,7 @@ class SubscriberApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="POST",
             url="sample.novu.com/v1/subscribers/bulk",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json={
                 "subscribers": [
                     {
@@ -281,7 +285,7 @@ class SubscriberApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="GET",
             url="sample.novu.com/v1/subscribers/subscriber-id",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json=None,
             params=None,
             timeout=5,
@@ -370,7 +374,7 @@ class SubscriberApiTests(TestCase):
             mock_request.assert_called_once_with(
                 method="GET",
                 url="sample.novu.com/v1/subscribers/subscriber-id",
-                headers={"Authorization": "ApiKey api-key"},
+                headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
                 json=None,
                 params=None,
                 timeout=5,
@@ -388,7 +392,7 @@ class SubscriberApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="PUT",
             url="sample.novu.com/v1/subscribers/subscriber-id",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json={
                 "subscriberId": "subscriber-id",
                 "email": "subscriber@sample.com",
@@ -412,7 +416,7 @@ class SubscriberApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="DELETE",
             url="sample.novu.com/v1/subscribers/subscriber-id",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json=None,
             params=None,
             timeout=5,
@@ -429,7 +433,7 @@ class SubscriberApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="PUT",
             url="sample.novu.com/v1/subscribers/subscriber-id/credentials",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json={"providerId": "slack", "credentials": {"webhookUrl": "TEST"}},
             params=None,
             timeout=5,
@@ -446,7 +450,7 @@ class SubscriberApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="PUT",
             url="sample.novu.com/v1/subscribers/subscriber-id/credentials",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json={"providerId": "slack", "credentials": {"deviceTokens": ["TEST"]}},
             params=None,
             timeout=5,
@@ -463,7 +467,7 @@ class SubscriberApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="PATCH",
             url="sample.novu.com/v1/subscribers/subscriber-id/online-status",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json={"isOnline": True},
             params=None,
             timeout=5,
@@ -510,7 +514,7 @@ class SubscriberApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="GET",
             url="sample.novu.com/v1/subscribers/subscriber-id/preferences",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json=None,
             params=None,
             timeout=5,
@@ -552,7 +556,7 @@ class SubscriberApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="PATCH",
             url="sample.novu.com/v1/subscribers/subscriber-id/preferences/63daff36c037e013fd82da05",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json={"channel": {"type": "in_app", "enabled": True}},
             params=None,
             timeout=5,
@@ -594,7 +598,7 @@ class SubscriberApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="PATCH",
             url="sample.novu.com/v1/subscribers/subscriber-id/preferences/63daff36c037e013fd82da05",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json={"channel": {"type": "in_app", "enabled": True}},
             params=None,
             timeout=5,
@@ -636,7 +640,7 @@ class SubscriberApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="PATCH",
             url="sample.novu.com/v1/subscribers/subscriber-id/preferences/63daff36c037e013fd82da05",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json={"enabled": False},
             params=None,
             timeout=5,
@@ -652,7 +656,7 @@ class SubscriberApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="GET",
             url="sample.novu.com/v1/subscribers/subscriber-id/notifications/unseen",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json=None,
             params=None,
             timeout=5,
@@ -667,7 +671,7 @@ class SubscriberApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="DELETE",
             url="sample.novu.com/v1/subscribers/subscriber-id/credentials/slack",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json=None,
             params=None,
             timeout=5,
