@@ -9,10 +9,12 @@ from novu.enums.field import (
     FieldFilterPartOperator,
     FieldFilterPartTimeOperator,
 )
+from novu.enums.member import MemberRole, MemberStatus
 from novu.enums.notification import (
     NotificationStepMetadataType,
     NotificationStepMetadataUnit,
 )
+from novu.enums.organization import OrganizationBrandingDirection, PartnerTypeEnum
 from novu.enums.provider import (
     ChatProviderIdEnum,
     CredentialsKeyEnum,
@@ -39,8 +41,12 @@ __all__ = [
     "FieldFilterPartOperator",
     "FieldFilterPartTimeOperator",
     "InAppProviderIdEnum",
+    "MemberRole",
+    "MemberStatus",
     "NotificationStepMetadataType",
     "NotificationStepMetadataUnit",
+    "OrganizationBrandingDirection",
+    "PartnerTypeEnum",
     "ProviderIdEnum",
     "PushProviderIdEnum",
     "SmsProviderIdEnum",
