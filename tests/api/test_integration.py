@@ -1,6 +1,7 @@
 import types
 from unittest import TestCase, mock
 
+import pkg_resources
 from requests.exceptions import HTTPError
 
 from novu.api import IntegrationApi
@@ -8,6 +9,8 @@ from novu.config import NovuConfig
 from novu.dto.integration import IntegrationChannelUsageDto, IntegrationDto
 from novu.enums import Channel, ChatProviderIdEnum, EmailProviderIdEnum
 from tests.factories import MockResponse
+
+__version__ = pkg_resources.get_distribution("novu").version
 
 
 class IntegrationApiTests(TestCase):
@@ -71,7 +74,7 @@ class IntegrationApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="GET",
             url="sample.novu.com/v1/integrations",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json=None,
             params=None,
             timeout=5,
@@ -88,7 +91,7 @@ class IntegrationApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="GET",
             url="sample.novu.com/v1/integrations",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json=None,
             params=None,
             timeout=5,
@@ -105,7 +108,7 @@ class IntegrationApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="GET",
             url="sample.novu.com/v1/integrations/active",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json=None,
             params=None,
             timeout=5,
@@ -122,7 +125,7 @@ class IntegrationApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="GET",
             url="sample.novu.com/v1/integrations/active",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json=None,
             params=None,
             timeout=5,
@@ -152,7 +155,7 @@ class IntegrationApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="POST",
             url="sample.novu.com/v1/integrations",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json={
                 "providerId": EmailProviderIdEnum.CUSTOM_SMTP,
                 "channel": Channel.EMAIL,
@@ -196,7 +199,7 @@ class IntegrationApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="POST",
             url="sample.novu.com/v1/integrations",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json={
                 "providerId": EmailProviderIdEnum.CUSTOM_SMTP,
                 "channel": Channel.EMAIL,
@@ -265,7 +268,7 @@ class IntegrationApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="POST",
             url="sample.novu.com/v1/integrations",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json={
                 "providerId": ChatProviderIdEnum.MS_TEAMS,
                 "channel": Channel.CHAT,
@@ -287,7 +290,7 @@ class IntegrationApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="GET",
             url="sample.novu.com/v1/integrations/webhooks/provider/something/status",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json=None,
             params=None,
             timeout=5,
@@ -318,7 +321,7 @@ class IntegrationApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="PUT",
             url="sample.novu.com/v1/integrations/identifier",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json={
                 "providerId": EmailProviderIdEnum.CUSTOM_SMTP,
                 "channel": Channel.EMAIL,
@@ -363,7 +366,7 @@ class IntegrationApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="PUT",
             url="sample.novu.com/v1/integrations/identifier",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json={
                 "providerId": EmailProviderIdEnum.CUSTOM_SMTP,
                 "channel": Channel.EMAIL,
@@ -391,7 +394,7 @@ class IntegrationApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="DELETE",
             url="sample.novu.com/v1/integrations/identifier",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json=None,
             params=None,
             timeout=5,
@@ -409,7 +412,7 @@ class IntegrationApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="GET",
             url="sample.novu.com/v1/integrations/email/limit",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json=None,
             params=None,
             timeout=5,
@@ -424,7 +427,7 @@ class IntegrationApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="POST",
             url="sample.novu.com/v1/integrations/63dfe50ecac5cff328ca5d24/set-primary",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json=None,
             params=None,
             timeout=5,
@@ -440,7 +443,7 @@ class IntegrationApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="POST",
             url="sample.novu.com/v1/integrations/63dfe50ecac5cff328ca5d23/set-primary",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json=None,
             params=None,
             timeout=5,

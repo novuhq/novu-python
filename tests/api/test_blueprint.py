@@ -1,9 +1,13 @@
 from unittest import TestCase, mock
 
+import pkg_resources
+
 from novu.api import BlueprintApi
 from novu.config import NovuConfig
 from novu.dto import BlueprintDto, GroupedBlueprintDto
 from tests.factories import MockResponse
+
+__version__ = pkg_resources.get_distribution("novu").version
 
 
 class BlueprintApiTests(TestCase):
@@ -69,7 +73,7 @@ class BlueprintApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="GET",
             url="sample.novu.com/v1/blueprints/63dafeda7779f59258e38450",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json=None,
             params=None,
             timeout=5,
@@ -86,7 +90,7 @@ class BlueprintApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="GET",
             url="sample.novu.com/v1/blueprints/group-by-category",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json=None,
             params=None,
             timeout=5,
