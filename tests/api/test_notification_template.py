@@ -1,5 +1,7 @@
 from unittest import TestCase, mock
 
+import pkg_resources
+
 from novu.api import NotificationTemplateApi
 from novu.api.base import PaginationIterator
 from novu.config import NovuConfig
@@ -15,6 +17,8 @@ from novu.dto import (
     SubscriberPreferenceChannelDto,
 )
 from tests.factories import MockResponse
+
+__version__ = pkg_resources.get_distribution("novu").version
 
 
 class NotificationTemplateApiTests(TestCase):
@@ -154,7 +158,7 @@ class NotificationTemplateApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="GET",
             url="sample.novu.com/v1/notification-templates",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json=None,
             params={},
             timeout=5,
@@ -171,7 +175,7 @@ class NotificationTemplateApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="GET",
             url="sample.novu.com/v1/notification-templates",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json=None,
             params={"page": 1, "limit": 10},
             timeout=5,
@@ -188,7 +192,7 @@ class NotificationTemplateApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="GET",
             url="sample.novu.com/v1/notification-templates",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json=None,
             params={"page": 0, "limit": 10},
             timeout=5,
@@ -242,7 +246,7 @@ class NotificationTemplateApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="POST",
             url="sample.novu.com/v1/notification-templates",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json={
                 "name": "Absences",
                 "notificationGroupId": "63dafed97779f59258e38449",
@@ -292,7 +296,7 @@ class NotificationTemplateApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="GET",
             url="sample.novu.com/v1/notification-templates/63daff36c037e013fd82d9fc",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json=None,
             params=None,
             timeout=5,
@@ -347,7 +351,7 @@ class NotificationTemplateApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="PUT",
             url="sample.novu.com/v1/notification-templates/63daff36c037e013fd82d9fc",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json={
                 "name": "Absences",
                 "notificationGroupId": "63dafed97779f59258e38449",
@@ -396,7 +400,7 @@ class NotificationTemplateApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="DELETE",
             url="sample.novu.com/v1/notification-templates/63daff36c037e013fd82d9fc",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json=None,
             params=None,
             timeout=5,
@@ -413,7 +417,7 @@ class NotificationTemplateApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="PUT",
             url="sample.novu.com/v1/notification-templates/63daff36c037e013fd82d9fc/status",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json={"active": True},
             params=None,
             timeout=5,

@@ -1,10 +1,14 @@
 import types
 from unittest import TestCase, mock
 
+import pkg_resources
+
 from novu.api import EnvironmentApi
 from novu.config import NovuConfig
 from novu.dto import EnvironmentApiKeyDto, EnvironmentDto, EnvironmentWidgetDto
 from tests.factories import MockResponse
+
+__version__ = pkg_resources.get_distribution("novu").version
 
 
 class EnvironmentApiTests(TestCase):
@@ -56,7 +60,7 @@ class EnvironmentApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="GET",
             url="sample.novu.com/v1/environments",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json=None,
             params=None,
             timeout=5,
@@ -73,7 +77,7 @@ class EnvironmentApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="POST",
             url="sample.novu.com/v1/environments",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json={"name": "test"},
             params=None,
             timeout=5,
@@ -90,7 +94,7 @@ class EnvironmentApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="POST",
             url="sample.novu.com/v1/environments",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json={"name": "test", "parentId": "parent_id"},
             params=None,
             timeout=5,
@@ -107,7 +111,7 @@ class EnvironmentApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="GET",
             url="sample.novu.com/v1/environments/me",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json=None,
             params=None,
             timeout=5,
@@ -124,7 +128,7 @@ class EnvironmentApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="GET",
             url="sample.novu.com/v1/environments/api-keys",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json=None,
             params=None,
             timeout=5,
@@ -141,7 +145,7 @@ class EnvironmentApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="POST",
             url="sample.novu.com/v1/environments/api-keys/regenerate",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json=None,
             params=None,
             timeout=5,
