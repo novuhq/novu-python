@@ -1,10 +1,14 @@
 import types
 from unittest import TestCase, mock
 
+import pkg_resources
+
 from novu.api import FeedApi
 from novu.config import NovuConfig
 from novu.dto.feed import FeedDto
 from tests.factories import MockResponse
+
+__version__ = pkg_resources.get_distribution("novu").version
 
 
 class FeedApiTests(TestCase):
@@ -49,7 +53,7 @@ class FeedApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="GET",
             url="sample.novu.com/v1/feeds",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json=None,
             params=None,
             timeout=5,
@@ -66,7 +70,7 @@ class FeedApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="POST",
             url="sample.novu.com/v1/feeds",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json={"name": "test"},
             params=None,
             timeout=5,
@@ -81,7 +85,7 @@ class FeedApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="DELETE",
             url="sample.novu.com/v1/feeds/63e969fcb6729e21337e2360",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json=None,
             params=None,
             timeout=5,

@@ -1,10 +1,14 @@
 import types
 from unittest import TestCase, mock
 
+import pkg_resources
+
 from novu.api import ChangeApi
 from novu.config import NovuConfig
 from novu.dto.change import ChangeDetailDto, ChangeDto, PaginatedChangeDto
 from tests.factories import MockResponse
+
+__version__ = pkg_resources.get_distribution("novu").version
 
 
 class ChangeApiTests(TestCase):
@@ -592,7 +596,7 @@ class ChangeApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="GET",
             url="sample.novu.com/v1/changes",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json=None,
             params={"promoted": "false"},
             timeout=5,
@@ -609,7 +613,7 @@ class ChangeApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="GET",
             url="sample.novu.com/v1/changes",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json=None,
             params={"page": 1, "limit": 10, "promoted": "false"},
             timeout=5,
@@ -625,7 +629,7 @@ class ChangeApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="GET",
             url="sample.novu.com/v1/changes/count",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json=None,
             params=None,
             timeout=5,
@@ -642,7 +646,7 @@ class ChangeApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="POST",
             url="sample.novu.com/v1/changes/63e59af2105a61b054458218/apply",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json=None,
             params=None,
             timeout=5,
@@ -783,7 +787,7 @@ class ChangeApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="POST",
             url="sample.novu.com/v1/changes/bulk/apply",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json={"changeIds": ["63e59af2105a61b054458218", "63e003995fd0df473199a46c"]},
             params=None,
             timeout=5,

@@ -1,10 +1,14 @@
 import types
 from unittest import TestCase, mock
 
+import pkg_resources
+
 from novu.api import ExecutionDetailApi
 from novu.config import NovuConfig
 from novu.dto import ExecutionDetailDto
 from tests.factories import MockResponse
+
+__version__ = pkg_resources.get_distribution("novu").version
 
 
 class ExecutionDetailApiTests(TestCase):
@@ -66,7 +70,7 @@ class ExecutionDetailApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="GET",
             url="sample.novu.com/v1/execution-details",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json=None,
             params={"notificationId": "63eaba6ed1a5554c97dca098", "subscriberId": "63dafedbc037e013fd82d37a"},
             timeout=5,

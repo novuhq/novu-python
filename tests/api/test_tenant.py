@@ -1,11 +1,15 @@
 import copy
 from unittest import TestCase, mock
 
+import pkg_resources
+
 from novu.api import TenantApi
 from novu.api.base import PaginationIterator
 from novu.config import NovuConfig
 from novu.dto.tenant import PaginatedTenantDto, TenantDto
 from tests.factories import MockResponse
+
+__version__ = pkg_resources.get_distribution("novu").version
 
 
 class TenantApiTests(TestCase):
@@ -44,7 +48,7 @@ class TenantApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="GET",
             url="sample.novu.com/v1/tenants",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json=None,
             params={},
             timeout=5,
@@ -61,7 +65,7 @@ class TenantApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="GET",
             url="sample.novu.com/v1/tenants",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json=None,
             params={"page": 1, "limit": 10},
             timeout=5,
@@ -78,7 +82,7 @@ class TenantApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="GET",
             url="sample.novu.com/v1/tenants",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json=None,
             params={"page": 0, "limit": 10},
             timeout=5,
@@ -100,7 +104,7 @@ class TenantApiTests(TestCase):
         mock_request.assert_any_call(
             method="GET",
             url="sample.novu.com/v1/tenants",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json=None,
             params={"page": 1, "limit": 10},
             timeout=5,
@@ -120,7 +124,7 @@ class TenantApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="POST",
             url="sample.novu.com/v1/tenants",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json={"identifier": "my-tenant", "name": "My Tenant", "data": {}},
             params=None,
             timeout=5,
@@ -139,7 +143,7 @@ class TenantApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="GET",
             url="sample.novu.com/v1/tenants/my-tenant",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json=None,
             params=None,
             timeout=5,
@@ -160,7 +164,7 @@ class TenantApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="PATCH",
             url="sample.novu.com/v1/tenants/my-tenant",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json={"identifier": "new-tenant-ref"},
             params=None,
             timeout=5,
@@ -175,7 +179,7 @@ class TenantApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="DELETE",
             url="sample.novu.com/v1/tenants/my-tenant",
-            headers={"Authorization": "ApiKey api-key"},
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json=None,
             params=None,
             timeout=5,

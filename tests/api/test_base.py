@@ -1,10 +1,13 @@
 from unittest import TestCase, mock
 
+import pkg_resources
 from requests.exceptions import HTTPError
 
 from novu.api.base import Api
 from novu.config import NovuConfig
 from tests.factories import MockResponse
+
+__version__ = pkg_resources.get_distribution("novu").version
 
 
 class ApiTests(TestCase):
@@ -23,7 +26,11 @@ class ApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="GET",
             url="sample.novu.com",
-            headers={"Authorization": "ApiKey api-key", "MyHeader": "value"},
+            headers={
+                "Authorization": "ApiKey api-key",
+                "User-Agent": f"novu/python@{__version__}",
+                "MyHeader": "value",
+            },
             json=None,
             params=None,
             timeout=5,
@@ -40,7 +47,11 @@ class ApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="GET",
             url="sample.novu.com",
-            headers={"Authorization": "ApiKey api-key", "MyHeader": "value"},
+            headers={
+                "Authorization": "ApiKey api-key",
+                "User-Agent": f"novu/python@{__version__}",
+                "MyHeader": "value",
+            },
             json=None,
             params=None,
             timeout=5,
@@ -57,7 +68,11 @@ class ApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="GET",
             url="sample.novu.com",
-            headers={"Authorization": "ApiKey api-key", "MyHeader": "value"},
+            headers={
+                "Authorization": "ApiKey api-key",
+                "User-Agent": f"novu/python@{__version__}",
+                "MyHeader": "value",
+            },
             json=None,
             params=None,
             timeout=5,
@@ -74,7 +89,11 @@ class ApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="GET",
             url="sample.novu.com",
-            headers={"Authorization": "ApiKey api-key", "MyHeader": "value"},
+            headers={
+                "Authorization": "ApiKey api-key",
+                "User-Agent": f"novu/python@{__version__}",
+                "MyHeader": "value",
+            },
             json=None,
             params=None,
             timeout=60,
@@ -93,7 +112,11 @@ class ApiTests(TestCase):
         session_mock.request.assert_called_once_with(
             method="GET",
             url="sample.novu.com",
-            headers={"Authorization": "ApiKey api-key", "MyHeader": "value"},
+            headers={
+                "Authorization": "ApiKey api-key",
+                "User-Agent": f"novu/python@{__version__}",
+                "MyHeader": "value",
+            },
             json=None,
             params=None,
             timeout=5,
