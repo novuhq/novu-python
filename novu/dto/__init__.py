@@ -17,6 +17,7 @@ from novu.dto.feed import FeedDto
 from novu.dto.field import FieldFilterPartDto
 from novu.dto.integration import IntegrationChannelUsageDto, IntegrationDto
 from novu.dto.layout import LayoutDto, LayoutVariableDto, PaginatedLayoutDto
+from novu.dto.member import MemberDto, MemberInviteDto, MemberUserDto
 from novu.dto.message import MessageDto, PaginatedMessageDto
 from novu.dto.notification import (
     ActivityGraphStatesDto,
@@ -42,6 +43,11 @@ from novu.dto.notification_template import (
     NotificationTriggerVariableDto,
     PaginatedNotificationTemplateDto,
 )
+from novu.dto.organization import (
+    OrganizationBrandingDto,
+    OrganizationDto,
+    PartnerConfigurationDto,
+)
 from novu.dto.step_filter import StepFilterDto
 from novu.dto.subscriber import (
     BulkResultSubscriberDto,
@@ -58,6 +64,14 @@ from novu.dto.tenant import PaginatedTenantDto, TenantDto
 from novu.dto.topic import PaginatedTopicDto, TopicDto, TriggerTopicDto
 
 __all__ = [
+    "ActivityGraphStatesDto",
+    "ActivityNotificationDto",
+    "ActivityNotificationExecutionDetailResponseDto",
+    "ActivityNotificationJobResponseDto",
+    "ActivityNotificationStepResponseDto",
+    "ActivityNotificationSubscriberResponseDTO",
+    "ActivityNotificationTemplateResponseDto",
+    "ActivityNotificationTriggerResponseDto",
     "BlueprintDto",
     "BulkResultSubscriberDto",
     "ChangeDetailDto",
@@ -74,6 +88,9 @@ __all__ = [
     "IntegrationDto",
     "LayoutDto",
     "LayoutVariableDto",
+    "MemberDto",
+    "MemberInviteDto",
+    "MemberUserDto",
     "MessageDto",
     "NotificationGroupDto",
     "NotificationStepDto",
@@ -82,14 +99,8 @@ __all__ = [
     "NotificationTemplateFormDto",
     "NotificationTriggerDto",
     "NotificationTriggerVariableDto",
-    "ActivityGraphStatesDto",
-    "ActivityNotificationSubscriberResponseDTO",
-    "ActivityNotificationStepResponseDto",
-    "ActivityNotificationTriggerResponseDto",
-    "ActivityNotificationTemplateResponseDto",
-    "ActivityNotificationExecutionDetailResponseDto",
-    "ActivityNotificationJobResponseDto",
-    "ActivityNotificationDto",
+    "OrganizationBrandingDto",
+    "OrganizationDto",
     "PaginatedActivityNotificationDto",
     "PaginatedChangeDto",
     "PaginatedLayoutDto",
@@ -99,10 +110,11 @@ __all__ = [
     "PaginatedSubscriberDto",
     "PaginatedTenantDto",
     "PaginatedTopicDto",
+    "PartnerConfigurationDto",
     "StepFilterDto",
-    "SubscriberDto",
-    "SubscriberChannelSettingsDto",
     "SubscriberChannelSettingsCredentialsDto",
+    "SubscriberChannelSettingsDto",
+    "SubscriberDto",
     "SubscriberPreferenceChannelDto",
     "SubscriberPreferenceDto",
     "SubscriberPreferencePreferenceDto",
