@@ -124,3 +124,21 @@ class TopicApi(Api):
         """
 
         self.handle_request("DELETE", f"{self._topic_url}/{key}")
+
+    def subscribed(self, key: str, subscriber_id: str) -> bool:
+        """Allows you to check if a subscriber has subscribed to the provided topic.
+
+        Args:
+            key: The topic's key
+            subscriber_id: The subscriber identifier
+
+        Returns:
+            bool: Result of the check
+        """
+        try:
+            self.handle_request("GET", f"{self._topic_url}/{key}/subscribers/{subscriber_id}")
+            return True
+        except requests.exceptions.HTTPError as exc:
+            if exc.response.status_code == 404:
+                return False
+            raise exc
