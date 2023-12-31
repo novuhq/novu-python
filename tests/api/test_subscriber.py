@@ -36,6 +36,7 @@ class SubscriberApiTests(TestCase):
             "__v": 0,
             "isOnline": False,
             "lastOnlineAt": "2023-02-06T23:03:22.645Z",
+            "data": None,
         }
         cls.response_list = {
             "page": 0,
@@ -60,6 +61,7 @@ class SubscriberApiTests(TestCase):
             updated_at="2023-02-06T23:03:22.645Z",
             is_online=False,
             last_online_at="2023-02-06T23:03:22.645Z",
+            data=None,
         )
 
     @mock.patch("requests.request")
@@ -135,6 +137,7 @@ class SubscriberApiTests(TestCase):
                     "updatedAt": "2023-02-07T22:10:57.433Z",
                     "__v": 0,
                     "id": "63e2cc7151af34c4b2f2b5d1",
+                    "data": None,
                 }
             },
         )
@@ -157,6 +160,7 @@ class SubscriberApiTests(TestCase):
                 "avatar": None,
                 "locale": None,
                 "channels": None,
+                "data": None,
             },
             params=None,
             timeout=5,
@@ -184,6 +188,7 @@ class SubscriberApiTests(TestCase):
                             "deleted": None,
                             "__v": 0,
                             "id": "63e2cc7151af34c4b2f2b5d1",
+                            "data": {"test": "value"},
                         },
                         {
                             "_organizationId": None,
@@ -200,6 +205,7 @@ class SubscriberApiTests(TestCase):
                             "deleted": None,
                             "__v": 0,
                             "id": "63e2cc7151af34c4b2f2b5d2",
+                            "data": {"test": "value"},
                         },
                     ],
                     "updated": [],
@@ -209,8 +215,8 @@ class SubscriberApiTests(TestCase):
         )
 
         subscribers = [
-            SubscriberDto(subscriber_id="subscriber-id", email="subscriber@sample.com"),
-            SubscriberDto(subscriber_id="subscriber1-id", email="subscriber1@sample.com"),
+            SubscriberDto(subscriber_id="subscriber-id", email="subscriber@sample.com", data={"test": "value"}),
+            SubscriberDto(subscriber_id="subscriber1-id", email="subscriber1@sample.com", data={"test": "value"}),
         ]
 
         res = self.api.bulk_create(subscribers)
@@ -225,12 +231,14 @@ class SubscriberApiTests(TestCase):
                         email="subscriber@sample.com",
                         _id="63e2cc7151af34c4b2f2b5d1",
                         channels=[],
+                        data={"test": "value"},
                     ),
                     SubscriberDto(
                         subscriber_id="subscriber1-id",
                         email="subscriber1@sample.com",
                         _id="63e2cc7151af34c4b2f2b5d2",
                         channels=[],
+                        data={"test": "value"},
                     ),
                 ],
                 updated=[],
@@ -253,6 +261,7 @@ class SubscriberApiTests(TestCase):
                         "avatar": None,
                         "locale": None,
                         "channels": None,
+                        "data": {"test": "value"},
                     },
                     {
                         "subscriberId": "subscriber1-id",
@@ -263,6 +272,7 @@ class SubscriberApiTests(TestCase):
                         "avatar": None,
                         "locale": None,
                         "channels": None,
+                        "data": {"test": "value"},
                     },
                 ]
             },
@@ -332,6 +342,7 @@ class SubscriberApiTests(TestCase):
                         "isOnline": False,
                         "email": "oscar.marie-taillefer@spikeelabs.fr",
                         "lastOnlineAt": "2023-02-06T23:03:22.645Z",
+                        "data": None,
                     }
                 },
             )
@@ -364,6 +375,7 @@ class SubscriberApiTests(TestCase):
                     updated_at="2023-02-06T23:03:22.645Z",
                     is_online=False,
                     last_online_at="2023-02-06T23:03:22.645Z",
+                    data=None,
                 ),
             )
 
@@ -398,6 +410,7 @@ class SubscriberApiTests(TestCase):
                 "avatar": None,
                 "locale": None,
                 "channels": None,
+                "data": None,
             },
             params=None,
             timeout=5,
