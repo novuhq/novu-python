@@ -18,126 +18,129 @@ from tests.factories import MockResponse
 
 
 class NotificationApiTests(TestCase):
+    api: NotificationApi
+
+    notification_json = {
+        "_id": "63dafed97779f59258e44954",
+        "_environmentId": "63dafed97779f59258e38445",
+        "_organizationId": "789er454569345",
+        "transactionId": "fefrey56v",
+        "createdAt": "2023-07-13",
+        "channels": ["in_app"],
+        "subscriber": {
+            "firstName": "Max",
+            "_id": "123",
+            "lastName": "Moe",
+            "email": "max.moe@example.com",
+            "phone": "+441234567893",
+        },
+        "template": {
+            "_id": "12crefr3",
+            "name": "Template3",
+            "triggers": [
+                {
+                    "type": "type1",
+                    "identifier": "identifier1",
+                    "variables": [{"name": "variable4"}],
+                    "subscriberVariables": [{"name": "subscribeVariable1"}],
+                }
+            ],
+        },
+        "jobs": [
+            {
+                "_id": "123vivie3",
+                "type": "Type1",
+                "digest": {},
+                "executionDetails": [
+                    {
+                        "_id": "123",
+                        "_jobId": "456",
+                        "status": "Success",
+                        "detail": "Detail",
+                        "isRetry": True,
+                        "isTest": False,
+                        "providerId": {},
+                        "raw": "Raw",
+                        "source": "Credentials",
+                    }
+                ],
+                "step": {
+                    "_id": "123",
+                    "active": True,
+                    "filters": {},
+                    "template": {},
+                },
+                "payload": {},
+                "providerId": {},
+                "status": "completed",
+            },
+        ],
+    }
+    response_notification = {"data": notification_json}
+    response_list = {"page": 0, "hasMore": False, "pageSize": 10, "data": [notification_json]}
+    expected_dto = ActivityNotificationDto(
+        _id="63dafed97779f59258e44954",
+        _environment_id="63dafed97779f59258e38445",
+        _organization_id="789er454569345",
+        transaction_id="fefrey56v",
+        created_at="2023-07-13",
+        channels=["in_app"],
+        subscriber=ActivityNotificationSubscriberResponseDTO(
+            first_name="Max",
+            _id="123",
+            last_name="Moe",
+            email="max.moe@example.com",
+            phone="+441234567893",
+        ),
+        template=ActivityNotificationTemplateResponseDto(
+            _id="12crefr3",
+            name="Template3",
+            triggers=[
+                ActivityNotificationTriggerResponseDto(
+                    type="type1",
+                    identifier="identifier1",
+                    variables=[{"name": "variable4"}],
+                    subscriber_variables=[{"name": "subscriberVariable1"}],
+                ),
+            ],
+        ),
+        jobs=[
+            ActivityNotificationJobResponseDto(
+                _id="123vivie3",
+                type="Type1",
+                digest={},
+                execution_details=[
+                    ActivityNotificationExecutionDetailResponseDto(
+                        _id="123",
+                        _job_id="456",
+                        status="Success",
+                        detail="Detail",
+                        is_retry=True,
+                        is_test=False,
+                        provider_id={},
+                        raw="Raw",
+                        source="Credentials",
+                    )
+                ],
+                step=[
+                    ActivityNotificationStepResponseDto(
+                        _id="123",
+                        active=True,
+                        filters={},
+                        template={},
+                    ),
+                ],
+                payload={},
+                provider_id={},
+                status="completed",
+            )
+        ],
+    )
+
     @classmethod
     def setUpClass(cls) -> None:
         NovuConfig.configure("sample.novu.com", "api-key")
         cls.api = NotificationApi()
-        cls.notification_json = {
-            "_id": "63dafed97779f59258e44954",
-            "_environmentId": "63dafed97779f59258e38445",
-            "_organizationId": "789er454569345",
-            "transactionId": "fefrey56v",
-            "createdAt": "2023-07-13",
-            "channels": ["in_app"],
-            "subscriber": {
-                "firstName": "Max",
-                "_id": "123",
-                "lastName": "Moe",
-                "email": "max.moe@example.com",
-                "phone": "+441234567893",
-            },
-            "template": {
-                "_id": "12crefr3",
-                "name": "Template3",
-                "triggers": [
-                    {
-                        "type": "type1",
-                        "identifier": "identifier1",
-                        "variables": [{"name": "variable4"}],
-                        "subscriberVariables": [{"name": "subscribeVariable1"}],
-                    }
-                ],
-            },
-            "jobs": [
-                {
-                    "_id": "123vivie3",
-                    "type": "Type1",
-                    "digest": {},
-                    "executionDetails": [
-                        {
-                            "_id": "123",
-                            "_jobId": "456",
-                            "status": "Success",
-                            "detail": "Detail",
-                            "isRetry": True,
-                            "isTest": False,
-                            "providerId": {},
-                            "raw": "Raw",
-                            "source": "Credentials",
-                        }
-                    ],
-                    "step": {
-                        "_id": "123",
-                        "active": True,
-                        "filters": {},
-                        "template": {},
-                    },
-                    "payload": {},
-                    "providerId": {},
-                    "status": "completed",
-                },
-            ],
-        }
-        cls.response_notification = {"data": cls.notification_json}
-        cls.response_list = {"page": 0, "hasMore": False, "pageSize": 10, "data": [cls.notification_json]}
-        cls.expected_dto = ActivityNotificationDto(
-            _id="63dafed97779f59258e44954",
-            _environment_id="63dafed97779f59258e38445",
-            _organization_id="789er454569345",
-            transaction_id="fefrey56v",
-            created_at="2023-07-13",
-            channels=["in_app"],
-            subscriber=ActivityNotificationSubscriberResponseDTO(
-                first_name="Max",
-                _id="123",
-                last_name="Moe",
-                email="max.moe@example.com",
-                phone="+441234567893",
-            ),
-            template=ActivityNotificationTemplateResponseDto(
-                _id="12crefr3",
-                name="Template3",
-                triggers=[
-                    ActivityNotificationTriggerResponseDto(
-                        type="type1",
-                        identifier="identifier1",
-                        variables=[{"name": "variable4"}],
-                        subscriber_variables=[{"name": "subscriberVariable1"}],
-                    ),
-                ],
-            ),
-            jobs=[
-                ActivityNotificationJobResponseDto(
-                    _id="123vivie3",
-                    type="Type1",
-                    digest={},
-                    execution_details=[
-                        ActivityNotificationExecutionDetailResponseDto(
-                            _id="123",
-                            _job_id="456",
-                            status="Success",
-                            detail="Detail",
-                            is_retry=True,
-                            is_test=False,
-                            provider_id={},
-                            raw="Raw",
-                            source="Credentials",
-                        )
-                    ],
-                    step=[
-                        ActivityNotificationStepResponseDto(
-                            _id="123",
-                            active=True,
-                            filters={},
-                            template={},
-                        ),
-                    ],
-                    payload={},
-                    provider_id={},
-                    status="completed",
-                )
-            ],
-        )
 
     @mock.patch("requests.request")
     def test_list(self, mock_request: mock.MagicMock) -> None:
@@ -146,8 +149,11 @@ class NotificationApiTests(TestCase):
         channels = ["in_app"]
         templates = ["Template3"]
         emails = ["max.moe@example.com"]
+        subscriber_ids = ["johndoe"]
         search = "example"
-        result = self.api.list(channels, templates, emails, search)
+        result = self.api.list(
+            channels=channels, templates=templates, emails=emails, subscriber_ids=subscriber_ids, search=search
+        )
 
         self.assertIsInstance(result, PaginatedActivityNotificationDto)
         notification_result = result.data[0]
@@ -164,6 +170,7 @@ class NotificationApiTests(TestCase):
                 "channels": channels,
                 "templates": templates,
                 "emails": emails,
+                "subscriberIds": subscriber_ids,
                 "search": search,
                 "page": 0,
                 "transactionId": None,
@@ -178,8 +185,11 @@ class NotificationApiTests(TestCase):
         channels = ["in_app"]
         templates = ["Template3"]
         emails = ["max.moe@example.com"]
+        subscriber_ids = ["johndoe"]
         search = "example"
-        result = self.api.stream(channels, templates, emails, search)
+        result = self.api.stream(
+            channels=channels, templates=templates, emails=emails, subscriber_ids=subscriber_ids, search=search
+        )
 
         self.assertIsInstance(result, PaginationIterator)
         notification_result = next(result)
@@ -196,6 +206,7 @@ class NotificationApiTests(TestCase):
                 "channels": channels,
                 "templates": templates,
                 "emails": emails,
+                "subscriberIds": subscriber_ids,
                 "search": search,
                 "page": 0,
                 "limit": 10,
