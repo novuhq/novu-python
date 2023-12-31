@@ -33,6 +33,7 @@ class NotificationApi(Api):
         channels: Optional[List[str]] = None,
         templates: Optional[List[str]] = None,
         emails: Optional[List[str]] = None,
+        subscriber_ids: Optional[List[str]] = None,
         search: Optional[str] = None,
         page: Optional[int] = 0,
         transaction_id: Optional[str] = None,
@@ -41,31 +42,35 @@ class NotificationApi(Api):
 
         Args:
             channels: A required parameter, should be an array of strings representing
-                           available notification channels, such as "in_app", "email", "sms",
-                           "chat", and "push".
+                      available notification channels, such as "in_app", "email", "sms",
+                      "chat", and "push".
 
             templates: A required parameter, should be an array of strings representing
-                             the notification templates.
+                       the notification templates.
 
             emails: A required parameter, should be an array of strings representing
-                        the email addresses associated with the notification.
+                    the email addresses associated with the notification.
+
+            subscriber_ids: An array of subscriber's identifier associated with searched
+                            notifications.
 
             search: A required parameter, should be a string representing the search query.
 
             page: An optional parameter with a default value of 0, representing the page
-                     number for search results.
+                  number for search results.
 
             transaction_id: A required parameter, should be a string representing the
-                                transaction ID associated with the notification.
+                            transaction ID associated with the notification.
 
         Returns:
             Gets notifications in Novu
 
         """
         payload = {
-            "channels": channels,
-            "templates": templates,
-            "emails": emails,
+            "channels": channels or [],
+            "templates": templates or [],
+            "emails": emails or [],
+            "subscriberIds": subscriber_ids or [],
             "search": search,
             "page": page,
             "transactionId": transaction_id,
@@ -79,6 +84,7 @@ class NotificationApi(Api):
         channels: Optional[List[str]] = None,
         templates: Optional[List[str]] = None,
         emails: Optional[List[str]] = None,
+        subscriber_ids: Optional[List[str]] = None,
         search: Optional[str] = None,
         transaction_id: Optional[str] = None,
     ) -> PaginationIterator[ActivityNotificationDto]:
@@ -86,27 +92,31 @@ class NotificationApi(Api):
 
         Args:
             channels: A required parameter, should be an array of strings representing
-                           available notification channels, such as "in_app", "email", "sms",
-                           "chat", and "push".
+                      available notification channels, such as "in_app", "email", "sms",
+                      "chat", and "push".
 
             templates: A required parameter, should be an array of strings representing
-                             the notification templates.
+                       the notification templates.
 
             emails: A required parameter, should be an array of strings representing
-                        the email addresses associated with the notification.
+                    the email addresses associated with the notification.
+
+            subscriber_ids: An array of subscriber's identifier associated with searched
+                            notifications.
 
             search: A required parameter, should be a string representing the search query.
 
             transaction_id: A required parameter, should be a string representing the
-                                transaction ID associated with the notification.
+                            transaction ID associated with the notification.
 
         Returns:
             An iterator on all notifications available.
         """
         payload = {
-            "channels": channels,
-            "templates": templates,
-            "emails": emails,
+            "channels": channels or [],
+            "templates": templates or [],
+            "emails": emails or [],
+            "subscriberIds": subscriber_ids or [],
             "search": search,
             "transactionId": transaction_id,
         }
