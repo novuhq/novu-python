@@ -108,7 +108,17 @@ class SubscriberChannelSettingsDto(CamelCaseDto["SubscriberChannelSettingsDto"])
 class SubscriberDto(CamelCaseDto["SubscriberDto"]):  # pylint: disable=R0902
     """Definition of subscriber"""
 
-    camel_case_fields = ["subscriber_id", "email", "first_name", "last_name", "phone", "avatar", "locale", "channels"]
+    camel_case_fields = [
+        "subscriber_id",
+        "email",
+        "first_name",
+        "last_name",
+        "phone",
+        "avatar",
+        "locale",
+        "channels",
+        "data",
+    ]
     # Actually, only these fields are editable in Novu, so prevent any activity on others
 
     subscriber_id: str
@@ -160,6 +170,10 @@ class SubscriberDto(CamelCaseDto["SubscriberDto"]):  # pylint: disable=R0902
 
     last_online_at: Optional[str] = None
     """Last connection date of the subscriber"""
+
+    data: Optional[dict] = None
+    """Apart from the above fixed structured user data, this field contain
+    any unstructured custom data such as user’s address, nationality, height, etc."""
 
 
 @dataclasses.dataclass
