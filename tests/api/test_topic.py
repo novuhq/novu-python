@@ -1,6 +1,7 @@
 from unittest import TestCase, mock
 
 import pkg_resources
+from requests.models import HTTPError
 
 from novu.api import TopicApi
 from novu.config import NovuConfig
@@ -11,28 +12,31 @@ __version__ = pkg_resources.get_distribution("novu").version
 
 
 class TopicApiTests(TestCase):
+    api: TopicApi
+    topic_json = {
+        "_id": "63e17e5b33a4f299199329b5",
+        "_environmentId": "63dafed97779f59258e38445",
+        "_organizationId": "63dafed97779f59258e3843f",
+        "key": "my-topic",
+        "name": "My Topic",
+        "subscribers": [],
+    }
+
+    response_list = {"page": 0, "totalCount": 1, "pageSize": 10, "data": [topic_json]}
+    response_get = {"data": topic_json}
+    expected_dto = TopicDto(
+        _id="63e17e5b33a4f299199329b5",
+        _environment_id="63dafed97779f59258e38445",
+        _organization_id="63dafed97779f59258e3843f",
+        key="my-topic",
+        name="My Topic",
+        subscribers=[],
+    )
+
     @classmethod
     def setUpClass(cls) -> None:
         NovuConfig.configure("sample.novu.com", "api-key")
         cls.api = TopicApi()
-        cls.topic_json = {
-            "_id": "63e17e5b33a4f299199329b5",
-            "_environmentId": "63dafed97779f59258e38445",
-            "_organizationId": "63dafed97779f59258e3843f",
-            "key": "my-topic",
-            "name": "My Topic",
-            "subscribers": [],
-        }
-        cls.response_list = {"page": 0, "totalCount": 1, "pageSize": 10, "data": [cls.topic_json]}
-        cls.response_get = {"data": cls.topic_json}
-        cls.expected_dto = TopicDto(
-            _id="63e17e5b33a4f299199329b5",
-            _environment_id="63dafed97779f59258e38445",
-            _organization_id="63dafed97779f59258e3843f",
-            key="my-topic",
-            name="My Topic",
-            subscribers=[],
-        )
 
     @mock.patch("requests.request")
     def test_list_topic(self, mock_request: mock.MagicMock) -> None:
@@ -40,7 +44,7 @@ class TopicApiTests(TestCase):
 
         result = self.api.list()
         self.assertIsInstance(result, PaginatedTopicDto)
-        self.assertEqual(list(result.data), [self.expected_dto])
+        self.assertEqual(list(result.data or []), [self.expected_dto])
 
         mock_request.assert_called_once_with(
             method="GET",
@@ -57,7 +61,7 @@ class TopicApiTests(TestCase):
 
         result = self.api.list(1, 10, "my-topic")
         self.assertIsInstance(result, PaginatedTopicDto)
-        self.assertEqual(list(result.data), [self.expected_dto])
+        self.assertEqual(list(result.data or []), [self.expected_dto])
 
         mock_request.assert_called_once_with(
             method="GET",
@@ -199,6 +203,68 @@ class TopicApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="DELETE",
             url="sample.novu.com/v1/topics/my-topic",
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
+            json=None,
+            params=None,
+            timeout=5,
+        )
+
+    @mock.patch("requests.request")
+    def test_unsubscribed_ok(self, mock_request: mock.MagicMock) -> None:
+        mock_request.return_value = MockResponse(
+            200,
+            {
+                "data": {
+                    "_id": "65918fbc15eeaf3272215a32",
+                    "_environmentId": "64f05ffc729127fcdcebaff6",
+                    "_organizationId": "64f05ffc729127fcdcebaff0",
+                    "_topicId": "65918f710ad627087869e322",
+                    "externalSubscriberId": "johndoe",
+                    "topicKey": "test-topic",
+                    "_subscriberId": "64faf16cf39b9230dac6f800",
+                    "__v": 0,
+                    "createdAt": "2023-12-31T15:58:52.349Z",
+                    "updatedAt": "2023-12-31T15:58:52.349Z",
+                    "id": "65918fbc15eeaf3272215a32",
+                }
+            },
+        )
+
+        self.assertTrue(self.api.subscribed("test-topic", "johndoe"))
+
+        mock_request.assert_called_once_with(
+            method="GET",
+            url="sample.novu.com/v1/topics/test-topic/subscribers/johndoe",
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
+            json=None,
+            params=None,
+            timeout=5,
+        )
+
+    @mock.patch("requests.request")
+    def test_unsubscribed_ko(self, mock_request: mock.MagicMock) -> None:
+        mock_request.return_value = MockResponse(404)
+
+        self.assertFalse(self.api.subscribed("test-topic", "johndoe"))
+
+        mock_request.assert_called_once_with(
+            method="GET",
+            url="sample.novu.com/v1/topics/test-topic/subscribers/johndoe",
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
+            json=None,
+            params=None,
+            timeout=5,
+        )
+
+    @mock.patch("requests.request")
+    def test_unsubscribed_failure(self, mock_request: mock.MagicMock) -> None:
+        mock_request.return_value = MockResponse(409)
+
+        self.assertRaises(HTTPError, lambda: self.api.subscribed("test-topic", "johndoe"))
+
+        mock_request.assert_called_once_with(
+            method="GET",
+            url="sample.novu.com/v1/topics/test-topic/subscribers/johndoe",
             headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json=None,
             params=None,
