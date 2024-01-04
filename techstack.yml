@@ -1,11 +1,12 @@
 repo_name: novuhq/novu-python
 report_id: e153d0239635829c74c32e137eb617ac
+version: 0.1
 repo_type: Public
-timestamp: '2023-11-09T15:12:25+00:00'
-requested_by: Atharva1723
+timestamp: '2024-01-04T14:58:01+00:00'
+requested_by: stacksharebot
 provider: github
 branch: main
-detected_tools_count: 6
+detected_tools_count: 9
 tools:
 - name: JavaScript
   description: Lightweight, interpreted, object-oriented language with first-class
@@ -16,6 +17,7 @@ tools:
   category: Languages & Frameworks
   sub_category: Languages
   image_url: https://img.stackshare.io/service/1209/javascript.jpeg
+  detection_source_url: https://github.com/novuhq/novu-python
   detection_source: Repo Metadata
 - name: Python
   description: A clear and powerful object-oriented programming language, comparable
@@ -26,7 +28,20 @@ tools:
   category: Languages & Frameworks
   sub_category: Languages
   image_url: https://img.stackshare.io/service/993/pUBY5pVj.png
+  detection_source_url: https://github.com/novuhq/novu-python
   detection_source: Repo Metadata
+- name: pgvector
+  description: Open-source vector similarity search for Postgres
+  website_url: https://github.com/pgvector/pgvector/
+  open_source: false
+  hosted_saas: false
+  category: Data Stores
+  sub_category: Database Tools
+  image_url: https://img.stackshare.io/service/109221/default_b888cdf5617d936aa6aacf130911906955508639.png
+  detection_source_url: https://github.com/novuhq/novu-python/blob/main/pyproject.toml
+  detection_source: pyproject.toml
+  last_updated_by: Oscar MARIE--TAILLEFER
+  last_updated_on: 2023-02-05 20:02:09.000000000 Z
 - name: Git
   description: Fast, scalable, distributed revision control system
   website_url: http://git-scm.com/
@@ -35,6 +50,7 @@ tools:
   category: Build, Test, Deploy
   sub_category: Version Control System
   image_url: https://img.stackshare.io/service/1046/git.png
+  detection_source_url: https://github.com/novuhq/novu-python
   detection_source: Repo Metadata
 - name: GitHub Actions
   description: Automate your workflow from idea to production
@@ -44,7 +60,8 @@ tools:
   category: Build, Test, Deploy
   sub_category: Continuous Integration
   image_url: https://img.stackshare.io/service/11563/actions.png
-  detection_source: ".github/workflows/tests.yml"
+  detection_source_url: https://github.com/novuhq/novu-python/blob/main/.github/workflows/codeql-analysis.yml
+  detection_source: ".github/workflows/codeql-analysis.yml"
   last_updated_by: renovate[bot]
   last_updated_on: 2023-10-16 09:30:15.000000000 Z
 - name: PyPI
@@ -55,12 +72,35 @@ tools:
   category: Build, Test, Deploy
   sub_category: Hosted Package Repository
   image_url: https://img.stackshare.io/service/12572/-RIWgodF_400x400.jpg
+  detection_source_url: https://github.com/novuhq/novu-python/blob/main/pyproject.toml
   detection_source: pyproject.toml
   last_updated_by: Oscar MARIE--TAILLEFER
   last_updated_on: 2023-02-05 20:02:09.000000000 Z
+- name: HTML
+  description: Hypertext Markup Language for creating web pages.
+  website_url: http://
+  open_source: false
+  hosted_saas: false
+  image_url: https://img.stackshare.io/service/2270/no-img-open-source.png
+  detection_source_url: https://github.com/novuhq/novu-python/blob/main/docs/_templates/layout.html
+  detection_source: docs/_templates/layout.html
+  last_updated_by: Oscar MARIE--TAILLEFER
+  last_updated_on: 2023-02-18 18:22:25.000000000 Z
+- name: LangChain
+  description: Build AI apps with LLMs through composability
+  website_url: https://github.com/hwchase17/langchain
+  open_source: true
+  hosted_saas: false
+  category: Communications
+  sub_category: Large Language Model Tools
+  image_url: https://img.stackshare.io/service/48790/default_5b6c6b73f1ff3775c85d2a1ba954cb87e30cbf13.jpg
+  detection_source_url: https://github.com/novuhq/novu-python/blob/main/pyproject.toml
+  detection_source: pyproject.toml
+  last_updated_by: Oscar MARIE--TAILLEFER
+  last_updated_on: 2023-10-14 15:25:24.000000000 Z
 - name: requests
   description: Python HTTP for Humans
-  package_url: https://pypi.org/requests
+  package_url: https://pypi.org/project/requests
   version: 2.31.0
   license: Apache-2.0
   open_source: true
@@ -68,7 +108,7 @@ tools:
   category: Libraries
   sub_category: PyPI Packages
   image_url: https://img.stackshare.io/package/19826/default_d7c684bf2673f008a9f02ac93901229297a22d7e.png
-  detection_source_url: poetry.lock
+  detection_source_url: https://github.com/novuhq/novu-python/blob/main/poetry.lock
   detection_source: pyproject.toml
   last_updated_by: Oscar MARIE--TAILLEFER
   last_updated_on: 2023-06-01 12:30:54.000000000 Z
