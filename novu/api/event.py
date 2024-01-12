@@ -8,7 +8,7 @@ import requests
 
 from novu.api.base import Api
 from novu.constants import EVENTS_ENDPOINT
-from novu.dto.event import EventDto, InputEventDto
+from novu.dto.event import EventDto, InputEventDto, RecipientDto
 from novu.dto.topic import TriggerTopicDto
 
 
@@ -29,7 +29,7 @@ class EventApi(Api):
     def trigger(
         self,
         name: str,
-        recipients: Union[str, List[str]],
+        recipients: Union[str, Iterable[str], RecipientDto, Iterable[RecipientDto]],
         payload: dict,
         overrides: Optional[dict] = None,
         transaction_id: Optional[str] = None,
@@ -51,7 +51,14 @@ class EventApi(Api):
 
         Args:
             name: The name of the template trigger to activate.
-            recipients: A subscriber ID (or a list of subscriber ID) to reach with this trigger
+            recipients:
+                One of following format (to define the recipient of the event):
+
+                * A subscriber ID
+                * A list of subscriber ID
+                * A SubscriberDto
+                * A list of SubscriberDto
+
             payload:
                 A JSON serializable python dict to pass additional custom information that could be used to render the
                 template, or perform routing rules based on it. This data will also be available when fetching the
@@ -72,7 +79,20 @@ class EventApi(Api):
         Returns:
             Create Event definition in Novu
         """
-        payload = {"name": name, "to": recipients, "payload": payload}
+        tmp = [recipients] if not isinstance(recipients, Iterable) else recipients
+
+        to: List[Union[str, dict]] = []
+        for item in tmp:
+            if isinstance(item, str):
+                to.append(item)
+            elif isinstance(item, RecipientDto):
+                to.append(item.to_camel_case())
+
+            else:
+                raise ValueError(
+                    f"Provided format for the 'recipients' arguments ({type(item)}) isn't supported by the SDK."
+                )
+        payload = {"name": name, "to": to, "payload": payload}
         if overrides:
             payload["overrides"] = overrides
         if actor:
@@ -161,7 +181,11 @@ class EventApi(Api):
         """
         _recipients = topics if isinstance(topics, Iterable) else [topics]
 
-        payload = {"name": name, "to": [r.to_camel_case() for r in _recipients], "payload": payload}
+        payload = {
+            "name": name,
+            "to": [r.to_camel_case() for r in _recipients],
+            "payload": payload,
+        }
         if overrides:
             payload["overrides"] = overrides
         if actor:
