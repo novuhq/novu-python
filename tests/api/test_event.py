@@ -147,7 +147,7 @@ class EventApiTests(TestCase):
             201, {"data": {"acknowledged": True, "status": EventStatus.PROCESSED, "transactionId": "sample-test"}}
         )
 
-        result = self.api.trigger("test-template", "sample-recipient", {}, tenant="tenant-id")
+        result = self.api.trigger("test-template", ["sample-recipient"], {}, tenant="tenant-id")
 
         self.assertIsInstance(result, EventDto)
         self.assertTrue(result.acknowledged)
@@ -157,7 +157,7 @@ class EventApiTests(TestCase):
             method="POST",
             url="sample.novu.com/v1/events/trigger",
             headers={"Authorization": "ApiKey api-key"},
-            json={"name": "test-template", "to": "sample-recipient", "payload": {}, "tenant": "tenant-id"},
+            json={"name": "test-template", "to": ["sample-recipient"], "payload": {}, "tenant": "tenant-id"},
             params=None,
             timeout=5,
         )
@@ -552,8 +552,8 @@ class EventApiTests(TestCase):
         )
 
         events = [
-            InputEventDto(name="test-template", recipients="recipient_1", payload={}, tenant="tenant-id"),
-            InputEventDto(name="test-template", recipients="recipient_2", payload={}),
+            InputEventDto(name="test-template", recipients=["recipient_1"], payload={}, tenant="tenant-id"),
+            InputEventDto(name="test-template", recipients=["recipient_2"], payload={}),
         ]
 
         result = self.api.trigger_bulk(events)
@@ -572,8 +572,8 @@ class EventApiTests(TestCase):
             headers={"Authorization": "ApiKey api-key"},
             json={
                 "events": [
-                    {"name": "test-template", "to": "recipient_1", "payload": {}, "tenant": "tenant-id"},
-                    {"name": "test-template", "to": "recipient_2", "payload": {}},
+                    {"name": "test-template", "to": ["recipient_1"], "payload": {}, "tenant": "tenant-id"},
+                    {"name": "test-template", "to": ["recipient_2"], "payload": {}},
                 ]
             },
             params=None,
