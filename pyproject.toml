@@ -2,7 +2,7 @@
 description = "This project aims to provide a wrapper for the Novu API."
 keywords = ["novu", "python", "sdk", "api", "wrapper"]
 name = "novu"
-version = "1.10.0"
+version = "1.11.0"
 
 documentation = "https://novu-python.readthedocs.io/en/latest"
 homepage = "https://novu-python.readthedocs.io/en/latest"
@@ -56,7 +56,7 @@ types-requests = "^2.28.11.12"
 [tool.poetry.group.docs.dependencies]
 Sphinx = "^7.0.0"
 m2r2 = "^0.3"
-sphinx-rtd-theme = "^1.2"
+sphinx-rtd-theme = "^2.0.0"
 sphinxcontrib-httpdomain = "^1.8"
 sphinxcontrib-mermaid = "^0.9.0"
 
