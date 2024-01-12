@@ -2,7 +2,7 @@
 import dataclasses
 from typing import List, Optional, Union
 
-from novu.dto.base import CamelCaseDto, DtoDescriptor
+from novu.dto.base import CamelCaseDto, DtoDescriptor, DtoIterableDescriptor
 from novu.enums import EventStatus
 
 
@@ -21,7 +21,7 @@ class EventDto(CamelCaseDto["EventDto"]):
 
 
 @dataclasses.dataclass
-class RecipientDto(CamelCaseDto["RecipientDto"]):
+class RecipientDto(CamelCaseDto["RecipientDto"]):  # pylint: disable=R0902
     """The recipients list of people who will receive the notification."""
 
     subscriber_id: str
@@ -59,7 +59,10 @@ class InputEventDto(CamelCaseDto["InputEventDto"]):
     payload: dict
     """A JSON serializable python dict to pass additional custom information."""
 
-    recipients: DtoDescriptor[RecipientDto] = DtoDescriptor[RecipientDto](item_cls=RecipientDto)
+    recipients: DtoIterableDescriptor[RecipientDto] = DtoIterableDescriptor[RecipientDto](
+        default_factory=list, item_cls=RecipientDto
+    )
+    """A subscriber ID (or a list of subscriber ID) to reach with this trigger."""
 
     overrides: Optional[dict] = None
     """A JSON serializable python dict used to override provider specific configurations."""
@@ -69,3 +72,8 @@ class InputEventDto(CamelCaseDto["InputEventDto"]):
 
     actor: Optional[str] = None
     """It is used to display the Avatar of the provided actor's subscriber id."""
+
+    tenant: Optional[str] = None
+    """It is used to specify a tenant context during trigger event.
+    If a new tenant object is provided, we will create a new tenant.
+    """

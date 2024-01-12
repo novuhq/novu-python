@@ -8,7 +8,7 @@ import requests
 
 from novu.api.base import Api
 from novu.constants import EVENTS_ENDPOINT
-from novu.dto.event import EventDto, InputEventDto
+from novu.dto.event import EventDto, InputEventDto, RecipientDto
 from novu.dto.topic import TriggerTopicDto
 
 
@@ -29,11 +29,12 @@ class EventApi(Api):
     def trigger(
         self,
         name: str,
-        recipients: dict,
+        recipients: Union[str, Iterable[str], RecipientDto, Iterable[RecipientDto]],
         payload: dict,
         overrides: Optional[dict] = None,
         transaction_id: Optional[str] = None,
         actor: Optional[str] = None,
+        tenant: Optional[str] = None,
     ) -> EventDto:
         """Trigger event is the main way to send notification to subscribers.
 
@@ -50,7 +51,14 @@ class EventApi(Api):
 
         Args:
             name: The name of the template trigger to activate.
-            recipients: A subscriber ID (or a list of subscriber ID) to reach with this trigger
+            recipients:
+                One of following format (to define the recipient of the event):
+
+                * A subscriber ID
+                * A list of subscriber ID
+                * A SubscriberDto
+                * A list of SubscriberDto
+
             payload:
                 A JSON serializable python dict to pass additional custom information that could be used to render the
                 template, or perform routing rules based on it. This data will also be available when fetching the
@@ -64,16 +72,35 @@ class EventApi(Api):
             actor:
                 It is used to display the Avatar of the provided actor's subscriber id. Defaults to None.
 
+            tenant:
+                It is used to specify a tenant context during trigger event.
+                If a new tenant object is provided, we will create a new tenant.
+
         Returns:
             Create Event definition in Novu
         """
-        payload = {"name": name, "to": recipients, "payload": payload}
+        tmp = [recipients] if not isinstance(recipients, Iterable) else recipients
+
+        to: List[Union[str, dict]] = []
+        for item in tmp:
+            if isinstance(item, str):
+                to.append(item)
+            elif isinstance(item, RecipientDto):
+                to.append(item.to_camel_case())
+
+            else:
+                raise ValueError(
+                    f"Provided format for the 'recipients' arguments ({type(item)}) isn't supported by the SDK."
+                )
+        payload = {"name": name, "to": to, "payload": payload}
         if overrides:
             payload["overrides"] = overrides
         if actor:
             payload["actor"] = actor
         if transaction_id:
             payload["transactionId"] = transaction_id
+        if tenant:
+            payload["tenant"] = tenant
 
         return EventDto.from_camel_case(self.handle_request("POST", self._event_url, payload)["data"])
 
@@ -99,6 +126,8 @@ class EventApi(Api):
                 event_payload["actor"] = event.actor
             if event.transaction_id:
                 event_payload["transactionId"] = event.transaction_id
+            if event.tenant:
+                event_payload["tenant"] = event.tenant
 
             payload["events"].append(event_payload)
 
@@ -119,6 +148,7 @@ class EventApi(Api):
         overrides: Optional[dict] = None,
         transaction_id: Optional[str] = None,
         actor: Optional[str] = None,
+        tenant: Optional[str] = None,
     ) -> EventDto:
         """Trigger event is the main way to send notification to topic's subscribers.
 
@@ -142,6 +172,10 @@ class EventApi(Api):
             actor:
                 It is used to display the Avatar of the provided actor's subscriber id. Defaults to None.
 
+            tenant:
+                It is used to specify a tenant context during trigger event.
+                If a new tenant object is provided, we will create a new tenant.
+
         Returns:
             Create Event definition in Novu
         """
@@ -158,6 +192,8 @@ class EventApi(Api):
             payload["actor"] = actor
         if transaction_id:
             payload["transactionId"] = transaction_id
+        if tenant:
+            payload["tenant"] = tenant
 
         return EventDto.from_camel_case(self.handle_request("POST", self._event_url, payload)["data"])
 
@@ -168,6 +204,7 @@ class EventApi(Api):
         overrides: Optional[dict] = None,
         transaction_id: Optional[str] = None,
         actor: Optional[str] = None,
+        tenant: Optional[str] = None,
     ):
         """Trigger a broadcast event to all existing subscribers, could be used to send announcements, etc.
 
@@ -186,6 +223,10 @@ class EventApi(Api):
             actor:
                 It is used to display the Avatar of the provided actor's subscriber id. Defaults to None.
 
+            tenant:
+                It is used to specify a tenant context during trigger event.
+                If a new tenant object is provided, we will create a new tenant.
+
         Returns:
             Create Event definition in Novu
         """
@@ -196,6 +237,8 @@ class EventApi(Api):
             payload["actor"] = actor
         if transaction_id:
             payload["transactionId"] = transaction_id
+        if tenant:
+            payload["tenant"] = tenant
 
         return EventDto.from_camel_case(self.handle_request("POST", f"{self._event_url}/broadcast", payload)["data"])
 

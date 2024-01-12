@@ -2,7 +2,7 @@ from unittest import TestCase, mock
 
 from novu.api import EventApi
 from novu.config import NovuConfig
-from novu.dto.event import EventDto, InputEventDto
+from novu.dto.event import EventDto, InputEventDto, RecipientDto
 from novu.dto.topic import TriggerTopicDto
 from novu.enums import EventStatus
 from tests.factories import MockResponse
@@ -30,7 +30,8 @@ class EventApiTests(TestCase):
             method="POST",
             url="sample.novu.com/v1/events/trigger",
             headers={"Authorization": "ApiKey api-key"},
-            json={"name": "test-template", "to": {"subscriber_id": "sample-recipient"}, "payload": {}},
+            # json={"name": "test-template", "to": {"subscriber_id": "sample-recipient"}, "payload": {}},
+            json={"name": "test-template", "to": ["subscriber_id"], "payload": {}},
             params=None,
             timeout=5,
         )
@@ -66,7 +67,7 @@ class EventApiTests(TestCase):
             201, {"data": {"acknowledged": True, "status": EventStatus.PROCESSED.value, "transactionId": "sample-test"}}
         )
 
-        result = self.api.trigger("test-template", "sample-recipient", {}, {"an": "override"})
+        result = self.api.trigger("test-template", ["sample-recipient"], {}, {"an": "override"})
 
         self.assertIsInstance(result, EventDto)
         self.assertTrue(result.acknowledged)
@@ -78,7 +79,7 @@ class EventApiTests(TestCase):
             headers={"Authorization": "ApiKey api-key"},
             json={
                 "name": "test-template",
-                "to": "sample-recipient",
+                "to": ["sample-recipient"],
                 "payload": {},
                 "overrides": {"an": "override"},
             },
@@ -92,7 +93,7 @@ class EventApiTests(TestCase):
             201, {"data": {"acknowledged": True, "status": EventStatus.PROCESSED.value, "transactionId": "sample-test"}}
         )
 
-        result = self.api.trigger("test-template", "sample-recipient", {}, actor="actor-id")
+        result = self.api.trigger("test-template", ["sample-recipient"], {}, actor="actor-id")
 
         self.assertIsInstance(result, EventDto)
         self.assertTrue(result.acknowledged)
@@ -104,7 +105,7 @@ class EventApiTests(TestCase):
             headers={"Authorization": "ApiKey api-key"},
             json={
                 "name": "test-template",
-                "to": "sample-recipient",
+                "to": ["sample-recipient"],
                 "payload": {},
                 "actor": "actor-id",
             },
@@ -118,7 +119,7 @@ class EventApiTests(TestCase):
             201, {"data": {"acknowledged": True, "status": EventStatus.PROCESSED.value, "transactionId": "sample-test"}}
         )
 
-        result = self.api.trigger("test-template", "sample-recipient", {}, transaction_id="sample-test")
+        result = self.api.trigger("test-template", ["sample-recipient"], {}, transaction_id="sample-test")
 
         self.assertIsInstance(result, EventDto)
         self.assertTrue(result.acknowledged)
@@ -130,7 +131,7 @@ class EventApiTests(TestCase):
             headers={"Authorization": "ApiKey api-key"},
             json={
                 "name": "test-template",
-                "to": "sample-recipient",
+                "to": ["sample-recipient"],
                 "payload": {},
                 "transactionId": "sample-test",
             },
