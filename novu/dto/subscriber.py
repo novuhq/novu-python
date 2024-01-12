@@ -1,8 +1,9 @@
 """This module is used to gather all DTO definitions related to the Subscriber resource in Novu"""
 import dataclasses
-from typing import Optional
+from typing import List, Optional
 
 from novu.dto.base import CamelCaseDto, DtoDescriptor, DtoIterableDescriptor
+from novu.enums.provider import ProviderIdEnum
 
 
 @dataclasses.dataclass
@@ -71,10 +72,43 @@ class SubscriberPreferenceDto(CamelCaseDto["SubscriberPreferenceDto"]):
 
 
 @dataclasses.dataclass
+class SubscriberChannelSettingsCredentialsDto(CamelCaseDto["SubscriberChannelSettingsCredentialsDto"]):
+    """Credentials payload for the specified provider."""
+
+    webhook_url: Optional[str] = None
+    """Webhook url used by chat app integrations. The webhook should be obtained from the chat app provider"""
+
+    channel: Optional[str] = None
+    """Channel specification for Mattermost chat notifications"""
+
+    device_tokens: Optional[List[str]] = None
+    """Contains an array of the subscriber device tokens for a given provider. Used on Push integrations"""
+
+
+@dataclasses.dataclass
+class SubscriberChannelSettingsDto(CamelCaseDto["SubscriberChannelSettingsDto"]):
+    """Definition of channel settings for subscriber."""
+
+    provider_id: ProviderIdEnum
+    """The provider identifier for the credentials"""
+
+    _integration_id: str
+    """Id of the integration that is used for this channel"""
+
+    credentials: DtoDescriptor[SubscriberChannelSettingsCredentialsDto] = DtoDescriptor[
+        SubscriberChannelSettingsCredentialsDto
+    ](item_cls=SubscriberChannelSettingsCredentialsDto)
+    """Credentials of this channel"""
+
+    integration_identifier: Optional[str] = None
+    """The integration identifier"""
+
+
+@dataclasses.dataclass
 class SubscriberDto(CamelCaseDto["SubscriberDto"]):  # pylint: disable=R0902
     """Definition of subscriber"""
 
-    camel_case_fields = ["subscriber_id", "email", "first_name", "last_name", "phone", "avatar", "locale"]
+    camel_case_fields = ["subscriber_id", "email", "first_name", "last_name", "phone", "avatar", "locale", "channels"]
     # Actually, only these fields are editable in Novu, so prevent any activity on others
 
     subscriber_id: str
@@ -107,7 +141,10 @@ class SubscriberDto(CamelCaseDto["SubscriberDto"]):  # pylint: disable=R0902
     _organization_id: Optional[str] = None
     """Organization ID in Novu internal storage system"""
 
-    # TODO: add channels
+    channels: DtoIterableDescriptor[SubscriberChannelSettingsDto] = DtoIterableDescriptor[SubscriberChannelSettingsDto](
+        default_factory=list, item_cls=SubscriberChannelSettingsDto
+    )
+    """Subscriber provider specific credentials"""
 
     deleted: Optional[bool] = None
     """If the subscriber is deleted"""
@@ -142,3 +179,23 @@ class PaginatedSubscriberDto(CamelCaseDto["PaginatedSubscriberDto"]):
         default_factory=list, item_cls=SubscriberDto
     )
     """Data"""
+
+
+@dataclasses.dataclass
+class BulkResultSubscriberDto(CamelCaseDto["BulkResultSubscriberDto"]):
+    """Definition of paginated subscribers"""
+
+    created: DtoIterableDescriptor[SubscriberDto] = DtoIterableDescriptor[SubscriberDto](
+        default_factory=list, item_cls=SubscriberDto
+    )
+    """List of subscribers that were created during the operation."""
+
+    updated: DtoIterableDescriptor[SubscriberDto] = DtoIterableDescriptor[SubscriberDto](
+        default_factory=list, item_cls=SubscriberDto
+    )
+    """List of subscribers that were updated during the operation."""
+
+    failed: DtoIterableDescriptor[SubscriberDto] = DtoIterableDescriptor[SubscriberDto](
+        default_factory=list, item_cls=SubscriberDto
+    )
+    """List of subscribers whose creation (or update) failed."""

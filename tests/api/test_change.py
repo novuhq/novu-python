@@ -594,7 +594,7 @@ class ChangeApiTests(TestCase):
             url="sample.novu.com/v1/changes",
             headers={"Authorization": "ApiKey api-key"},
             json=None,
-            params={},
+            params={"promoted": "false"},
             timeout=5,
         )
 
@@ -611,7 +611,7 @@ class ChangeApiTests(TestCase):
             url="sample.novu.com/v1/changes",
             headers={"Authorization": "ApiKey api-key"},
             json=None,
-            params={"page": 1, "limit": 10},
+            params={"page": 1, "limit": 10, "promoted": "false"},
             timeout=5,
         )
 

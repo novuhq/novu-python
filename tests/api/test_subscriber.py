@@ -2,16 +2,20 @@ from collections.abc import Generator
 from unittest import TestCase, mock
 
 from novu.api import SubscriberApi
+from novu.api.base import PaginationIterator
 from novu.config import NovuConfig
 from novu.dto.subscriber import (
+    BulkResultSubscriberDto,
     PaginatedSubscriberDto,
+    SubscriberChannelSettingsCredentialsDto,
+    SubscriberChannelSettingsDto,
     SubscriberDto,
     SubscriberPreferenceChannelDto,
     SubscriberPreferenceDto,
     SubscriberPreferencePreferenceDto,
     SubscriberPreferenceTemplateDto,
 )
-from novu.enums import Channel
+from novu.enums import Channel, ChatProviderIdEnum
 from tests.factories import MockResponse
 
 
@@ -50,6 +54,7 @@ class SubscriberApiTests(TestCase):
             _id="63dafedbc037e013fd82d37a",
             _environment_id="63dafed97779f59258e38445",
             _organization_id="63dafed97779f59258e3843f",
+            channels=[],
             deleted=False,
             created_at="2023-02-02T00:07:55.459Z",
             updated_at="2023-02-06T23:03:22.645Z",
@@ -88,6 +93,23 @@ class SubscriberApiTests(TestCase):
             headers={"Authorization": "ApiKey api-key"},
             json=None,
             params={"page": 1},
+            timeout=5,
+        )
+
+    @mock.patch("requests.request")
+    def test_stream_subscriber(self, mock_request: mock.MagicMock) -> None:
+        mock_request.return_value = MockResponse(200, self.response_list)
+
+        result = self.api.stream()
+        self.assertIsInstance(result, PaginationIterator)
+        self.assertEqual(list(result), [self.expected_dto])
+
+        mock_request.assert_called_once_with(
+            method="GET",
+            url="sample.novu.com/v1/subscribers",
+            headers={"Authorization": "ApiKey api-key"},
+            json=None,
+            params={"page": 0, "limit": 10},
             timeout=5,
         )
 
@@ -134,6 +156,115 @@ class SubscriberApiTests(TestCase):
                 "phone": None,
                 "avatar": None,
                 "locale": None,
+                "channels": None,
+            },
+            params=None,
+            timeout=5,
+        )
+
+    @mock.patch("requests.request")
+    def test_bulk_create_subscribers(self, mock_request: mock.MagicMock) -> None:
+        mock_request.return_value = MockResponse(
+            201,
+            {
+                "data": {
+                    "created": [
+                        {
+                            "_organizationId": None,
+                            "_environmentId": None,
+                            "firstName": None,
+                            "lastName": None,
+                            "phone": None,
+                            "subscriberId": "subscriber-id",
+                            "email": "subscriber@sample.com",
+                            "avatar": None,
+                            "locale": None,
+                            "channels": [],
+                            "_id": "63e2cc7151af34c4b2f2b5d1",
+                            "deleted": None,
+                            "__v": 0,
+                            "id": "63e2cc7151af34c4b2f2b5d1",
+                        },
+                        {
+                            "_organizationId": None,
+                            "_environmentId": None,
+                            "firstName": None,
+                            "lastName": None,
+                            "phone": None,
+                            "subscriberId": "subscriber1-id",
+                            "email": "subscriber1@sample.com",
+                            "avatar": None,
+                            "locale": None,
+                            "channels": [],
+                            "_id": "63e2cc7151af34c4b2f2b5d2",
+                            "deleted": None,
+                            "__v": 0,
+                            "id": "63e2cc7151af34c4b2f2b5d2",
+                        },
+                    ],
+                    "updated": [],
+                    "failed": [],
+                }
+            },
+        )
+
+        subscribers = [
+            SubscriberDto(subscriber_id="subscriber-id", email="subscriber@sample.com"),
+            SubscriberDto(subscriber_id="subscriber1-id", email="subscriber1@sample.com"),
+        ]
+
+        res = self.api.bulk_create(subscribers)
+
+        self.assertIsInstance(res, BulkResultSubscriberDto)
+        self.assertEqual(
+            res,
+            BulkResultSubscriberDto(
+                created=[
+                    SubscriberDto(
+                        subscriber_id="subscriber-id",
+                        email="subscriber@sample.com",
+                        _id="63e2cc7151af34c4b2f2b5d1",
+                        channels=[],
+                    ),
+                    SubscriberDto(
+                        subscriber_id="subscriber1-id",
+                        email="subscriber1@sample.com",
+                        _id="63e2cc7151af34c4b2f2b5d2",
+                        channels=[],
+                    ),
+                ],
+                updated=[],
+                failed=[],
+            ),
+        )
+
+        mock_request.assert_called_once_with(
+            method="POST",
+            url="sample.novu.com/v1/subscribers/bulk",
+            headers={"Authorization": "ApiKey api-key"},
+            json={
+                "subscribers": [
+                    {
+                        "subscriberId": "subscriber-id",
+                        "email": "subscriber@sample.com",
+                        "firstName": None,
+                        "lastName": None,
+                        "phone": None,
+                        "avatar": None,
+                        "locale": None,
+                        "channels": None,
+                    },
+                    {
+                        "subscriberId": "subscriber1-id",
+                        "email": "subscriber1@sample.com",
+                        "firstName": None,
+                        "lastName": None,
+                        "phone": None,
+                        "avatar": None,
+                        "locale": None,
+                        "channels": None,
+                    },
+                ]
             },
             params=None,
             timeout=5,
@@ -157,6 +288,96 @@ class SubscriberApiTests(TestCase):
         )
 
     @mock.patch("requests.request")
+    def test_get_subscriber_with_credentials_info(self, mock_request: mock.MagicMock) -> None:
+        all_three = {
+            "response": {"webhook_url": "TEST", "channel": "slack", "device_tokens": ["TEST"]},
+            "expected": SubscriberChannelSettingsCredentialsDto(
+                webhook_url="TEST", channel="slack", device_tokens=["TEST"]
+            ),
+        }
+        only_webhook = {
+            "response": {"webhook_url": "TEST"},
+            "expected": SubscriberChannelSettingsCredentialsDto(webhook_url="TEST", channel=None, device_tokens=None),
+        }
+        only_channel = {
+            "response": {"channel": "slack"},
+            "expected": SubscriberChannelSettingsCredentialsDto(webhook_url=None, channel="slack", device_tokens=None),
+        }
+        only_device_tokens = {
+            "response": {"device_tokens": ["TEST"]},
+            "expected": SubscriberChannelSettingsCredentialsDto(webhook_url=None, channel=None, device_tokens=["TEST"]),
+        }
+
+        for test in [all_three, only_webhook, only_channel, only_device_tokens]:
+            mock_request.return_value = MockResponse(
+                200,
+                {
+                    "data": {
+                        "_id": "63dafedbc037e013fd82d37a",
+                        "_organizationId": "63dafed97779f59258e3843f",
+                        "_environmentId": "63dafed97779f59258e38445",
+                        "subscriberId": "63dafed4117f8c850991ec4a",
+                        "channels": [
+                            {
+                                "provider_id": "slack",
+                                "_integration_id": "64f6d74be166fcd7f2751111",
+                                "credentials": test["response"],
+                                "integration_identifier": None,
+                            }
+                        ],
+                        "deleted": False,
+                        "createdAt": "2023-02-02T00:07:55.459Z",
+                        "updatedAt": "2023-02-06T23:03:22.645Z",
+                        "__v": 0,
+                        "isOnline": False,
+                        "email": "oscar.marie-taillefer@spikeelabs.fr",
+                        "lastOnlineAt": "2023-02-06T23:03:22.645Z",
+                    }
+                },
+            )
+
+            res = self.api.get("subscriber-id")
+            self.assertIsInstance(res, SubscriberDto)
+            self.assertEqual(
+                res,
+                SubscriberDto(
+                    subscriber_id="63dafed4117f8c850991ec4a",
+                    email="oscar.marie-taillefer@spikeelabs.fr",
+                    first_name=None,
+                    last_name=None,
+                    phone=None,
+                    avatar=None,
+                    locale=None,
+                    _id="63dafedbc037e013fd82d37a",
+                    _environment_id="63dafed97779f59258e38445",
+                    _organization_id="63dafed97779f59258e3843f",
+                    channels=[
+                        SubscriberChannelSettingsDto(
+                            provider_id=ChatProviderIdEnum.SLACK,
+                            _integration_id="64f6d74be166fcd7f2751111",
+                            credentials=test["expected"],
+                            integration_identifier=None,
+                        )
+                    ],
+                    deleted=False,
+                    created_at="2023-02-02T00:07:55.459Z",
+                    updated_at="2023-02-06T23:03:22.645Z",
+                    is_online=False,
+                    last_online_at="2023-02-06T23:03:22.645Z",
+                ),
+            )
+
+            mock_request.assert_called_once_with(
+                method="GET",
+                url="sample.novu.com/v1/subscribers/subscriber-id",
+                headers={"Authorization": "ApiKey api-key"},
+                json=None,
+                params=None,
+                timeout=5,
+            )
+            mock_request.reset_mock()
+
+    @mock.patch("requests.request")
     def test_update_subscriber(self, mock_request: mock.MagicMock) -> None:
         mock_request.return_value = MockResponse(200, self.response_get)
 
@@ -176,6 +397,7 @@ class SubscriberApiTests(TestCase):
                 "phone": "+33612345678",
                 "avatar": None,
                 "locale": None,
+                "channels": None,
             },
             params=None,
             timeout=5,
@@ -430,6 +652,21 @@ class SubscriberApiTests(TestCase):
         mock_request.assert_called_once_with(
             method="GET",
             url="sample.novu.com/v1/subscribers/subscriber-id/notifications/unseen",
+            headers={"Authorization": "ApiKey api-key"},
+            json=None,
+            params=None,
+            timeout=5,
+        )
+
+    @mock.patch("requests.request")
+    def test_delete_credentials(self, mock_request: mock.MagicMock) -> None:
+        mock_request.return_value = MockResponse(204)
+
+        self.api.delete_credentials("subscriber-id", ChatProviderIdEnum.SLACK)
+
+        mock_request.assert_called_once_with(
+            method="DELETE",
+            url="sample.novu.com/v1/subscribers/subscriber-id/credentials/slack",
             headers={"Authorization": "ApiKey api-key"},
             json=None,
             params=None,
