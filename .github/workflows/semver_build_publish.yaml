@@ -18,7 +18,7 @@ jobs:
         with:
           python-version: 3.9
       - name: install poetry
-        uses: abatilo/actions-poetry@v2.4.0
+        uses: abatilo/actions-poetry@v3.0.0
 
       - name: Build
         run: |
