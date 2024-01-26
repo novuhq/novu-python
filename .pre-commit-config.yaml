@@ -43,7 +43,7 @@ repos:
           - "--no-ensure-ascii"
 
   - repo: https://github.com/Lucas-C/pre-commit-hooks-safety
-    rev: "v1.3.2"
+    rev: "v1.3.3"
     hooks:
       - id: python-safety-dependencies-check
         files: pyproject.toml
