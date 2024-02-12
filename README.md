@@ -112,6 +112,23 @@ event_2 = InputEventDto(
 novu = EventApi("https://api.novu.co", api_key).trigger_bulk(events=[event1, event2])
 ```
 
+**Include actor field:**
+
+```python
+from novu.api import EventApi
+
+novu = EventApi(url, api_key).trigger(
+    name="workflow_trigger_identifier",
+    recipients="subscriber_id",
+    actor={
+        "subscriberId": "subscriber_id_actor"
+    },
+    payload={
+        "key":"value"
+    },
+)
+```
+
 **Broadcast to all current subscribers:**
 
 ```python
