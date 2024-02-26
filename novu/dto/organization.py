@@ -5,6 +5,7 @@ Each organization you create has its own separate integration store, workflows, 
 This separation of resources allows you to manage multi-tenant environments and
 separate domains within a single account.
 """
+
 import dataclasses
 from typing import List, Optional
 

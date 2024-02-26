@@ -1,4 +1,5 @@
 """This module is used to gather all DTO definitions related to the Step Filter resource in Novu"""
+
 import dataclasses
 from typing import Optional
 

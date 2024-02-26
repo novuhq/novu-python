@@ -1,4 +1,5 @@
 """This module is used to gather all DTO definitions related to the Change resource in Novu"""
+
 import dataclasses
 from typing import Any, List, Optional
 

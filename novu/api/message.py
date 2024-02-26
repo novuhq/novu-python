@@ -1,6 +1,7 @@
 """
 This module is used to define the ``MessageApi``, a python wrapper to interact with ``Messages`` in Novu.
 """
+
 from typing import Dict, Optional, Union
 
 import requests

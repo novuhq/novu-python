@@ -1,6 +1,7 @@
 """
 This module is used to define the ``TopicApi``, a python wrapper to interact with ``Topics`` in Novu.
 """
+
 from typing import Dict, List, Optional, Tuple, Union
 
 import requests

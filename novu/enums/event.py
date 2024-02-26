@@ -1,4 +1,5 @@
 """This module is used to gather enumerations related to the Event resource in Novu"""
+
 from novu.enums.polyfill import StrEnum
 
 
