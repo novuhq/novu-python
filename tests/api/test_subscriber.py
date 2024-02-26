@@ -6,6 +6,7 @@ import pkg_resources
 from novu.api import SubscriberApi
 from novu.api.base import PaginationIterator
 from novu.config import NovuConfig
+from novu.dto.message import MessageDto
 from novu.dto.subscriber import (
     BulkResultSubscriberDto,
     PaginatedSubscriberDto,
@@ -17,13 +18,68 @@ from novu.dto.subscriber import (
     SubscriberPreferencePreferenceDto,
     SubscriberPreferenceTemplateDto,
 )
-from novu.enums import Channel, ChatProviderIdEnum
+from novu.enums import Channel, ChatProviderIdEnum, MarkAsEnum, MessageActionStatus
 from tests.factories import MockResponse
 
 __version__ = pkg_resources.get_distribution("novu").version
 
 
 class SubscriberApiTests(TestCase):
+    message_json = {
+        "_id": "63daff4cc037e013fd82dadd",
+        "_templateId": "63daff36c037e013fd82da05",
+        "_environmentId": "63dafed97779f59258e38445",
+        "_messageTemplateId": "63daff36c037e013fd82d9f4",
+        "_notificationId": "63daff487779f59258e38b24",
+        "_organizationId": "63dafed97779f59258e3843f",
+        "_subscriberId": "63dafedbc037e013fd82d37a",
+        "_jobId": "63daff4c7779f59258e38b3c",
+        "templateIdentifier": "absences",
+        "cta": {"action": {"buttons": []}},
+        "_feedId": None,
+        "channel": "in_app",
+        "content": "test",
+        "deviceTokens": [],
+        "seen": True,
+        "read": True,
+        "status": "sent",
+        "transactionId": "aa287682-cb30-4a5f-a03a-f28f59c9d46d",
+        "deleted": False,
+        "createdAt": "2023-02-02T00:09:48.673Z",
+        "updatedAt": "2023-02-02T00:10:21.544Z",
+        "__v": 0,
+        "lastReadDate": "2023-02-02T00:10:21.544Z",
+        "lastSeenDate": "2023-02-02T00:10:21.544Z",
+    }
+    message_expectation = MessageDto(
+        identifier=None,
+        _id="63daff4cc037e013fd82dadd",
+        _template_id="63daff36c037e013fd82da05",
+        _environment_id="63dafed97779f59258e38445",
+        _message_template_id="63daff36c037e013fd82d9f4",
+        _organization_id="63dafed97779f59258e3843f",
+        _subscriber_id="63dafedbc037e013fd82d37a",
+        _job_id="63daff4c7779f59258e38b3c",
+        template_identifier="absences",
+        email=None,
+        subject=None,
+        cta={"action": {"buttons": []}},
+        channel="in_app",
+        content="test",
+        provider_id=None,
+        device_tokens=[],
+        seen=True,
+        read=True,
+        status="sent",
+        transaction_id="aa287682-cb30-4a5f-a03a-f28f59c9d46d",
+        payload=None,
+        created_at="2023-02-02T00:09:48.673Z",
+        updated_at="2023-02-02T00:10:21.544Z",
+        deleted=False,
+        last_read_date="2023-02-02T00:10:21.544Z",
+        last_seen_date="2023-02-02T00:10:21.544Z",
+    )
+
     @classmethod
     def setUpClass(cls) -> None:
         NovuConfig.configure("sample.novu.com", "api-key")
@@ -686,6 +742,110 @@ class SubscriberApiTests(TestCase):
             url="sample.novu.com/v1/subscribers/subscriber-id/credentials/slack",
             headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json=None,
+            params=None,
+            timeout=5,
+        )
+
+    @mock.patch("requests.request")
+    def test_mark_as_read(self, mock_request: mock.MagicMock) -> None:
+        mock_request.return_value = MockResponse(200, data={"data": [self.message_json]})
+
+        result = self.api.mark_as("subscriber-id", "63daff4cc037e013fd82dadd", read=True)
+
+        self.assertEqual(result, self.message_expectation)
+        mock_request.assert_called_once_with(
+            method="POST",
+            url="sample.novu.com/v1/subscribers/subscriber-id/messages/markAs",
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
+            json={"messageId": "63daff4cc037e013fd82dadd", "mark": {"read": True}},
+            params=None,
+            timeout=5,
+        )
+
+    @mock.patch("requests.request")
+    def test_mark_as_seen(self, mock_request: mock.MagicMock) -> None:
+        mock_request.return_value = MockResponse(200, data={"data": [self.message_json]})
+
+        result = self.api.mark_as("subscriber-id", "63daff4cc037e013fd82dadd", seen=True)
+
+        self.assertEqual(result, self.message_expectation)
+        mock_request.assert_called_once_with(
+            method="POST",
+            url="sample.novu.com/v1/subscribers/subscriber-id/messages/markAs",
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
+            json={"messageId": "63daff4cc037e013fd82dadd", "mark": {"seen": True}},
+            params=None,
+            timeout=5,
+        )
+
+    @mock.patch("requests.request")
+    def test_mark_all_as(self, mock_request: mock.MagicMock) -> None:
+        mock_request.return_value = MockResponse(200, data={"data": 1})
+
+        result = self.api.mark_all_as("subscriber-id", MarkAsEnum.READ)
+
+        self.assertEqual(result, 1)
+        mock_request.assert_called_once_with(
+            method="POST",
+            url="sample.novu.com/v1/subscribers/subscriber-id/messages/mark-all",
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
+            json={"markAs": "read"},
+            params=None,
+            timeout=5,
+        )
+
+    @mock.patch("requests.request")
+    def test_mark_all_as_with_identifier(self, mock_request: mock.MagicMock) -> None:
+        mock_request.return_value = MockResponse(200, data={"data": 1})
+
+        result = self.api.mark_all_as("subscriber-id", MarkAsEnum.SEEN, ["feed-id"])
+
+        self.assertEqual(result, 1)
+        mock_request.assert_called_once_with(
+            method="POST",
+            url="sample.novu.com/v1/subscribers/subscriber-id/messages/mark-all",
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
+            json={"markAs": "seen", "feedIdentifier": ["feed-id"]},
+            params=None,
+            timeout=5,
+        )
+
+    @mock.patch("requests.request")
+    def test_mark_message_action(self, mock_request: mock.MagicMock) -> None:
+        mock_request.return_value = MockResponse(200, data={"data": self.message_json})
+
+        result = self.api.mark_message_action(
+            "subscriber-id", "63daff4cc037e013fd82dadd", "action-type", MessageActionStatus.DONE
+        )
+
+        self.assertEqual(result, self.message_expectation)
+        mock_request.assert_called_once_with(
+            method="POST",
+            url="sample.novu.com/v1/subscribers/subscriber-id/messages/63daff4cc037e013fd82dadd/actions/action-type",
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
+            json={"status": "done"},
+            params=None,
+            timeout=5,
+        )
+
+    @mock.patch("requests.request")
+    def test_mark_message_action_with_payload(self, mock_request: mock.MagicMock) -> None:
+        mock_request.return_value = MockResponse(200, data={"data": self.message_json})
+
+        result = self.api.mark_message_action(
+            "subscriber-id",
+            "63daff4cc037e013fd82dadd",
+            "action-type",
+            MessageActionStatus.PENDING,
+            {"body": "something"},
+        )
+
+        self.assertEqual(result, self.message_expectation)
+        mock_request.assert_called_once_with(
+            method="POST",
+            url="sample.novu.com/v1/subscribers/subscriber-id/messages/63daff4cc037e013fd82dadd/actions/action-type",
+            headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
+            json={"status": "pending", "payload": {"body": "something"}},
             params=None,
             timeout=5,
         )
