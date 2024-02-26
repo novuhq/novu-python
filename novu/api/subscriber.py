@@ -8,13 +8,14 @@ import requests
 
 from novu.api.base import Api, PaginationIterator
 from novu.constants import SUBSCRIBERS_ENDPOINT
+from novu.dto.message import MessageDto
 from novu.dto.subscriber import (
     BulkResultSubscriberDto,
     PaginatedSubscriberDto,
     SubscriberDto,
     SubscriberPreferenceDto,
 )
-from novu.enums import Channel, ProviderIdEnum
+from novu.enums import Channel, MarkAsEnum, MessageActionStatus, ProviderIdEnum
 
 
 class SubscriberApi(Api):
@@ -245,3 +246,79 @@ class SubscriberApi(Api):
         """
         res = self.handle_request("GET", f"{self._subscriber_url}/{subscriber_id}/notifications/unseen")
         return res.get("data", {}).get("count", 0)
+
+    def mark_as(
+        self, subscriber_id: str, message_id: str, seen: Optional[bool] = None, read: Optional[bool] = None
+    ) -> MessageDto:
+        """Mark a subscriber feed message as seen or read.
+
+        Args:
+            subscriber_id: The subscriber identifier
+            message_id: The message identifier
+            seen: If provided, set the 'seen' state of the message
+            read: If provided, set the 'read' state of the message
+
+        Returns:
+            Return the updated message
+        """
+        mark: Dict[str, bool] = {}
+        if read is not None:
+            mark["read"] = read
+        if seen is not None:
+            mark["seen"] = seen
+        payload = {"messageId": message_id, "mark": mark}
+
+        return MessageDto.from_camel_case(
+            self.handle_request("POST", f"{self._subscriber_url}/{subscriber_id}/messages/markAs", json=payload)[
+                "data"
+            ][0]
+        )
+
+    def mark_all_as(self, subscriber_id: str, mark_as: MarkAsEnum, feed_identifiers: Optional[List[str]] = None) -> int:
+        """Mark all the subscriber messages as read, unread, seen or unseen.
+
+        Args:
+            subscriber_id: The subscriber identifier
+            mark_as: Mark all subscriber messages as read, unread, seen or unseen via this instruction
+            feed_identifiers: Optionally, you can pass a list of feed identifiers to mark messages of a particular feed.
+
+        Returns:
+            Number of updated messages.
+        """
+        payload: Dict[str, Union[List[str], MarkAsEnum]] = {"markAs": mark_as}
+        if feed_identifiers:
+            payload["feedIdentifier"] = feed_identifiers
+
+        return self.handle_request(
+            "POST", f"{self._subscriber_url}/{subscriber_id}/messages/mark-all", json=payload
+        ).get("data", 0)
+
+    def mark_message_action(
+        self,
+        subscriber_id: str,
+        message_id: str,
+        action_type: str,
+        status: MessageActionStatus,
+        payload: Optional[dict] = None,
+    ) -> MessageDto:
+        """Mark message action as seen.
+
+        Args:
+            subscriber_id: The subscriber identifier
+            message_id: The message identifier
+            action_type: The message action type
+            status: The message action status
+            payload: The message action payload
+
+        Returns:
+            Return the updated message
+        """
+        body: Dict[str, Union[MessageActionStatus, dict]] = {"status": status}
+        if payload is not None:
+            body["payload"] = payload
+
+        return MessageDto.from_camel_case(
+            self.handle_request(
+                "POST", f"{self._subscriber_url}/{subscriber_id}/messages/{message_id}/actions/{action_type}", json=body
+            ).get("data", {})
+        )

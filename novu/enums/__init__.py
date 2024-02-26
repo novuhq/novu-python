@@ -10,6 +10,7 @@ from novu.enums.field import (
     FieldFilterPartTimeOperator,
 )
 from novu.enums.member import MemberRole, MemberStatus
+from novu.enums.message import MarkAsEnum, MessageActionStatus
 from novu.enums.notification import (
     NotificationStepMetadataType,
     NotificationStepMetadataUnit,
@@ -41,8 +42,10 @@ __all__ = [
     "FieldFilterPartOperator",
     "FieldFilterPartTimeOperator",
     "InAppProviderIdEnum",
+    "MarkAsEnum",
     "MemberRole",
     "MemberStatus",
+    "MessageActionStatus",
     "NotificationStepMetadataType",
     "NotificationStepMetadataUnit",
     "OrganizationBrandingDirection",
