@@ -1,6 +1,7 @@
 """
 This module is used to define the ``ChangeApi``, a python wrapper to interact with ``Changes`` in Novu.
 """
+
 from typing import Dict, Generator, List, Optional, Union
 
 import requests

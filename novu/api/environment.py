@@ -1,6 +1,7 @@
 """
 This module is used to define the ``EnvironmentApi``, a python wrapper to interact with ``Environments`` in Novu.
 """
+
 from typing import Dict, Iterator, Optional
 
 import requests

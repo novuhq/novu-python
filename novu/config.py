@@ -1,4 +1,5 @@
 """This module is used to define a configuration ``NovuConfig`` reusable through the package."""
+
 from novu.helpers import Singleton
 
 

@@ -1,6 +1,7 @@
 """
 This module is used to define the ``IntregrationApi``, a python wrapper to interact with ``Integrations`` in Novu.
 """
+
 from typing import Iterator, Optional
 
 import requests

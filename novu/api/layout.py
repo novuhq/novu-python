@@ -1,6 +1,7 @@
 """
 This module is used to define the ``LayoutApi``, a python wrapper to interact with ``Layouts`` in Novu.
 """
+
 from typing import Optional
 
 import requests
