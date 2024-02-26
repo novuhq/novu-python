@@ -1,3 +1,10 @@
+# [1.14.0](https://github.com/novuhq/novu-python/compare/v1.13.0...v1.14.0) (2024-02-26)
+
+
+### Features
+
+* **subscriber:** [#221](https://github.com/novuhq/novu-python/issues/221) - mark-as, mark-all-as and mark-message-action ([eda325a](https://github.com/novuhq/novu-python/commit/eda325af35879af724783801dac607aadeb2b1ed))
+
 # [1.13.0](https://github.com/novuhq/novu-python/compare/v1.12.0...v1.13.0) (2024-02-26)
 
 
