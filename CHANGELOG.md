@@ -1,3 +1,10 @@
+# [1.12.0](https://github.com/novuhq/novu-python/compare/v1.11.0...v1.12.0) (2024-02-26)
+
+
+### Features
+
+* add an example to include actor field while triggering event ([9a30bd1](https://github.com/novuhq/novu-python/commit/9a30bd1292f1d02ac43a7183911abd57b9673dfe))
+
 # [1.11.0](https://github.com/novuhq/novu-python/compare/v1.10.0...v1.11.0) (2023-12-12)
 
 
