@@ -1,4 +1,5 @@
 """This module is used to defined all helpers to parse and send well-formatted data to the Novu API"""
+
 import dataclasses
 import re
 from typing import ClassVar, Generic, Iterable, List, Optional, Type, TypeVar, Union

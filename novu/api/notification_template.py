@@ -2,6 +2,7 @@
 This module is used to define the ``NotificationTemplateApi``, a python wrapper
 to interact with ``NotificationTemplate`` in Novu.
 """
+
 from typing import Optional
 
 import requests

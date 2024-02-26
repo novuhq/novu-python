@@ -1,4 +1,5 @@
 """This module is used to gather all DTO definitions related to the Integration resource in Novu"""
+
 import dataclasses
 from typing import Dict, Optional, Union
 

@@ -1,6 +1,7 @@
 """
 This module is used to define the ``EventApi``, a python wrapper to interact with ``Events`` in Novu.
 """
+
 from collections.abc import Iterable
 from typing import Dict, Iterable as _Iterable, List, Optional, Union
 

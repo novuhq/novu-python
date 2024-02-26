@@ -1,6 +1,7 @@
 """This module is used to define the ``NotificationAPI`, a python wrapper
 to interact with ``Notifications`` in Novu.
 """
+
 from typing import Iterator, List, Optional, Tuple
 
 import requests

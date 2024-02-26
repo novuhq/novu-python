@@ -1,6 +1,7 @@
 """
 This module is used to define the ``FeedApi``, a python wrapper to interact with ``Feeds`` in Novu.
 """
+
 from typing import Iterator, Optional
 
 import requests

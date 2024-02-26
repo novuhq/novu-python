@@ -1,4 +1,5 @@
 """This module is used to defined an abstract class for all reusable methods to communicate with the Novu API"""
+
 import copy
 import logging
 import os

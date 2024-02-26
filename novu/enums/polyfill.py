@@ -1,4 +1,5 @@
 """Polyfill of backports related to enums."""
+
 try:
     from enum import StrEnum  # type: ignore[attr-defined]
 except ImportError:
