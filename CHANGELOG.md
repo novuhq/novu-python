@@ -1,3 +1,41 @@
+# [1.13.0](https://github.com/novuhq/novu-python/compare/v1.12.0...v1.13.0) (2024-02-26)
+
+
+### Features
+
+* add the organization API ([56382d2](https://github.com/novuhq/novu-python/commit/56382d208700c81a2565ff7f0c278bdfeba43291))
+* add user-agent headers on each APIs ([adeb5a5](https://github.com/novuhq/novu-python/commit/adeb5a52f75226a37f0c4a36aecf6e9eebafb81a))
+* **deps:** update abatilo/actions-poetry action to v2.4.0 ([84e0f0f](https://github.com/novuhq/novu-python/commit/84e0f0fd3140107f7887457869306bbd77b6f0da))
+* **deps:** update abatilo/actions-poetry action to v3 ([3ac02dd](https://github.com/novuhq/novu-python/commit/3ac02dd7eba4279b1bc1520a66e9f99d7c078c1f))
+* **deps:** update codecov/codecov-action action to v4 ([3d41cb8](https://github.com/novuhq/novu-python/commit/3d41cb8e597b3fc30696556f8f212b1e2696c4c8))
+* **deps:** update dependency bandit to v1.7.7 ([7d2f7a7](https://github.com/novuhq/novu-python/commit/7d2f7a7c70962a1c923aa2ae7a607eb40c4317c9))
+* **deps:** update dependency bandit to v1.7.7 ([b5f6f00](https://github.com/novuhq/novu-python/commit/b5f6f000a0e958a37e7a12b6bc0b3829e613f754))
+* **deps:** update dependency black to v23.12.1 ([9af6698](https://github.com/novuhq/novu-python/commit/9af66980a323712de5206cbe2f857acb04e6ad61))
+* **deps:** update dependency black to v24 ([fb04fcc](https://github.com/novuhq/novu-python/commit/fb04fcce41b238fd92eb4b6c64c134cc6b277aa0))
+* **deps:** update dependency coverage to v7.3.4 ([dea47d8](https://github.com/novuhq/novu-python/commit/dea47d873017050ecb07cf0dd98151d91d0d9c14))
+* **deps:** update dependency coverage to v7.4.0 ([62b17e8](https://github.com/novuhq/novu-python/commit/62b17e81933cbbb6d2ee1cea7683af17cb575fea))
+* **deps:** update dependency coverage to v7.4.3 ([f7b1816](https://github.com/novuhq/novu-python/commit/f7b1816cd6f65989d6fbb6123fc3439aa3374a5d))
+* **deps:** update dependency mypy to v1.8.0 ([aa1d182](https://github.com/novuhq/novu-python/commit/aa1d1821ffa1b9b28ba00cfe19d57cca5c04a819))
+* **deps:** update dependency pylint to v3.0.4 ([fcd2f37](https://github.com/novuhq/novu-python/commit/fcd2f374e482d8305788a6da46677dee8afa117c))
+* **deps:** update dependency pylint to v3.1.0 ([e588bbc](https://github.com/novuhq/novu-python/commit/e588bbc8f0bf05ae825690d8fc48a35638c243a6))
+* **deps:** update dependency pytest to v7.4.4 ([cb9e0b4](https://github.com/novuhq/novu-python/commit/cb9e0b4a202adb9ec7f5840e5b60f90dee3268f1))
+* **deps:** update dependency pytest to v8 ([f9bfa9a](https://github.com/novuhq/novu-python/commit/f9bfa9a190d39d014e45d4ab5e7f5e1e093616e3))
+* **deps:** update dependency pytest to v8.0.2 ([410defa](https://github.com/novuhq/novu-python/commit/410defa5ac85a5e681cc76dd7136b0a25f4efedd))
+* **deps:** update dependency sentry-sdk to v1.39.1 ([9c1af71](https://github.com/novuhq/novu-python/commit/9c1af71363d86cbbc1f678998bff8f96c07ef966))
+* **deps:** update dependency sentry-sdk to v1.39.2 ([05169cd](https://github.com/novuhq/novu-python/commit/05169cd511e551177f24e22314889ba2545c6220))
+* **deps:** update dependency sentry-sdk to v1.40.5 ([21637c8](https://github.com/novuhq/novu-python/commit/21637c865672efb1900213808a21e990f84c1b0b))
+* **deps:** update github/codeql-action action to v3 ([e18fc63](https://github.com/novuhq/novu-python/commit/e18fc63619885d4bb81e0a2372d9c5617e4ca1c7))
+* **deps:** update pre-commit hook alessandrojcm/commitlint-pre-commit-hook to v9.11.0 ([3482900](https://github.com/novuhq/novu-python/commit/3482900bfd74193cbd54a9b95bfd2ba9dce4087b))
+* **deps:** update pre-commit hook ambv/black to v23.12.1 ([fa4b65a](https://github.com/novuhq/novu-python/commit/fa4b65ac7b730f8c7ae4270966b5472210864a92))
+* **deps:** update pre-commit hook asottile/pyupgrade to v3.15.1 ([a149289](https://github.com/novuhq/novu-python/commit/a1492897d65fde4ecf1a887e408d48e6dbae83a0))
+* **deps:** update pre-commit hook lucas-c/pre-commit-hooks-safety to v1.3.3 ([5a27932](https://github.com/novuhq/novu-python/commit/5a27932d4d893ff93eb8a1b180385222fe610112))
+* **deps:** update pre-commit hook pre-commit/mirrors-mypy to v1.8.0 ([6fdd2d6](https://github.com/novuhq/novu-python/commit/6fdd2d606bb4e44c7cdcedde45de44577608a782))
+* **deps:** update pre-commit hook pycqa/bandit to v1.7.7 ([399d7e9](https://github.com/novuhq/novu-python/commit/399d7e96a2dc6f72de3eaae2b8792275324aa5f0))
+* **deps:** update pre-commit hook pycqa/isort to v5.13.2 ([4e1e7e6](https://github.com/novuhq/novu-python/commit/4e1e7e6a5e9892d10d084af98c76a4b40da550c8))
+* **notification:** add missing subscriber IDs for search ([74218b0](https://github.com/novuhq/novu-python/commit/74218b06ca5ee14c705265afd5b31a828b3687bd))
+* **subscriber:** add missing data field ([79678d6](https://github.com/novuhq/novu-python/commit/79678d6d91b8e81f93dfadf20ecda390095c1d71))
+* **topic:** add method to check if someone subscribed ([131a93c](https://github.com/novuhq/novu-python/commit/131a93cca16eeb56c289e908862c3a7bd4924e52))
+
 # [1.12.0](https://github.com/novuhq/novu-python/compare/v1.11.0...v1.12.0) (2024-02-26)
 
 
