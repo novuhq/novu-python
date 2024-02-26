@@ -1,5 +1,6 @@
 """This module is used to define the ``BlueprintApi``,
 a python wrapper to interact with ``Blueprint`` in Novu."""
+
 from typing import Optional
 
 import requests

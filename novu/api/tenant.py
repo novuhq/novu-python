@@ -1,6 +1,7 @@
 """
 This module is used to define the ``TenantApi``, a python wrapper to interact with ``Tenants`` in Novu.
 """
+
 from typing import Dict, Optional, Union
 
 import requests

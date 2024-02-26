@@ -1,6 +1,7 @@
 """
 This module is used to define the ``OrganizationApi``, a python wrapper to interact with ``Organizations`` in Novu.
 """
+
 from typing import Iterator, Optional
 
 import requests

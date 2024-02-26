@@ -2,6 +2,7 @@
 
 In this SDK, we choose to split the Novu API by business resource to simplify its complexity.
 """
+
 from novu.api.blueprint import BlueprintApi
 from novu.api.change import ChangeApi
 from novu.api.environment import EnvironmentApi

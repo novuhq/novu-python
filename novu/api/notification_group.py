@@ -2,6 +2,7 @@
 This module is used to define the ``NotificationGroupApi``, a python wrapper
 to interact with ``NotificationGroup`` in Novu.
 """
+
 from typing import Optional
 
 import requests

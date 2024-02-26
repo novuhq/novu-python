@@ -1,6 +1,7 @@
 """
 This module is used to define the ``InboundParseApi``, a python wrapper to interact with ``InboundParse`` in Novu.
 """
+
 from typing import Optional
 
 import requests

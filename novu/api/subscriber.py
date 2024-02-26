@@ -1,6 +1,7 @@
 """
 This module is used to define the ``SubscriberApi``, a python wrapper to interact with ``Subscribers`` in Novu.
 """
+
 from typing import Dict, Iterator, List, Optional, Union
 
 import requests

@@ -2,6 +2,7 @@
 This module is used to define the ``ExecutionDetailApi``, a python wrapper
 to interact with ``ExecutionDetails`` in Novu.
 """
+
 from typing import Iterator, Optional
 
 import requests
