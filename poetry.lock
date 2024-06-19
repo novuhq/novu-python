@@ -1027,13 +1027,12 @@ jupyter = ["ipywidgets (>=7.5.1,<9)"]
 
 [[package]]
 name = "sentry-sdk"
-version = "2.5.0"
+version = "2.6.0"
 description = "Python client for Sentry (https://sentry.io)"
 optional = false
 python-versions = ">=3.6"
 files = [
-    {file = "sentry_sdk-2.5.0-py2.py3-none-any.whl", hash = "sha256:75d2e1fd8a887fdf63df612f5d37991c248a080b886d80714560bdded2bb9051"},
-    {file = "sentry_sdk-2.5.0.tar.gz", hash = "sha256:05453f921c561b51159f712c2cd267b595e5c195b38b337d03baeb42719dd3c7"},
+    {file = "sentry_sdk-2.6.0-py2.py3-none-any.whl", hash = "sha256:422b91cb49378b97e7e8d0e8d5a1069df23689d45262b86f54988a7db264e874"},
 ]
 
 [package.dependencies]
