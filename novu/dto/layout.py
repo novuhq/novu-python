@@ -31,11 +31,14 @@ class LayoutVariableDto(CamelCaseDto["LayoutVariableDto"]):
 class LayoutDto(CamelCaseDto["LayoutDto"]):  # pylint: disable=R0902
     """Layout definition"""
 
-    camel_case_fields = ["name", "description", "content", "variables", "is_default"]
+    camel_case_fields = ["name", "description", "content", "variables", "is_default", "identifier"]
     # Actually, only these fields are editable in Novu, so prevent any activity on others
 
     name: str
     """Layout name"""
+
+    identifier: str
+    """Layout Identifier"""
 
     description: str
     """Layout description"""
