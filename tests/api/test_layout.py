@@ -20,6 +20,7 @@ class LayoutApiTests(TestCase):
             "_environmentId": "63dafed97779f59258e38445",
             "_organizationId": "63dafed97779f59258e3843f",
             "_creatorId": "63dafed4117f8c850991ec4a",
+            "identifier": "novu-default-layout",
             "name": "Default Layout",
             "description": "The default layout created by Novu",
             "variables": [
@@ -73,6 +74,7 @@ class LayoutApiTests(TestCase):
         cls.response_get = {"data": cls.layout_json}
         cls.expected_dto = LayoutDto(
             name="Default Layout",
+            identifier="novu-default-layout",
             description="The default layout created by Novu",
             content="",
             is_default=True,
@@ -164,6 +166,7 @@ class LayoutApiTests(TestCase):
             headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json={
                 "name": "Default Layout",
+                "identifier": "novu-default-layout",
                 "description": "The default layout created by Novu",
                 "content": "",
                 "isDefault": True,
@@ -240,6 +243,7 @@ class LayoutApiTests(TestCase):
             headers={"Authorization": "ApiKey api-key", "User-Agent": f"novu/python@{__version__}"},
             json={
                 "name": "Default Layout",
+                "identifier": "novu-default-layout",
                 "description": "The default layout created by Novu",
                 "content": "",
                 "isDefault": True,
