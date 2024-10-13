@@ -1026,38 +1026,45 @@ jupyter = ["ipywidgets (>=7.5.1,<9)"]
 
 [[package]]
 name = "sentry-sdk"
-version = "1.40.5"
+version = "2.16.0"
 description = "Python client for Sentry (https://sentry.io)"
 optional = false
-python-versions = "*"
+python-versions = ">=3.6"
 files = [
-    {file = "sentry-sdk-1.40.5.tar.gz", hash = "sha256:d2dca2392cc5c9a2cc9bb874dd7978ebb759682fe4fe889ee7e970ee8dd1c61e"},
-    {file = "sentry_sdk-1.40.5-py2.py3-none-any.whl", hash = "sha256:d188b407c9bacbe2a50a824e1f8fb99ee1aeb309133310488c570cb6d7056643"},
+    {file = "sentry_sdk-2.16.0-py2.py3-none-any.whl", hash = "sha256:49139c31ebcd398f4f6396b18910610a0c1602f6e67083240c33019d1f6aa30c"},
+    {file = "sentry_sdk-2.16.0.tar.gz", hash = "sha256:90f733b32e15dfc1999e6b7aca67a38688a567329de4d6e184154a73f96c6892"},
 ]
 
 [package.dependencies]
 certifi = "*"
-urllib3 = {version = ">=1.26.11", markers = "python_version >= \"3.6\""}
+urllib3 = ">=1.26.11"
 
 [package.extras]
 aiohttp = ["aiohttp (>=3.5)"]
+anthropic = ["anthropic (>=0.16)"]
 arq = ["arq (>=0.23)"]
 asyncpg = ["asyncpg (>=0.23)"]
 beam = ["apache-beam (>=2.12)"]
 bottle = ["bottle (>=0.12.13)"]
 celery = ["celery (>=3)"]
+celery-redbeat = ["celery-redbeat (>=2)"]
 chalice = ["chalice (>=1.16.0)"]
 clickhouse-driver = ["clickhouse-driver (>=0.2.0)"]
 django = ["django (>=1.8)"]
 falcon = ["falcon (>=1.4)"]
 fastapi = ["fastapi (>=0.79.0)"]
 flask = ["blinker (>=1.1)", "flask (>=0.11)", "markupsafe"]
-grpcio = ["grpcio (>=1.21.1)"]
+grpcio = ["grpcio (>=1.21.1)", "protobuf (>=3.8.0)"]
+http2 = ["httpcore[http2] (==1.*)"]
 httpx = ["httpx (>=0.16.0)"]
 huey = ["huey (>=2)"]
+huggingface-hub = ["huggingface-hub (>=0.22)"]
+langchain = ["langchain (>=0.0.210)"]
+litestar = ["litestar (>=2.0.0)"]
 loguru = ["loguru (>=0.5)"]
+openai = ["openai (>=1.0.0)", "tiktoken (>=0.3.0)"]
 opentelemetry = ["opentelemetry-distro (>=0.35b0)"]
-opentelemetry-experimental = ["opentelemetry-distro (>=0.40b0,<1.0)", "opentelemetry-instrumentation-aiohttp-client (>=0.40b0,<1.0)", "opentelemetry-instrumentation-django (>=0.40b0,<1.0)", "opentelemetry-instrumentation-fastapi (>=0.40b0,<1.0)", "opentelemetry-instrumentation-flask (>=0.40b0,<1.0)", "opentelemetry-instrumentation-requests (>=0.40b0,<1.0)", "opentelemetry-instrumentation-sqlite3 (>=0.40b0,<1.0)", "opentelemetry-instrumentation-urllib (>=0.40b0,<1.0)"]
+opentelemetry-experimental = ["opentelemetry-distro"]
 pure-eval = ["asttokens", "executing", "pure-eval"]
 pymongo = ["pymongo (>=3.1)"]
 pyspark = ["pyspark (>=2.4.4)"]
@@ -1067,7 +1074,7 @@ sanic = ["sanic (>=0.8)"]
 sqlalchemy = ["sqlalchemy (>=1.2)"]
 starlette = ["starlette (>=0.19.1)"]
 starlite = ["starlite (>=1.48)"]
-tornado = ["tornado (>=5)"]
+tornado = ["tornado (>=6)"]
 
 [[package]]
 name = "setuptools"
@@ -1427,4 +1434,4 @@ test = ["big-O", "jaraco.functools", "jaraco.itertools", "jaraco.test", "more-it
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "46c55cd8208b7cbf6f2d26d1c8ea1ee5fee6f86b0bfd3c01aecc6216789c4910"
+content-hash = "9b533f24667c5bc350b78a1cbf3fb04cd9132c0ab8bd4117ac58e7e7ec0293d8"
